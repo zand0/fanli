@@ -111,7 +111,7 @@
             <td class="tl">
                 <dl class="goods-name">
                     <dt style="max-width: 450px !important;">
-                                            <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">aaa</a></dt>
+                                            <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">{$vo.goods_name}</a></dt>
                     <dd>商品货号：{$vo.goods_sn}</dd>
                     <dd class="serve">
                                                 <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>
@@ -120,13 +120,13 @@
                     </dd>
                 </dl>
             </td>
-            <td><span>{$catlist[$vo.cat_id][name]}</span></td>
+            <td><span>{$catlist[$vo.cat_id1]}</span></td>
             <td><span>{$vo.shop_price}</span></td>
             <td><img width="20" height="20" src="/public/static/js/yes.png" onclick="changeTableVal2('goods','goods_id','160','is_on_sale',this);changeTableVal2('goods','goods_id','160','goods_state',this);$(this).parent().parent().remove();"></td>
-            <td><span style="">100</span></td>
-            <td>2017-06-28 10:10</td>
+            <td><span style="">{$vo.store_count}</span></td>
+            <td>{:date('Y-m-d H:i:s',$vo['on_time'])}</td>
             <td>
-                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','160','sort',this)" size="4" value="50">
+                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','160','sort',this)" size="4" value="{$vo.sort}">
             </td>
             <td class="nscs-table-handle">
                 <span><a href="/index.php/seller/Goods/addEditGoods/goods_id/160.html" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
@@ -139,7 +139,7 @@
     <tfoot>
     <tr>
         <td colspan="20">
-            <div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">  <li class="paginate_button active"><a tabindex="0" data-dt-idx="1" aria-controls="example1" data-p="1" href="javascript:void(0)">1</a></li><li class="paginate_button"><a class="num" data-p="2" href="javascript:void(0)">2</a></li> <li id="example1_next" class="paginate_button next"><a class="next" data-p="2" href="javascript:void(0)">下一页</a></li> </ul></div>        </td>
+            {$page}        </td>
     </tr>
     </tfoot>
 </table>

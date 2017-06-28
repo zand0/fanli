@@ -12,6 +12,8 @@ class Goods extends Base
         $post = I('post.');
         $get = I('get.');
         $store_id = session('seller_id');
+        $goods_id = I('get.goods_id',0);
+        $type = $goods_id > 0 ? 2 : 1;
         if(!empty($post)){
             if($get['is_ajax']==1){
                 
@@ -32,9 +34,20 @@ class Goods extends Base
                 //$Goods->shipping_area_ids = implode(',', I('shipping_area_ids/a', []));
                 //$Goods->shipping_area_ids = $Goods->shipping_area_ids ? $Goods->shipping_area_ids : '';
                 //$Goods->spec_type = $Goods->goods_type;
-                
-                $Goods->save(); // 写入数据到数据库
-                $goods_id = $insert_id = $Goods->getLastInsID();
+                if ($type == 2) {
+                    $Goods->isUpdate(true)->save(); // 写入数据到数据库
+                    // 修改商品后购物车的商品价格也修改一下
+                    M('cart')->where("goods_id = $goods_id and spec_key = ''")->save(array(
+                        'market_price' => I('market_price'), //市场价
+                        'goods_price' => I('shop_price'), // 本店价
+                        'member_goods_price' => I('shop_price'), // 会员折扣价
+                    ));
+                } else {
+                    $Goods->save(); // 写入数据到数据库
+                    $goods_id = $insert_id = $Goods->getLastInsID();
+                }
+                //$Goods->save(); // 写入数据到数据库
+                //$goods_id = $insert_id = $Goods->getLastInsID();
                 //goods_img
                 $images = $post['goods_images'];
                 $m_gi = M('goods_images');
@@ -91,6 +104,13 @@ class Goods extends Base
                 $this->error('添加失败');
             } 
         }
+        $goodsInfo = M('Goods')->where('goods_id',$goods_id)->find();
+        if ($goodsInfo['price_ladder']) {
+            $goodsInfo['price_ladder'] = unserialize($goodsInfo['price_ladder']);
+        }
+        $cat_list = M('goods_category')->where("parent_id = 0")->select(); // 已经改成联动菜单
+        $this->assign('goods', $goodsInfo);  // 商品详情
+        $this->assign('cat_list', $cat_list);
         return $this->fetch();
     }
     
@@ -181,12 +201,19 @@ class Goods extends Base
     }
     
     public function goodsList(){
+        $sid = session('seller_id');
         $where=[];
         $where['is_on_sale']=1;
+        $where['store_id']=$sid;
         $goods_count = M('goods')->where($where)->count();
         $Page = new Page($goods_count,C('PAGESIZE'));
-        $list = M('goods')->where($where)->order('last_update desc')->limit($Page->firstRow,$Page->listRows)->select();
+        $list = M('goods')->where($where)->order('last_update desc,on_time desc')->limit($Page->firstRow,$Page->listRows)->select();
         $catlist = M('goods_category')->where('parent_id',0)->getField('id,name');
+        foreach($list as &$v){
+            $v['cat_id1'] = M('goods_category')->where('id',M('goods_category')->where('id',$v['cat_id'])->getField('parent_id'))->getField('parent_id');
+        }
+        unset($v);
+        //$catlist = M('goods_category')->where('parent_id',0)->getField('id,name');
         $this->assign('list',$list);
         $this->assign('catlist',$catlist);
         $this->assign('page',$Page->show());
