@@ -1,0 +1,302 @@
+{include file="public/header" /}
+<body>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+{include file="public/nav" /}
+<div class="ncsc-layout wrapper">
+     <div id="layoutLeft" class="ncsc-layout-left">
+   <div id="sidebar" class="sidebar">
+     <div class="column-title" id="main-nav"><span class="ico-statistics"></span>
+       <h2>统计结算</h2>
+     </div>
+     <div class="column-menu">
+       <ul id="seller_center_left_menu">
+      	            <li class="current">
+           		<a href="/index.php/seller/Finance/withdrawals.html"> 提现申请</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Finance/remittance.html"> 汇款列表</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Finance/order_statis.html"> 店铺结算记录</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Finance/order_no_statis.html"> 未结算订单</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Report/index.html"> 店铺概况</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Report/finance.html"> 运营报告</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Report/saleTop.html"> 销售排行</a>
+           </li>
+	 	      </ul>
+     </div>
+   </div>
+ </div>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>促销<i class="icon-angle-right"></i>提现申请
+        </div>
+        <a href="{:U('/seller/Finance/add_edit_withdrawals')}">添加提现申请</a>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="/index.php/seller/Finance/withdrawals.html">提现申请列表</a></li>
+                </ul>
+                <a class="ncbtn ncbtn-mint" href="/index.php/seller/Finance/add_edit_withdrawals.html" style="text-decoration: none;" title="可提现资金">可提现资金:16604.64</a>
+            </div>
+            <table class="search-form">
+                <form method="get" action="" id="search-form2" onsubmit="check_form();"></form>
+                    <input type="hidden" name="create_time" id="create_time" value="2016-06-26 - 2017-06-27">
+                    <tbody><tr>
+                        <td>&nbsp;</td>
+                        <th>状态</th>
+                        <td class="w100">
+                            <select id="status" name="status" class="w90">
+                                <option value="">全部</option>
+                                <option value="0">申请中</option>
+                                <option value="1">申请成功</option>
+                                <option value="-2">申请失败</option>
+                            </select>
+                        </td>
+                        <th class="w80">申请开始时间</th>
+                        <td class="w100">
+                            <input type="text" style="width: 90px;" class="text w90" id="start_time" value="2016-06-26" placeholder="记录开始时间">
+                        </td>
+                        <th class="w80">申请截止时间</th>
+                        <td class="w100">
+                            <input type="text" style="width: 90px;" class="text w90" id="end_time" value="2017-06-27" placeholder="记录截止时间">
+                        </td>
+                        <th class="w70">收款账号</th>
+                        <td class="w100"><input style="width: 90px;" class="text" type="text" value="" name="bank_card"></td>
+                        <th class="w80">收款账户名</th>
+                        <td class="w100"><input style="width: 90px;" class="text" type="text" value="" name="realname"></td>
+                        <td class="w70 tc"><label class="submit-border"><input type="submit" class="submit" value="搜索"></label></td>
+                    </tr>
+                
+            </tbody></table>
+            <table class="ncsc-default-table">
+                <thead>
+                <tr>
+                    <th class="w100">ID</th>
+                    <th class="w100">申请时间</th>
+                    <th class="w100">申请金额</th>
+                    <th class="w130 tl">银行名称</th>
+                    <th class="w130 tl">银行账号</th>
+                    <th class="w90 tl">银行账户</th>
+                    <th class="w90">状态</th>
+                    <th class="w90 tl">备注</th>
+                    <th class="w120">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="vo"}
+                	                    <tr class="bd-line">
+                        <td>{$vo.id}</td>
+                        <td>{:date('Y-m-d H:i:s',$vo['add_time'])}</td>
+                        <td>{$vo.money}</td>
+                        <td class="tl">{$vo.bank_name}</td>
+                        <td class="tl">{$vo.bank_card}</td>
+                        <td class="tl">{$vo.realname}</td>
+                        <td>
+                        {switch name="vo.status" }
+						    {case value="2" break="0或1"}已转账{/case}
+						    {case value="1"}申请成功{/case}
+						    {default /}申请中
+						{/switch}
+                        </td>
+                        <td class="tl">无</td>
+                       
+                        <td class="nscs-table-handle">
+                                                          <span>
+                                 <a href="/index.php/seller/Finance/add_edit_withdrawals/id/{$vo.id}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a>
+                             </span>
+                             <span>
+                                 <a onclick="del(&#39;9&#39;)" id="button-delete6" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a>
+                             </span>
+                              
+                        </td>
+                    </tr>
+                 {/volist}
+                	                    
+                	                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        <div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">    </ul></div>                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="cti">
+  <div class="wrapper">
+    <ul>
+          </ul>
+  </div>
+</div>
+<div id="faq">
+  <div class="wrapper">
+      </div>
+</div>
+
+<div id="footer">
+  <p><a href="/">首页</a>
+                | <a href="http://www.tpshop.cn/">招聘英才</a>
+                | <a href="http://www.tpshop.cn/">合作及洽谈</a>
+                | <a href="http://www.tpshop.cn/">联系我们</a>
+                | <a href="http://www.tpshop.cn/">关于我们</a>
+                | <a href="http://www.tpshop.cn/">物流自取</a>
+                | <a href="http://www.tpshop.cn/">友情链接</a>
+  </p>
+  Copyright 2017 <a href="/index.php/seller/Finance/withdrawals.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.cookie.js"></script>
+<link href="/public/static/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/static/js/perfect-scrollbar.min.js"></script> 
+<script type="text/javascript" src="/public/static/js/jquery.qtip.min.js"></script>
+<link href="/public/static/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<div id="tbox">
+  <div class="btn" id="msg"><a href="/index.php/Seller/index/store_msg.html"><i class="msg"><em>1</em></i>站内消息</a></div>
+  <div class="btn" id="im"><i class="im"><em id="new_msg" style="display:none;"></em></i><a href="javascript:void(0);">在线联系</a></div>
+  <div class="btn" id="gotop" style="display: block;"><i class="top"></i><a href="javascript:void(0);">返回顶部</a></div>
+</div>
+<script type="text/javascript">
+var current_control = 'Finance/withdrawals';
+$(document).ready(function(){
+    //添加删除快捷操作
+    $('[nctype="btn_add_quicklink"]').on('click', function() {
+        var $quicklink_item = $(this).parent();
+        var item = $(this).attr('data-quicklink-act');
+        if($quicklink_item.hasClass('selected')) {
+            $.post("/index.php/Seller/Index/quicklink_del.html", { item: item }, function(data) {
+                $quicklink_item.removeClass('selected');
+                var idstr = 'quicklink_'+ item;
+                $('#'+idstr).remove();
+            }, "json");
+        } else {
+            var scount = $('#quicklink_list').find('dd.selected').length;
+            if(scount >= 8) {
+                layer.msg('快捷操作最多添加8个', {icon: 2,time: 2000});
+            } else {
+                $.post("/index.php/Seller/Index/quicklink_add.html", { item: item }, function(data) {
+                    $quicklink_item.addClass('selected');
+                    if(current_control=='Index/index'){
+                        var $link = $quicklink_item.find('a');
+                        var menu_name = $link.text();
+                        var menu_link = $link.attr('href');
+                        var menu_item = '<li id="quicklink_' + item + '"><a href="' + menu_link + '">' + menu_name + '</a></li>';
+                        $(menu_item).appendTo('#seller_center_left_menu').hide().fadeIn();
+                    }
+                }, "json");
+            }
+        }
+    });
+    //浮动导航  waypoints.js
+    $("#sidebar,#mainContent").waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+        });
+    });
+    // 搜索商品不能为空
+    $('input[nctype="search_submit"]').click(function(){
+        if ($('input[nctype="search_text"]').val() == '') {
+            return false;
+        }
+    });
+
+	function fade() {
+		$("img[rel='lazy']").each(function () {
+			var $scroTop = $(this).offset();
+			if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+				$(this).hide();
+				$(this).attr("src", $(this).attr("data-url"));
+				$(this).removeAttr("rel");
+				$(this).removeAttr("name");
+				$(this).fadeIn(500);
+			}
+		});
+	}
+	if($("img[rel='lazy']").length > 0) {
+		$(window).scroll(function () {
+			fade();
+		});
+	};
+	fade();
+	
+    function delfunc(obj){
+    	layer.confirm('确认删除？', {
+    		  btn: ['确定','取消'] //按钮
+    		}, function(){
+    		    // 确定
+   				$.ajax({
+   					type : 'post',
+   					url : $(obj).attr('data-url'),
+   					data : {act:'del',del_id:$(obj).attr('data-id')},
+   					dataType : 'json',
+   					success : function(data){
+                        layer.closeAll();
+   						if(data==1){
+   							layer.msg('操作成功', {icon: 1});
+   							$(obj).parent().parent().parent().remove();
+   						}else{
+   							layer.msg(data, {icon: 2,time: 2000});
+   						}
+   					}
+   				})
+    		}, function(index){
+    			layer.close(index);
+    			return false;// 取消
+    		}
+    	);
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+    });
+    function check_form(){
+        var start_time = $.trim($('#start_time').val());
+        var end_time =  $.trim($('#end_time').val());
+        if(start_time == '' ^ end_time == ''){
+            layer.alert('请选择完整的时间间隔', {icon: 2});
+            return false;
+        }
+        if(start_time !== '' && end_time !== ''){
+            $('#create_time').val(start_time+" - "+end_time);
+        }
+        if(start_time == '' && end_time == ''){
+            $('#create_time').val('');
+        }
+    }
+    // 删除操作
+    function del(id) {
+        layer.confirm('确定要删除吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+                    // 确定
+                    $.ajax({
+                        url: "/index.php?m=Seller&c=Finance&a=delWithdrawals&id=" + id,
+                        success: function (v) {
+                            layer.closeAll();
+                            var v = eval('(' + v + ')');
+                            if (v.hasOwnProperty('status') && (v.status == 1))
+                                location.href = "/index.php/seller/Finance/withdrawals.html";
+                            else
+                                layer.msg(v.msg, {icon: 2, time: 1000}); //alert(v.msg);
+                        }
+                    });
+                }, function(index){
+                    layer.close(index);
+                }
+        );
+    }
+</script>
+
+
+</body></html>

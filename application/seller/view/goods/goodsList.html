@@ -1,0 +1,325 @@
+{include file="public/header" /}
+<body>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+{include file="public/nav" /}
+<div class="ncsc-layout wrapper">
+     <div id="layoutLeft" class="ncsc-layout-left sticky">
+   <div id="sidebar" class="sidebar">
+     <div class="column-title" id="main-nav"><span class="ico-goods"></span>
+       <h2>商品</h2>
+     </div>
+     <div class="column-menu">
+       <ul id="seller_center_left_menu">
+      	            <li class="">
+           		<a href="/index.php/seller/Goods/addEditGoods.html"> 商品发布</a>
+           </li>
+	 	           <li class="current">
+           		<a href="/index.php/seller/Goods/goodsList.html"> 出售中的商品</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Goods/goods_offline.html"> 仓库中的商品</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Goods/stock_list.html"> 库存日志</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Goods/specList.html"> 商品规格</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Goods/brandList.html"> 品牌申请</a>
+           </li>
+	 	      </ul>
+     </div>
+   </div>
+ </div>
+    <div id="layoutRight" class="ncsc-layout-right sticky">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>出售中的商品</div>
+        <div class="main-content" id="mainContent">
+
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="/index.php/seller/Goods/goodsList/goods_state/1.html">出售中的商品</a></li>
+                </ul>
+                <a href="/index.php/Seller/goods/addEditGoods.html" class="ncbtn ncbtn-mint" title="发布新商品"> 发布新商品</a>
+            </div>
+            <div class="alert alert-block mt10">
+                <ul class="mt5">
+                    <li>1、商品下架以后，重新上架之前需要平台审核.</li>
+                </ul>
+            </div>
+            <form action="/index.php/seller/Goods/goodsList.html" id="search-form2" method="post" onsubmit="return false">
+                <table class="search-form">
+                    <input type="hidden" name="orderby1" value="goods_id">
+                    <input type="hidden" name="orderby2" value="desc">
+                    <tbody><tr>
+                        <td>&nbsp;</td>
+                        <th>本店分类</th>
+                        <td class="w80">
+                            <select name="store_cat_id1" id="store_cat_id1" class="select">
+                                <option value="">本店分类</option>
+                                                            </select>
+                        </td>
+                        <th>供应商</th>
+                        <td class="w80">
+					       <select name="suppliers_id" class="w150">
+					        <option value="0">请选择...</option>
+					        					       </select>
+                        </td>
+                        <th class="w60">新品/推荐</th>
+                        <td class="w80">
+                            <select name="intro" class="select">
+                                <option value="0">全部</option>
+                                <option value="is_hot">热卖</option>
+                                <option value="is_new">新品</option>
+                                <option value="is_recommend">推荐</option>
+                            </select>
+                        </td>
+                        <td class="w160"><input type="text" class="text w150" name="key_word" value="" placeholder="搜索词"></td>
+                        <td class="tc w70"><label class="submit-border">
+                            <input type="submit" class="submit" value="搜索" onclick="ajax_get_table('search-form2',1)">
+                        </label></td>
+                    </tr>
+                </tbody></table>
+            </form>
+            <div id="ajax_return"><table class="ncsc-default-table">
+    <thead>
+    <tr nc_type="table_header">
+        <th class="w30"><a href="javascript:sort('goods_id');">ID</a></th>
+        <th class="w50">&nbsp;</th>
+        <th class="w250">商品名称</th>
+        <th class="w150"><a href="javascript:sort('cat_id');">分类</a></th>
+        <th class="w80"><a href="javascript:sort('shop_price');">价格</a></th>
+        <th class="w30"><a href="javascript:;">上架</a></th>
+        <th class="w30"><a href="javascript:void(0);">库存</a></th>
+        <th class="w80"><a href="javascript:sort('add_time');">上架时间</a></th>
+        <th class="w30"><a href="javascript:sort('sort');">排序</a></th>
+        <th class="w120">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="vo"}
+            <tr class="bd-line">
+            <td>{$vo.goods_id}</td>
+            <td>
+                <div class="pic-thumb">
+                    <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">
+                        <img style="width:32px;height:32px" src="{$vo.original_img}">
+                    </a>
+                </div>
+            </td>
+            <td class="tl">
+                <dl class="goods-name">
+                    <dt style="max-width: 450px !important;">
+                                            <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">aaa</a></dt>
+                    <dd>商品货号：{$vo.goods_sn}</dd>
+                    <dd class="serve">
+                                                <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>
+                        <a onclick="ClearGoodsHtml('160')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>
+                        <a onclick="ClearGoodsThumb('160')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>
+                    </dd>
+                </dl>
+            </td>
+            <td><span>{$catlist[$vo.cat_id][name]}</span></td>
+            <td><span>{$vo.shop_price}</span></td>
+            <td><img width="20" height="20" src="/public/static/js/yes.png" onclick="changeTableVal2('goods','goods_id','160','is_on_sale',this);changeTableVal2('goods','goods_id','160','goods_state',this);$(this).parent().parent().remove();"></td>
+            <td><span style="">100</span></td>
+            <td>2017-06-28 10:10</td>
+            <td>
+                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','160','sort',this)" size="4" value="50">
+            </td>
+            <td class="nscs-table-handle">
+                <span><a href="/index.php/seller/Goods/addEditGoods/goods_id/160.html" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+                <span><a href="javascript:void(0);" onclick="del('160')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+            </td>
+        </tr>
+        {/volist}
+            
+        </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="20">
+            <div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">  <li class="paginate_button active"><a tabindex="0" data-dt-idx="1" aria-controls="example1" data-p="1" href="javascript:void(0)">1</a></li><li class="paginate_button"><a class="num" data-p="2" href="javascript:void(0)">2</a></li> <li id="example1_next" class="paginate_button next"><a class="next" data-p="2" href="javascript:void(0)">下一页</a></li> </ul></div>        </td>
+    </tr>
+    </tfoot>
+</table>
+</div>
+            <script>
+                $(document).ready(function(){
+                    // ajax 加载商品列表
+                    ajax_get_table('search-form2', 1);
+
+                });
+
+                // ajax 抓取页面 form 为表单id  page 为当前第几页
+                function ajax_get_table(form, page) {
+                    cur_page = page; //当前页面 保存为全局变量
+                    $.ajax({
+                        type: "POST",
+                        url: "/index.php?m=Seller&c=goods&a=ajaxGoodsList&p=" + page,//+tab,
+                        data: $('#' + form).serialize(),// 你的formid
+                        success: function (data) {
+                            $("#ajax_return").html('').append(data);
+                        }
+                    });
+                }
+                // 点击排序
+                function sort(field) {
+                    $("input[name='orderby1']").val(field);
+                    var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';
+                    $("input[name='orderby2']").val(v);
+                    ajax_get_table('search-form2', cur_page);
+                }
+
+                // 删除操作
+                function del(id) {
+                    layer.confirm('确定要删除吗？', {
+                                btn: ['确定','取消'] //按钮
+                            }, function(){
+                                // 确定
+                                $.ajax({
+                                    url: "/index.php?m=Seller&c=goods&a=delGoods&id=" + id,
+                                    success: function (v) {
+                                        layer.closeAll();
+                                        var v = eval('(' + v + ')');
+                                        if (v.hasOwnProperty('status') && (v.status == 1))
+                                            ajax_get_table('search-form2', cur_page);
+                                        else
+                                            layer.msg(v.msg, {icon: 2, time: 1000}); //alert(v.msg);
+                                    }
+                                });
+                            }, function(index){
+                                layer.close(index);
+                            }
+                    );
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<div id="cti">
+  <div class="wrapper">
+    <ul>
+          </ul>
+  </div>
+</div>
+<div id="faq">
+  <div class="wrapper">
+      </div>
+</div>
+
+<div id="footer">
+  <p><a href="/">首页</a>
+                | <a href="http://www.tpshop.cn/">招聘英才</a>
+                | <a href="http://www.tpshop.cn/">合作及洽谈</a>
+                | <a href="http://www.tpshop.cn/">联系我们</a>
+                | <a href="http://www.tpshop.cn/">关于我们</a>
+                | <a href="http://www.tpshop.cn/">物流自取</a>
+                | <a href="http://www.tpshop.cn/">友情链接</a>
+  </p>
+  Copyright 2017 <a href="/index.php/seller/Goods/goodsList.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.cookie.js"></script>
+<link href="/public/static/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/static/js/perfect-scrollbar.min.js"></script> 
+<script type="text/javascript" src="/public/static/js/jquery.qtip.min.js"></script>
+<link href="/public/static/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<div id="tbox">
+  <div class="btn" id="msg"><a href="/index.php/Seller/index/store_msg.html"><i class="msg"><em>1</em></i>站内消息</a></div>
+  <div class="btn" id="im"><i class="im"><em id="new_msg" style="display:none;"></em></i><a href="javascript:void(0);">在线联系</a></div>
+  <div class="btn" id="gotop" style="display: block;"><i class="top"></i><a href="javascript:void(0);">返回顶部</a></div>
+</div>
+<script type="text/javascript">
+var current_control = 'Goods/goodsList';
+$(document).ready(function(){
+    //添加删除快捷操作
+    $('[nctype="btn_add_quicklink"]').on('click', function() {
+        var $quicklink_item = $(this).parent();
+        var item = $(this).attr('data-quicklink-act');
+        if($quicklink_item.hasClass('selected')) {
+            $.post("/index.php/Seller/Index/quicklink_del.html", { item: item }, function(data) {
+                $quicklink_item.removeClass('selected');
+                var idstr = 'quicklink_'+ item;
+                $('#'+idstr).remove();
+            }, "json");
+        } else {
+            var scount = $('#quicklink_list').find('dd.selected').length;
+            if(scount >= 8) {
+                layer.msg('快捷操作最多添加8个', {icon: 2,time: 2000});
+            } else {
+                $.post("/index.php/Seller/Index/quicklink_add.html", { item: item }, function(data) {
+                    $quicklink_item.addClass('selected');
+                    if(current_control=='Index/index'){
+                        var $link = $quicklink_item.find('a');
+                        var menu_name = $link.text();
+                        var menu_link = $link.attr('href');
+                        var menu_item = '<li id="quicklink_' + item + '"><a href="' + menu_link + '">' + menu_name + '</a></li>';
+                        $(menu_item).appendTo('#seller_center_left_menu').hide().fadeIn();
+                    }
+                }, "json");
+            }
+        }
+    });
+    //浮动导航  waypoints.js
+    $("#sidebar,#mainContent").waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+        });
+    });
+    // 搜索商品不能为空
+    $('input[nctype="search_submit"]').click(function(){
+        if ($('input[nctype="search_text"]').val() == '') {
+            return false;
+        }
+    });
+
+	function fade() {
+		$("img[rel='lazy']").each(function () {
+			var $scroTop = $(this).offset();
+			if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+				$(this).hide();
+				$(this).attr("src", $(this).attr("data-url"));
+				$(this).removeAttr("rel");
+				$(this).removeAttr("name");
+				$(this).fadeIn(500);
+			}
+		});
+	}
+	if($("img[rel='lazy']").length > 0) {
+		$(window).scroll(function () {
+			fade();
+		});
+	};
+	fade();
+	
+    function delfunc(obj){
+    	layer.confirm('确认删除？', {
+    		  btn: ['确定','取消'] //按钮
+    		}, function(){
+    		    // 确定
+   				$.ajax({
+   					type : 'post',
+   					url : $(obj).attr('data-url'),
+   					data : {act:'del',del_id:$(obj).attr('data-id')},
+   					dataType : 'json',
+   					success : function(data){
+                        layer.closeAll();
+   						if(data==1){
+   							layer.msg('操作成功', {icon: 1});
+   							$(obj).parent().parent().parent().remove();
+   						}else{
+   							layer.msg(data, {icon: 2,time: 2000});
+   						}
+   					}
+   				})
+    		}, function(index){
+    			layer.close(index);
+    			return false;// 取消
+    		}
+    	);
+    }
+</script>
+
+
+</body></html>

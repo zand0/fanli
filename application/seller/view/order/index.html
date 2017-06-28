@@ -1,0 +1,382 @@
+{include file="public/header" /}
+<body>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+{include file="public/nav" /}
+<style>
+  .w150{
+    margin-right: 35px;
+  }
+  .w378{
+    display: inline-block !important;
+  }
+  .di-in{
+    display: inline-block !important;
+  }
+  .w160{
+    width: 160px !important;
+  }
+  .nscs-table-handle{
+    border-right: 1px solid #dedede;
+  }
+</style>
+<div class="ncsc-layout wrapper">
+   <div id="layoutLeft" class="ncsc-layout-left">
+   <div id="sidebar" class="sidebar">
+     <div class="column-title" id="main-nav"><span class="ico-order"></span>
+       <h2>订单物流</h2>
+     </div>
+     <div class="column-menu">
+       <ul id="seller_center_left_menu">
+      	            <li class="current">
+           		<a href="/index.php/seller/Order/index.html"> 订单列表</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Order/virtual_list.html"> 虚拟订单</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Order/delivery_list.html"> 发货商品</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Plugin/index.html"> 发货设置</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Comment/index.html"> 商品评论</a>
+           </li>
+	 	      </ul>
+     </div>
+   </div>
+ </div>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>订单列表</div>
+    <div class="main-content" id="mainContent">
+      
+<div class="tabmenu">
+  <ul id="tab" class="tab pngFix">
+  	<li class="active" data-val=""><a href="/index.php/seller/Order/index.html#">所有订单</a></li>
+  	<li class="normal" data-val="0"><a href="/index.php/seller/Order/index.html#">待确认</a></li>
+  	<li class="normal" data-val="1"><a href="/index.php/seller/Order/index.html#">已确认</a></li>
+  	<li class="normal" data-val="2"><a href="/index.php/seller/Order/index.html#">已收货</a></li>
+  	<li class="normal" data-val="3"><a href="/index.php/seller/Order/index.html#">已取消</a></li>
+  	<li class="normal" data-val="4"><a href="/index.php/seller/Order/index.html#">已完成</a></li>
+  	<li class="normal" data-val="5"><a href="/index.php/seller/Order/index.html#">已作废</a></li>
+  </ul>
+  </div>
+<form method="get" action="/index.php/seller/order/export_order.html" id="search-form2">
+    <input type="hidden" name="order_by" value="order_id">
+    <input type="hidden" name="sort" value="desc">
+    <input type="hidden" name="order_status" id="order_status" value="">
+    <input type="hidden" value="" name="order_statis_id">
+  <table class="search-form">
+    <tbody><tr>
+      <th>收货人</th>
+      <td class="w150"><input type="text" class="text w150" name="consignee" placeholder="收货人" value=""></td>
+      <th>订单编号</th>
+      <td class="w150"><input type="text" class="text w150" name="order_sn" placeholder="订单编号" value=""></td>
+      <th>下单时间</th>
+      <td class="w378">
+	      <input type="text" class="text w150" name="add_time_begin" id="add_time_begin" placeholder="开始时间" value="">
+	      <input type="text" class="text w150" name="add_time_end" id="add_time_end" placeholder="结束时间" value="">
+	   </td>
+     </tr>
+     <tr> 
+      <th>支付状态</th>
+      <td class="w160">
+          <select name="pay_status" class="w150 w160">
+              <option value="">支付状态</option>
+              <option value="0">未支付</option>
+              <option value="1">已支付</option>
+          </select>
+      </td>
+      <th>发货状态</th>
+      <td class="w160">
+      		<select name="shipping_status" class="w150 w160">
+          		<option value="">发货状态</option>
+                <option value="0">未发货</option>
+               	<option value="1">已发货</option>
+               	<option value="2">部分发货</option>
+             </select>
+		</td>
+      <th>支付方式</th>
+      <td><select name="pay_code" class="w150 w160 di-in">
+          		<option value="">支付方式</option>
+                <option value="alipay">支付宝支付</option>
+                <option value="weixin">微信支付</option>
+                <option value="cod">货到付款</option>
+             </select>
+             <label class="submit-border"><input class="submit" value="搜索" onclick="ajax_get_table(&#39;search-form2&#39;,1)" type="button"></label>
+      </td>
+    </tr>
+  </tbody></table>
+</form>
+<div id="ajax_return"><table class="ncsc-default-table order">
+  <thead>
+    <tr>
+      <th class="w10"></th>
+      <th colspan="2">商品</th>
+      <th class="w100">单价（元）</th>
+      <th class="w40">数量</th>
+      <th class="w100">买家</th>
+      <th class="w100">订单金额</th>
+      <th class="w90">交易状态</th>
+      <th class="w120">交易操作</th>
+    </tr>
+  </thead>
+   {volist name="list" id="vo"}
+   <tbody>
+    <tr>
+      <td colspan="20" class="sep-row"></td>
+    </tr>
+    <tr>
+      <th colspan="20">
+      		<span class="ml10">订单编号：<em>{$vo.order_sn}</em></span> <span>下单时间：<em class="goods-time">{:date('Y-m-d H:i:s',$vo['add_time'])}</em></span>
+      		<span class="fr mr10"><a href="{:U('/index.php/seller/Order/order_print/order_id/'.$vo['order_id'].'/template/picking')}" target="_blank" class="ncbtn-mini" title="打印配货单"><i class="icon-print"></i>打印配货单</a></span>
+       </th>
+    </tr>
+ 
+         	<!--  第一行 -->
+         	{volist name="vo.order_goods" id="v"}
+     	<tr>
+	      <td class="bdl"></td>
+	      <td class="w70">
+	      <div class="ncsc-goods-thumb"><a href="{:U('/index.php/Home/Goods/goodsInfo/id/'.$vo['order_id'])}" target="_blank"><img src="/public/static/js/goods_thumb_49_240_240.jpeg"></a></div></td>
+	      <td class="tl">
+	      	<dl class="goods-name">
+	      	
+	          <dt><a target="_blank" href="{:U('/index.php/Home/Goods/goodsInfo/id/'.$vo['order_id'])}">{$v.goods_name}</a></dt>
+	        
+	        </dl>
+	      </td>
+	      <td><p>{$v.goods_price}</p></td>
+	      <td>{$v.goods_num}</td>
+	      <!-- S 合并TD -->
+	      <td class="bdl" rowspan="1">
+	      	<div class="buyer">{$vo.consignee} <p member_id="5"></p>
+	          <div class="buyer-info"> <em></em>
+	            <div class="con">
+	              <h3><i></i><span>联系信息 </span></h3>
+	              <dl>
+	                <dt>姓名：</dt>
+	                <dd>{$vo.consignee}</dd>
+	              </dl>
+	              <dl>
+	                <dt>电话：</dt>
+	                <dd>{$vo.mobile}</dd>
+	              </dl>
+	              <dl>
+	                <dt>地址：</dt>
+	                <dd>{$vo.address}</dd>
+	              </dl>
+	            </div>
+	          </div>
+	        </div>
+	      </td>
+	      <td class="bdl" rowspan="1">
+	      	<p class="ncsc-order-amount"></p>
+	        <p class="goods-freight">邮费:{$vo.shipping_price}</p>
+	        <p class="goods-pay" title="支付方式："></p>
+	      </td>
+	      {switch name="vo.pay_status" }
+		    {case value="1"}
+		    <td class="bdl bdr" rowspan="1"><p>已支付 </p>{/case}
+		    {default /}
+		    <td class="bdl bdr" rowspan="1"><p>未支付 </p>
+		{/switch}
+	        <!-- 物流跟踪 -->
+	        <p></p>
+	       </td>
+	      <!-- 取消订单 -->
+	      <td class="nscs-table-handle" rowspan="1">
+	      	<span><a href="/index.php/seller/order/detail/order_id/{$vo.order_id}.html" class="ncbtn-mint"><i class="icon-search"></i><p>详情</p></a></span>
+	      			      	<span><a href="/index.php/seller/order/delete_order/order_id/{$vo.order_id}.html" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+	      		        </td>
+	    </tr>
+	    {/volist}
+       </tbody> 
+   {/volist} 
+ 
+  
+     <tfoot>
+  	<tr>
+		<td colspan="20"><div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">    </ul></div></td>
+	</tr>
+   </tfoot>
+  </table>
+  {$page}
+ </div>
+<script>
+$(document).ready(function(){	
+	   
+ 	$('#add_time_begin').layDate(); 
+ 	$('#add_time_end').layDate();
+ 	 
+ 	ajax_get_table('search-form2',1);
+ 	
+ 	$("#tab > li").each(function(){
+		$(this).click(function(){
+			tabSelect(this);
+		});
+	});
+});
+
+function tabSelect(obj){
+	var currHasClass = $(obj).hasClass('active');
+	if(currHasClass)return;
+	
+	$("#tab > li").each(function(){
+		$(this).removeClass('active');
+	});
+	
+	$(obj).addClass('active');
+	var orderStatus = $(obj).attr("data-val");
+	
+	console.log("orderStatus:"+orderStatus);
+	
+	$("#order_status").val(orderStatus);
+	ajax_get_table('search-form2',1);
+}
+
+//ajax 抓取页面
+function ajax_get_table(tab,page){
+    cur_page = page; //当前页面 保存为全局变量
+        $.ajax({
+            type : "POST",
+            url:"/index.php/Seller/order/ajaxindex/p/"+page,//+tab,
+            data : $('#'+tab).serialize(),// 你的formid
+            success: function(data){
+                $("#ajax_return").html('');
+                $("#ajax_return").append(data);
+            }
+        });
+}
+
+</script>    
+</div>
+  </div>
+</div>
+<div id="cti">
+  <div class="wrapper">
+    <ul>
+          </ul>
+  </div>
+</div>
+<div id="faq">
+  <div class="wrapper">
+      </div>
+</div>
+
+<div id="footer">
+  <p><a href="/">首页</a>
+                | <a href="http://www.tpshop.cn/">招聘英才</a>
+                | <a href="http://www.tpshop.cn/">合作及洽谈</a>
+                | <a href="http://www.tpshop.cn/">联系我们</a>
+                | <a href="http://www.tpshop.cn/">关于我们</a>
+                | <a href="http://www.tpshop.cn/">物流自取</a>
+                | <a href="http://www.tpshop.cn/">友情链接</a>
+  </p>
+  Copyright 2017 <a href="/index.php/seller/Order/index.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.cookie.js"></script>
+<link href="/public/static/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/static/js/perfect-scrollbar.min.js"></script> 
+<script type="text/javascript" src="/public/static/js/jquery.qtip.min.js"></script>
+<link href="/public/static/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<div id="tbox">
+  <div class="btn" id="msg"><a href="/index.php/Seller/index/store_msg.html"><i class="msg"><em>1</em></i>站内消息</a></div>
+  <div class="btn" id="im"><i class="im"><em id="new_msg" style="display:none;"></em></i><a href="javascript:void(0);">在线联系</a></div>
+  <div class="btn" id="gotop" style="display: block;"><i class="top"></i><a href="javascript:void(0);">返回顶部</a></div>
+</div>
+<script type="text/javascript">
+var current_control = 'Order/index';
+$(document).ready(function(){
+    //添加删除快捷操作
+    $('[nctype="btn_add_quicklink"]').on('click', function() {
+        var $quicklink_item = $(this).parent();
+        var item = $(this).attr('data-quicklink-act');
+        if($quicklink_item.hasClass('selected')) {
+            $.post("/index.php/Seller/Index/quicklink_del.html", { item: item }, function(data) {
+                $quicklink_item.removeClass('selected');
+                var idstr = 'quicklink_'+ item;
+                $('#'+idstr).remove();
+            }, "json");
+        } else {
+            var scount = $('#quicklink_list').find('dd.selected').length;
+            if(scount >= 8) {
+                layer.msg('快捷操作最多添加8个', {icon: 2,time: 2000});
+            } else {
+                $.post("/index.php/Seller/Index/quicklink_add.html", { item: item }, function(data) {
+                    $quicklink_item.addClass('selected');
+                    if(current_control=='Index/index'){
+                        var $link = $quicklink_item.find('a');
+                        var menu_name = $link.text();
+                        var menu_link = $link.attr('href');
+                        var menu_item = '<li id="quicklink_' + item + '"><a href="' + menu_link + '">' + menu_name + '</a></li>';
+                        $(menu_item).appendTo('#seller_center_left_menu').hide().fadeIn();
+                    }
+                }, "json");
+            }
+        }
+    });
+    //浮动导航  waypoints.js
+    $("#sidebar,#mainContent").waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+        });
+    });
+    // 搜索商品不能为空
+    $('input[nctype="search_submit"]').click(function(){
+        if ($('input[nctype="search_text"]').val() == '') {
+            return false;
+        }
+    });
+
+	function fade() {
+		$("img[rel='lazy']").each(function () {
+			var $scroTop = $(this).offset();
+			if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+				$(this).hide();
+				$(this).attr("src", $(this).attr("data-url"));
+				$(this).removeAttr("rel");
+				$(this).removeAttr("name");
+				$(this).fadeIn(500);
+			}
+		});
+	}
+	if($("img[rel='lazy']").length > 0) {
+		$(window).scroll(function () {
+			fade();
+		});
+	};
+	fade();
+	
+    function delfunc(obj){
+    	layer.confirm('确认删除？', {
+    		  btn: ['确定','取消'] //按钮
+    		}, function(){
+    		    // 确定
+   				$.ajax({
+   					type : 'post',
+   					url : $(obj).attr('data-url'),
+   					data : {act:'del',del_id:$(obj).attr('data-id')},
+   					dataType : 'json',
+   					success : function(data){
+                        layer.closeAll();
+   						if(data==1){
+   							layer.msg('操作成功', {icon: 1});
+   							$(obj).parent().parent().parent().remove();
+   						}else{
+   							layer.msg(data, {icon: 2,time: 2000});
+   						}
+   					}
+   				})
+    		}, function(index){
+    			layer.close(index);
+    			return false;// 取消
+    		}
+    	);
+    }
+</script>
+
+
+</body></html>

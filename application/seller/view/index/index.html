@@ -1,0 +1,356 @@
+{include file="public/header" /}
+<body>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+{include file="public/nav" /}
+<div class="ncsc-layout wrapper">
+  <div id="layoutLeft" class="ncsc-layout-left">
+    <div id="sidebar" class="sidebar">
+      <div class="column-title" id="main-nav"><span class="ico-index"></span>
+        <h2>首页</h2>
+      </div>
+      <div class="column-menu">
+        <ul id="seller_center_left_menu">
+        	            <div class="add-quickmenu"><a href="javascript:void(0);"><i class="icon-plus"></i>添加常用功能菜单</a></div>
+                    </ul>
+      </div>
+    </div>
+  </div>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>首页<i class="icon-angle-right"></i></div>
+    <div class="main-content" id="mainContent">     
+		<div class="ncsc-index">
+		  <div class="top-container">
+		    <div class="basic-info">
+		      <dl class="ncsc-seller-info">
+		        <dt class="seller-name">
+		          <h3>admin</h3>
+		          <h5>(用户名：seller)
+				  <!--<a href="index.php" style=" background:#48CFAE;padding:5px; color:#fff;">申请开通分销</a>-->
+		         </h5>
+		        </dt>
+		        <dd class="store-logo">
+		          <p><img src="/public/img/default_store_logo.gif"></p>
+		          <a href="/index.php/seller/Store/store_setting.html"><i class="icon-edit"></i>编辑店铺设置</a> </dd>
+		        <dd class="seller-permission">管理权限：<strong></strong></dd>
+		        <dd class="seller-last-login">最后登录：<strong>2017-06-22 17:36</strong> </dd>
+		        <dd class="store-name">店铺名称：<a href="/index.php/Home/Store/index/store_id/1.html">TPSHP旗舰店</a></dd>
+		        <dd class="store-grade">店铺等级：<strong>系统默认</strong></dd>
+		        <dd class="store-validity">有效期：<strong>1970-01-01 08</strong> </dd>
+		      </dl>
+		    </div>
+		  </div>
+		  <div class="seller-cont">
+		    <div class="container type-a">
+		      <div class="hd">
+		        <h3>店铺及商品提示</h3>
+		        <h5>您需要关注的店铺信息以及待处理事项</h5>
+		      </div>
+		      <div class="content">
+		        <dl class="focus">
+		          <dt>店铺商品发布情况：</dt>
+		          <dd title="已发布/可传商品"><em id="nc_goodscount">13</em>&nbsp;/&nbsp;
+		            不限          </dd>
+		          <!--<dt>图片空间使用：</dt>-->
+		          <!--<dd><em id="nc_imagecount">0</em>&nbsp;/&nbsp;不限</dd>-->
+		        </dl>
+		        <ul>
+					<li><a href="/index.php/seller/Goods/goodsList/goods_state/1.html" class="num">出售中 <strong id="nc_online">13</strong></a></li>
+					<li><a href="/index.php/seller/Goods/goodsList/goods_state/0.html" class="num">待审核 <strong id="nc_offline">0</strong></a></li>
+					<li><a href="/index.php/seller/Goods/goods_offline/is_on_sale/2.html" class="num">违规下架 <strong id="nc_lockup">0</strong></a></li>
+					<li><a href="/index.php/seller/Service/ask_list.html" class="num">待回复咨询 <strong id="nc_consult">0</strong></a></li>
+		        </ul>
+		      </div>
+		    </div>
+		
+		    <div class="container type-b">
+		      <div class="hd">
+		        <h3>系统公告</h3>
+		        <h5></h5>
+		      </div>
+		      <div class="content">
+		        <ul>
+		        	<li><a href="/index.php/seller/Index/index.html" target="_blank">罚款制度公告</a></li>
+		        	<li><a href="/index.php/seller/Index/index.html" target="_blank">关报罚款制度公告</a></li>
+		        	<li><a href="/index.php/seller/Index/index.html" target="_blank">关于伪劣货品举报说明</a></li>
+		        </ul>
+		        <dl>
+		          <dt>平台联系方式</dt>
+                    <dd>电话1：1273276548</dd>
+                    <dd>电话2：0755-86140794</dd>
+                    <dd>邮箱：</dd>
+		        </dl>
+		      </div>
+		    </div>
+		    <div class="container type-a">
+		      <div class="hd">
+		        <h3>交易提示</h3>
+		        <h5>您需要立即处理的交易订单</h5>
+		      </div>
+		      <div class="content">
+		        <dl class="focus">
+		          <dt>近期售出：</dt>
+		          <dd><a href="/index.php/seller/order/index.html">交易中的订单 <strong id="nc_progressing">0</strong></a></dd>
+		          <!--<dt>维权提示：</dt>-->
+		          <!--<dd><a href="">收到维权投诉 <strong id="nc_complain"></strong></a></dd>-->
+		        </dl>
+		        <ul>
+		          <li><a href="/index.php/Seller/Order/index/pay_status/0.html" class="num">待付款 <strong id="nc_payment">0</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/shipping_status/0.html" class="num">待发货 <strong id="nc_delivery">0</strong></a></li>
+		          <li><a href="/index.php/Seller/Service/refund_list.html" class="num"> 退货申请 <strong id="nc_refund_lock">0</strong></a></li>
+		          <li><a href="/index.php/Seller/Service/return_list.html" class="num"> 换货/维修申请 <strong id="nc_return_lock">0</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/shipping_status/2.html" class="num"> 部分发货订单 <strong id="nc_return">0</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/order_status/1.html" class="num"> 待确认订单 <strong id="nc_bill_confirm">0</strong></a></li>
+		        </ul>
+		      </div>
+		    </div>
+		    <div class="container type-c">
+		      <div class="hd">
+		        <h3>销售情况统计</h3>
+		        <h5>按周期统计商家店铺的订单量和订单金额</h5>
+		      </div>
+		      <div class="content">
+		        <table class="ncsc-default-table">
+		          <thead>
+		            <tr>
+		              <th class="w50">项目</th>
+		              <th>订单量</th>
+		              <th class="w100">订单金额</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+		            <tr class="bd-line">
+		              <td>昨日销量</td>
+		              <td>--</td>
+		              <td>--</td>
+		            </tr>
+		            <tr class="bd-line">
+		              <td>月销量</td>
+		              <td>--</td>
+		              <td>--</td>
+		            </tr>
+		          </tbody>
+		        </table>
+		      </div>
+		    </div>
+		    <div class="container type-c h500">
+		      <div class="hd">
+		        <h3>单品销售排名</h3>
+		        <h5>掌握30日内最热销的商品及时补充货源</h5>
+		      </div>
+		      <div class="content">
+		        <table class="ncsc-default-table">
+		          <thead>
+		            <tr>
+		              <th>排名</th>
+		              <th class="tl" colspan="2">商品信息</th>
+		              <th>销量</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+		                      </tbody>
+		        </table>
+		      </div>
+		    </div>
+		    <div class="container type-d h500">
+		      <div class="hd">
+		        <h3>店铺运营推广</h3>
+		        <h5>合理参加促销活动可以有效提升商品销量</h5>
+		      </div>
+		      <div class="content">
+		                <dl class="tghd">
+		          <dt class="p-name"> <a href="/index.php/Seller/Promotion/flash_sale.html">抢购活动</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint">
+		                        <i class="icon-ok-sign"></i>已开通
+		                      </dd>
+		          <dd class="p-info">参与平台发起的抢购活动提高商品成交量及店铺浏览量</dd>
+		                  </dl>
+		                        <dl class="xszk">
+		          <dt class="p-name"><a href="/index.php/Seller/Promotion/prom_goods_list.html">商品促销</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">在规定时间段内对店铺中所选商品进行打折促销活动</dd>
+		                  </dl>
+		        <dl class="mjs">
+		          <dt class="p-name"><a href="/index.php/Seller/Promotion/group_buy_list.html">团购活动</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">商家自定义满即送标准与规则，促进购买转化率</dd>
+		                  </dl>
+		        <dl class="zhxs">
+		          <dt class="p-name"><a href="/index.php/Seller/Promotion/prom_order_list.html">订单优惠</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">商品优惠套装、多重搭配更多实惠、商家必备营销方式</dd>
+		                  </dl>
+		        <!--<dl class="tjzw">-->
+		          <!--<dt class="p-name"><a href="#">广告位</a></dt>-->
+		          <!--<dd class="p-ico"></dd>-->
+		          <!--<dd class="p-hint"><span>-->
+		                        <!--<i class="icon-ok-sign"></i>已开通-->
+		                        <!--</span></dd>-->
+		          <!--<dd class="p-info">选择商品参与平台发布的主题活动，审核后集中展示</dd>-->
+		                  <!--</dl>-->
+		                        <dl class="djq">
+		          <dt class="p-name"><a href="/index.php/Seller/Coupon/index.html">代金券</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">自定义代金券使用规则并由平台统一展示供买家领取</dd>
+		                  </dl>
+		              </div>
+		    </div>
+		  </div>
+		</div>
+    </div>
+  </div>
+</div>
+<div id="cti">
+  <div class="wrapper">
+    <ul>
+          </ul>
+  </div>
+</div>
+<div id="faq">
+  <div class="wrapper">
+      </div>
+</div>
+
+<div id="footer">
+  <p><a href="/">首页</a>
+                | <a href="http://www.tpshop.cn/">招聘英才</a>
+                | <a href="http://www.tpshop.cn/">合作及洽谈</a>
+                | <a href="http://www.tpshop.cn/">联系我们</a>
+                | <a href="http://www.tpshop.cn/">关于我们</a>
+                | <a href="http://www.tpshop.cn/">物流自取</a>
+                | <a href="http://www.tpshop.cn/">友情链接</a>
+  </p>
+  Copyright 2017 <a href="/index.php/seller/Index/index.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
+</div>
+<script type="text/javascript" src="/public/js/jquery.cookie.js.下载"></script>
+<link href="/public/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/js/perfect-scrollbar.min.js.下载"></script> 
+<script type="text/javascript" src="/public/js/jquery.qtip.min.js.下载"></script>
+<link href="/public/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<div id="tbox">
+  <div class="btn" id="msg"><a href="/index.php/Seller/index/store_msg.html"><i class="msg"><em>1</em></i>站内消息</a></div>
+  <div class="btn" id="im"><i class="im"><em id="new_msg" style="display:none;"></em></i><a href="javascript:void(0);">在线联系</a></div>
+  <div class="btn" id="gotop" style="display: block;"><i class="top"></i><a href="javascript:void(0);">返回顶部</a></div>
+</div>
+<script type="text/javascript">
+var current_control = 'Index/index';
+$(document).ready(function(){
+    //添加删除快捷操作
+    $('[nctype="btn_add_quicklink"]').on('click', function() {
+        var $quicklink_item = $(this).parent();
+        var item = $(this).attr('data-quicklink-act');
+        if($quicklink_item.hasClass('selected')) {
+            $.post("/index.php/Seller/Index/quicklink_del.html", { item: item }, function(data) {
+                $quicklink_item.removeClass('selected');
+                var idstr = 'quicklink_'+ item;
+                $('#'+idstr).remove();
+            }, "json");
+        } else {
+            var scount = $('#quicklink_list').find('dd.selected').length;
+            if(scount >= 8) {
+                layer.msg('快捷操作最多添加8个', {icon: 2,time: 2000});
+            } else {
+                $.post("/index.php/Seller/Index/quicklink_add.html", { item: item }, function(data) {
+                    $quicklink_item.addClass('selected');
+                    if(current_control=='Index/index'){
+                        var $link = $quicklink_item.find('a');
+                        var menu_name = $link.text();
+                        var menu_link = $link.attr('href');
+                        var menu_item = '<li id="quicklink_' + item + '"><a href="' + menu_link + '">' + menu_name + '</a></li>';
+                        $(menu_item).appendTo('#seller_center_left_menu').hide().fadeIn();
+                    }
+                }, "json");
+            }
+        }
+    });
+    //浮动导航  waypoints.js
+    $("#sidebar,#mainContent").waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+        });
+    });
+    // 搜索商品不能为空
+    $('input[nctype="search_submit"]').click(function(){
+        if ($('input[nctype="search_text"]').val() == '') {
+            return false;
+        }
+    });
+
+	function fade() {
+		$("img[rel='lazy']").each(function () {
+			var $scroTop = $(this).offset();
+			if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+				$(this).hide();
+				$(this).attr("src", $(this).attr("data-url"));
+				$(this).removeAttr("rel");
+				$(this).removeAttr("name");
+				$(this).fadeIn(500);
+			}
+		});
+	}
+	if($("img[rel='lazy']").length > 0) {
+		$(window).scroll(function () {
+			fade();
+		});
+	};
+	fade();
+	
+    function delfunc(obj){
+    	layer.confirm('确认删除？', {
+    		  btn: ['确定','取消'] //按钮
+    		}, function(){
+    		    // 确定
+   				$.ajax({
+   					type : 'post',
+   					url : $(obj).attr('data-url'),
+   					data : {act:'del',del_id:$(obj).attr('data-id')},
+   					dataType : 'json',
+   					success : function(data){
+                        layer.closeAll();
+   						if(data==1){
+   							layer.msg('操作成功', {icon: 1});
+   							$(obj).parent().parent().parent().remove();
+   						}else{
+   							layer.msg(data, {icon: 2,time: 2000});
+   						}
+   					}
+   				})
+    		}, function(index){
+    			layer.close(index);
+    			return false;// 取消
+    		}
+    	);
+    }
+</script>
+<script>
+$(document).ready(function(){    
+	// 没有点击收货确定的按钮让他自己收货确定    
+	var timestamp = Date.parse(new Date());
+	$.ajax({
+         type:'post',
+         url:"/index.php/Seller/Admin/login_task.html",
+         data:{timestamp:timestamp},
+         timeout : 100000000, //超时时间设置，单位毫秒
+         success:function(){
+             // 执行定时任务
+         }
+    }); 
+});	
+</script>
+
+
+</body></html>

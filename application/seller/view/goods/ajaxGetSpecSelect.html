@@ -1,0 +1,35 @@
+<table class="table table-bordered" id="goods_spec_table1">
+  <tr>
+    <td colspan="2">
+      <b>商品规格:</b>
+    </td>
+  </tr>
+  {volist name="list" id="vo"}
+  <tr>
+    <td>{$vo.name}:</td>
+    <td>
+    {volist name="vo.spec_item" id="si"}
+    			<button onclick="" type="button" data-spec_id="{$vo.id}" data-item_id="{$si.id}" class="btn btn-default">
+                    {$si.item}                </button>
+                                
+                &nbsp;&nbsp;&nbsp;               
+     {/volist}                
+      <input type="text" maxlength="20" data-spec_id="1" name="spec_item" placeholder="规格值名称" class="form-control" style="width:80px;vertical-align: middle;display: initial;">&nbsp;&nbsp;
+      <a href="javascript:void(0);" onclick="addSpecItem(this)">添加</a>
+      <a href="javascript:void(0);" onclick="delSpecItem(this)">删除</a></td>
+  </tr>
+  {/volist}
+</table>
+<div id="goods_spec_table2">
+  <!--ajax 返回 规格对应的库存-->
+</div>
+<script>
+$("#goods_spec_table1 button").click(function(){
+	if ($(this).hasClass('btn-success')) {
+		$(this).removeClass('btn-success');
+	}else{
+		$(this).addClass('btn-success');
+	}
+	ajaxGetSpecInput();
+});
+</script>

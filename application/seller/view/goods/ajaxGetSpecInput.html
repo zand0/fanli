@@ -1,0 +1,31 @@
+<table class='table table-bordered' id='spec_input_tab'>
+  <tr>
+  {volist name="list" id="vo"}
+  <td><b>{$vo.name}</b></td>
+  {/volist}
+    <td>
+      <b>价格</b>
+    </td>
+    <td>
+      <b>库存</b>
+    </td>
+    <td>
+      <b>SKU</b>
+    </td>
+  </tr>
+  {if condition="!empty($key_id)"}
+  <tr>
+  {volist name="spec_item" id="vo"}
+  <td>{$vo.name}</td>
+  {/volist}
+    
+    <td>
+      <input name="item[{$key_id}][price]" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+    <td>
+      <input name="item[{$key_id}][store_count]" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+    <td>
+      <input name="item[{$key_id}][sku]" value="">
+      <input type="hidden" name="item[{$key_id}][key_name]" value="{$key_name}"></td>
+  </tr>
+  {/if}
+</table>
