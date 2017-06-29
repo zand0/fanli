@@ -16,17 +16,17 @@
   {volist name="list2" id="item"}
   
 	  	<tr>
-	  
-	  <td>{$vo.name}777</td>
-	  
+	  {volist name="item.key_name_arr" id="name"}
+	  <td><?php echo explode(':',$name)[1]?></td>
+	  {/volist}
 	    
 	    <td>
-	      <input name="item[{$key_id}][price]" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+	      <input name="item[{$item.key}][price]" value="{$item.price}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
 	    <td>
-	      <input name="item[{$key_id}][store_count]" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+	      <input name="item[{$item.key}][store_count]" value="{$item.store_count}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
 	    <td>
-	      <input name="item[{$key_id}][sku]" value="">
-	      <input type="hidden" name="item[{$key_id}][key_name]" value="{$key_name}"></td>
+	      <input name="item[{$item.key}][sku]" value="{$item.sku}">
+	      <input type="hidden" name="item[{$item.key}][key_name]" value="{$item.key_name}"></td>
 	  </tr>
   {/volist}
   {if condition="!empty($key_id)"}

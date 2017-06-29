@@ -195,15 +195,13 @@ class Goods extends Base
         foreach ($specList as &$v){
             $v['spec_item']=M('spec_item')->where(['spec_id'=>$v['id']])->select();
         }
-        if(!empty($goods_id)){
-            $list2 = M('spec_goods_price')->where(['goods_id'=>$goods_id])->select();
-        }
+        
         unset($v);
         if(empty($specList)){
            return ; 
         }
         $this->assign('list',$specList);
-        $this->assign('list2',$list2);var_dump($list2);
+        //$this->assign('list2',$list2);
         return $this->fetch();
         
     }
@@ -214,8 +212,10 @@ class Goods extends Base
     
     public function ajaxGetSpecInput(){
         $post = I('post.');
+        $goods_id = I('get.goods_id');
         $spec_arr = $post['spec_arr'];
         $list = [];
+        $list2 = [];
         $spec_item = [];
         $item_ids = [];
         $spec_ids = [];
@@ -237,8 +237,19 @@ class Goods extends Base
                 }
             }
         }
+        if(!empty($goods_id)){
+            $list2 = M('spec_goods_price')->where(['goods_id'=>$goods_id])->select();
+        }
+        if(!empty($list2)){
+            foreach ($list2 as &$v) {
+                $v['key_name_arr'] = strstr($v['key_name'],' ')?explode(' ', $v['key_name']):[$v['key_name']];
+            }
+        }
+        unset($v);
+        $item_name_list = M()->where(['g'])->getField();
         //var_dump(implode('_', $item_ids));
         $this->assign('list',$list);
+        $this->assign('list2',$list2);
         $this->assign('key_name',rtrim($key_name));
         $this->assign('spec_item',$spec_item);
         $this->assign('key_id',!empty($item_ids)?implode('_', $item_ids):'');
