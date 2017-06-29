@@ -13,6 +13,22 @@
       <b>SKU</b>
     </td>
   </tr>
+  {volist name="list2" id="item"}
+  
+	  	<tr>
+	  
+	  <td>{$vo.name}777</td>
+	  
+	    
+	    <td>
+	      <input name="item[{$key_id}][price]" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+	    <td>
+	      <input name="item[{$key_id}][store_count]" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+	    <td>
+	      <input name="item[{$key_id}][sku]" value="">
+	      <input type="hidden" name="item[{$key_id}][key_name]" value="{$key_name}"></td>
+	  </tr>
+  {/volist}
   {if condition="!empty($key_id)"}
   <tr>
   {volist name="spec_item" id="vo"}

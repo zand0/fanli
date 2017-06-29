@@ -115,22 +115,22 @@
                     <dd>商品货号：{$vo.goods_sn}</dd>
                     <dd class="serve">
                                                 <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>
-                        <a onclick="ClearGoodsHtml('160')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>
-                        <a onclick="ClearGoodsThumb('160')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>
+                        <a onclick="ClearGoodsHtml('{$vo.goods_id}')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>
+                        <a onclick="ClearGoodsThumb('{$vo.goods_id}')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>
                     </dd>
                 </dl>
             </td>
             <td><span>{$catlist[$vo.cat_id1]}</span></td>
             <td><span>{$vo.shop_price}</span></td>
-            <td><img width="20" height="20" src="/public/static/js/yes.png" onclick="changeTableVal2('goods','goods_id','160','is_on_sale',this);changeTableVal2('goods','goods_id','160','goods_state',this);$(this).parent().parent().remove();"></td>
+            <td><img width="20" height="20" src="/public/static/js/yes.png" onclick="changeTableVal2('goods','goods_id','{$vo.goods_id}','is_on_sale',this);changeTableVal2('goods','goods_id','{$vo.goods_id}','goods_state',this);$(this).parent().parent().remove();"></td>
             <td><span style="">{$vo.store_count}</span></td>
             <td>{:date('Y-m-d H:i:s',$vo['on_time'])}</td>
             <td>
-                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','160','sort',this)" size="4" value="{$vo.sort}">
+                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','{$vo.goods_id}','sort',this)" size="4" value="{$vo.sort}">
             </td>
             <td class="nscs-table-handle">
-                <span><a href="/index.php/seller/Goods/addEditGoods/goods_id/160.html" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
-                <span><a href="javascript:void(0);" onclick="del('160')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+                <span><a href="/index.php/seller/Goods/addEditGoods/goods_id/{$vo.goods_id}.html" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+                <span><a href="javascript:void(0);" onclick="del('{$vo.goods_id}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
             </td>
         </tr>
         {/volist}

@@ -1,0 +1,416 @@
+{include file="public/header" /}
+<body>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+{include file="public/nav" /}
+<style>
+    table {
+        border-collapse: inherit !important;
+    }
+
+    .ncsc-order-contnet thead td {
+        background-color: #f5f5f5;
+    }
+
+    .ncsc-order-contnet tfoot td {
+        padding: 10px 0;
+    }
+
+    .ncsc-order-contnet h3 {
+        background-color: #f5f5f5;
+        clear: both;
+        color: #000;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 22px;
+        padding: 5px 0 5px 12px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .ncsc-order-contnet td .sum em {
+        color: #c00;
+        font: 16px/24px Verdana, Arial;
+        margin: 0 4px;
+        vertical-align: bottom;
+    }
+
+    .ncsc-order-info {
+        min-height: 224px;
+        height: 224px;
+    }
+
+    .ncsc-order-details {
+        border-right: 0;
+        height: 100%;
+    }
+</style>
+<div class="ncsc-layout wrapper">
+     <div id="layoutLeft" class="ncsc-layout-left">
+   <div id="sidebar" class="sidebar">
+     <div class="column-title" id="main-nav"><span class="ico-order"></span>
+       <h2>订单物流</h2>
+     </div>
+     <div class="column-menu">
+       <ul id="seller_center_left_menu">
+      	            <li class="">
+           		<a href="/index.php/seller/Order/index.html"> 订单列表</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Order/virtual_list.html"> 虚拟订单</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Order/delivery_list.html"> 发货商品</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Plugin/index.html"> 发货设置</a>
+           </li>
+	 	           <li class="">
+           		<a href="/index.php/seller/Comment/index.html"> 商品评论</a>
+           </li>
+	 	      </ul>
+     </div>
+   </div>
+ </div>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>发货设置</div>
+            <div class="main-content" id="mainContent">
+                <form id="delivery-form" action="/index.php/seller/Order/deliveryHandle.html" method="post">
+                    <input type="hidden" name="order_id" value="{$order.order_id}">
+                    <div class="ncsc-oredr-show">
+                        <div class="ncsc-order-info" style="height:auto; min-height:auto">
+                            <div class="ncsc-order-condition">
+                                <a href="/index.php/seller/Order/order_print/order_id/342/template/picking.html" target="_blank" class="ncbtn ncbtn-grapefruit mt5" data-original-title="打印订单"><i class="fa icon-print"></i>打印订单</a>
+                            </div>
+                        </div>
+                        <!-- 基本信息 -->
+                        <div class="ncsc-order-contnet">
+                            <div class="ncsc-order-info">
+
+                                <div class="ncsc-order-details" style="width:50%">
+                                    <div class="title">订单信息</div>
+                                    <div class="content">
+                                        <dl>
+                                            <dt>订单编号：</dt>
+                                            <dd>{$order.order_sn}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>下单时间：</dt>
+                                            <dd>{$order.add_time|date='Y-m-d H:i',###}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>配送方式：</dt>
+                                            <dd>{$order.shipping_name}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>配送费用：</dt>
+                                            <dd>{$order.shipping_price}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>配送单号：</dt>
+                                            <dd><input class="text" name="invoice_no" id="invoice_no" value="{$order.invoice_no}" onkeyup="this.value=this.value.replace(/[^\d]/g,'')"></dd>
+                                        </dl>
+                                    </div>
+                                </div>
+
+                                <!--发货状态下修改订单号-->
+                               
+                                    <div class="ncsc-order-details" style="width:50%">
+                                        <div class="title">收货信息</div>
+                                        <div class="content">
+                                            <dl>
+                                                <dt>收货人：</dt>
+                                                <dd>{$order.consignee}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>电子邮件：</dt>
+                                                <dd>{$order.email}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>地址：</dt>
+                                                <dd>{$order.address}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>电话：</dt>
+                                                <dd>{$order.mobile}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>发票抬头：</dt>
+                                                <dd>{$order.invoice_title}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                
+
+                            </div>
+                            <div class="ncsc-order-contnet">
+                                <!-- 商品信息 -->
+                                <table class="ncsc-default-table order" style="margin-top:30px">
+                                    <thead>
+                                    <tr>
+                                        <td colspan="8">
+                                            <dl class="freight"><h3>商品信息</h3></dl>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="w10">&nbsp;</th>
+                                        <th colspan="2">商品</th>
+                                        <th class="w120">单价(元)</th>
+                                        <th class="w60">数量</th>
+                                        <th class="w100">规格属性</th>
+                                        <th class="w100">会员折扣价</th>
+                                        <th class="w100">选择发货</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {volist name="orderGoods" id="good"}
+                                                                            <tr class="bd-line">
+                                            <td>&nbsp;</td>
+                                            <td class="w50">
+                                                <div class="pic-thumb">
+                                                    <a target="_blank" href="{:U('Goods/addEditGoods',array('id'=>$good[goods_id]))}"><img src="{$good['goods_id']|goods_thum_images=200,200}"></a></div>
+                                            </td>
+                                            <td class="tl">
+                                                <dl class="goods-name">
+                                                    <dt><a target="_blank" href="{:U('Goods/addEditGoods',array('id'=>$good[goods_id]))}">{$good.goods_name}</a></dt>
+                                                </dl>
+                                            </td>
+                                            <td>{$good.goods_price}<p class="green"></p></td>
+                                            <td>{$good.goods_num}</td>
+                                            <td>{$good.spec_key_name}</td>
+                                            <td>{$good.goods_price}</td>
+                                            <td>
+                                            {if condition="$good['is_send'] neq 0"}
+						                        	{switch name="good.is_send" }
+													    {case value="1"}已发货{/case}
+													    {case value="2"}已退货{/case}
+													    {case value="3"}已换货{/case}
+													    {default /}未发货
+													{/switch} 
+						                   {else /}
+						                        	<input type="checkbox" name="goods[]" value="{$good.rec_id}" checked="checked">
+						                    {/if}
+                                                                                               </td>
+                                        </tr>
+                                         {/volist}                               </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="20">
+                                            <dl class="sum">
+                                                <dt>小计：</dt>
+                                                <dd><em>{$order.goods_price}</em>元</dd>
+                                            </dl>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            
+                            <div class="contact-info" style="margin-top:10px;">
+					          <h3>发货单备注</h3>
+					          <dl class="row">
+						        <dt class="tit">
+						          <label for="note">发货单备注</label>
+						        </dt>
+						        <dd class="opt" style="margin-left:10px">
+						        
+						         <textarea id="note" name="note" style="width:600px" rows="6" placeholder="请输入操作备注" class="tarea"></textarea>
+						        </dd>
+						      </dl> 
+						      <dl class="row">
+						        <dt class="tit">
+						          <label for="note">可执行操作</label>
+						        </dt>
+						        <dd class="opt" style="margin-left:10px">
+					               		<a class="ncbtn ncbtn-grapefruit mt5" onclick="dosubmit()">确认发货</a>
+						        </dd>
+						      </dl> 
+					        </div>
+                            <!--发货状态下课修改订单号-->
+        					                            <!-- 操作记录 -->
+                            <div class="ncsc-order-contnet">
+                                <table class="ncsc-default-table order">
+                                    <thead>
+                                    <tr>
+                                        <td colspan="20">
+                                            <dl class="freight"><h3>发货记录</h3></dl>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="w100">操作者(商家)</th>
+                                        <th class="w160">发货时间</th>
+                                        <th class="w100">发货单号</th>
+                                        <th class="w100">收货人</th>
+                                        <th class="w200">快递公司</th>
+                                        <th class="w80">备注</th>
+                                        <th class="w200">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {volist name="delivery_record" id="log"}
+                                                                            <tr class="bd-line">
+                                            <td class="w100">{$log.user_name}</td>
+                                            <td class="w160">{$log.create_time|date='Y-m-d H:i:s',###}</td>
+                                            <td class="w100">{$log.invoice_no}</td>
+                                            <td class="w100">{$log.consignee}</td>
+                                            <td class="w100">{$log.shipping_name}</td>
+                                            <td class="w80">{$log.note}</td>
+                                            <td class="w200"><a href="http://www.kuaidi100.com/" target="_blank">查看物流</a></td>
+                                        </tr>
+                                     {/volist}   
+                                                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+<div id="cti">
+  <div class="wrapper">
+    <ul>
+          </ul>
+  </div>
+</div>
+<div id="faq">
+  <div class="wrapper">
+      </div>
+</div>
+
+<div id="footer">
+  <p><a href="/">首页</a>
+                | <a href="http://www.tpshop.cn/">招聘英才</a>
+                | <a href="http://www.tpshop.cn/">合作及洽谈</a>
+                | <a href="http://www.tpshop.cn/">联系我们</a>
+                | <a href="http://www.tpshop.cn/">关于我们</a>
+                | <a href="http://www.tpshop.cn/">物流自取</a>
+                | <a href="http://www.tpshop.cn/">友情链接</a>
+  </p>
+  Copyright 2017 <a href="/index.php/Seller/Order/delivery_info/order_id/342.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
+</div>
+<script type="text/javascript" src="/public/static/js/jquery.cookie.js"></script>
+<link href="/public/static/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/static/js/perfect-scrollbar.min.js"></script> 
+<script type="text/javascript" src="/public/static/js/jquery.qtip.min.js"></script>
+<link href="/public/static/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<div id="tbox">
+  <div class="btn" id="msg"><a href="/index.php/Seller/index/store_msg.html"><i class="msg"><em>1</em></i>站内消息</a></div>
+  <div class="btn" id="im"><i class="im"><em id="new_msg" style="display:none;"></em></i><a href="javascript:void(0);">在线联系</a></div>
+  <div class="btn" id="gotop" style="display: block;"><i class="top"></i><a href="javascript:void(0);">返回顶部</a></div>
+</div>
+<script type="text/javascript">
+var current_control = 'Order/delivery_info';
+$(document).ready(function(){
+    //添加删除快捷操作
+    $('[nctype="btn_add_quicklink"]').on('click', function() {
+        var $quicklink_item = $(this).parent();
+        var item = $(this).attr('data-quicklink-act');
+        if($quicklink_item.hasClass('selected')) {
+            $.post("/index.php/Seller/Index/quicklink_del.html", { item: item }, function(data) {
+                $quicklink_item.removeClass('selected');
+                var idstr = 'quicklink_'+ item;
+                $('#'+idstr).remove();
+            }, "json");
+        } else {
+            var scount = $('#quicklink_list').find('dd.selected').length;
+            if(scount >= 8) {
+                layer.msg('快捷操作最多添加8个', {icon: 2,time: 2000});
+            } else {
+                $.post("/index.php/Seller/Index/quicklink_add.html", { item: item }, function(data) {
+                    $quicklink_item.addClass('selected');
+                    if(current_control=='Index/index'){
+                        var $link = $quicklink_item.find('a');
+                        var menu_name = $link.text();
+                        var menu_link = $link.attr('href');
+                        var menu_item = '<li id="quicklink_' + item + '"><a href="' + menu_link + '">' + menu_name + '</a></li>';
+                        $(menu_item).appendTo('#seller_center_left_menu').hide().fadeIn();
+                    }
+                }, "json");
+            }
+        }
+    });
+    //浮动导航  waypoints.js
+    $("#sidebar,#mainContent").waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+        });
+    });
+    // 搜索商品不能为空
+    $('input[nctype="search_submit"]').click(function(){
+        if ($('input[nctype="search_text"]').val() == '') {
+            return false;
+        }
+    });
+
+	function fade() {
+		$("img[rel='lazy']").each(function () {
+			var $scroTop = $(this).offset();
+			if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+				$(this).hide();
+				$(this).attr("src", $(this).attr("data-url"));
+				$(this).removeAttr("rel");
+				$(this).removeAttr("name");
+				$(this).fadeIn(500);
+			}
+		});
+	}
+	if($("img[rel='lazy']").length > 0) {
+		$(window).scroll(function () {
+			fade();
+		});
+	};
+	fade();
+	
+    function delfunc(obj){
+    	layer.confirm('确认删除？', {
+    		  btn: ['确定','取消'] //按钮
+    		}, function(){
+    		    // 确定
+   				$.ajax({
+   					type : 'post',
+   					url : $(obj).attr('data-url'),
+   					data : {act:'del',del_id:$(obj).attr('data-id')},
+   					dataType : 'json',
+   					success : function(data){
+                        layer.closeAll();
+   						if(data==1){
+   							layer.msg('操作成功', {icon: 1});
+   							$(obj).parent().parent().parent().remove();
+   						}else{
+   							layer.msg(data, {icon: 2,time: 2000});
+   						}
+   					}
+   				})
+    		}, function(index){
+    			layer.close(index);
+    			return false;// 取消
+    		}
+    	);
+    }
+</script>
+<script>
+    function dosubmit() {
+        if ($('#invoice_no').val() == '') {
+            layer.alert('请输入配送单号', {icon: 2});  // alert('请输入配送单号');
+            return;
+        }
+        var a = [];
+        $('input[name*=goods]').each(function (i, o) {
+            if ($(o).is(':checked')) {
+                a.push($(o).val());
+            }
+        });
+        /*if (a.length == 0) {
+            layer.alert('请选择发货商品', {icon: 2});  //alert('请选择发货商品');
+            return;
+        }*/
+        $('#delivery-form').submit();
+    }
+</script>
+
+
+</body></html>

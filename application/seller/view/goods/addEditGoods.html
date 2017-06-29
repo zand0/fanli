@@ -67,9 +67,9 @@
     var URL_getMovie = "/index.php/Admin/Ueditor/getMovie/savepath/article.html";
     var URL_home = "";
 </script>
-<script type="text/javascript" charset="utf-8" src="/public/static/js/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/public/static/js/ueditor.all.min.js"> </script>
-<script type="text/javascript" charset="utf-8" src="/public/static/js/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="/public/plugins/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/public/plugins/Ueditor/ueditor.all.min.js"> </script>
+ <script type="text/javascript" charset="utf-8" src="/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript">
 
     var editor;
@@ -228,7 +228,9 @@
                                 <select name="cat_id1" id="cat_id1" onchange="get_category2(this.value,'cat_id2','0');">
                                     <option value="0">请选择商品分类</option>
                                     {volist name="cat_list" id="vo"}
-                                    <option value="{$vo.id}">{$vo.name} </option>
+                                    <option value="{$vo.id}"  {if condition="$vo['id'] eq $level_cat['1']"}selected="selected"{/if} >
+                                    {$vo.name}
+                                    </option>
                                     {/volist}
                                                                             
                                                                     </select>
@@ -244,7 +246,7 @@
                                 <p class="hint">请选择商品分类</p>
                             </dd>
                         </dl>
-                        <dl>
+                        <!-- <dl>
                             <dt>本店分类：</dt>
                             <dd>
                                 <select name="store_cat_id1" id="store_cat_id1" onchange="get_store_category(this.value,'store_cat_id2','0');">
@@ -256,715 +258,23 @@
                                 <span id="err_cat_id" style="color:#F00; display:none;"></span>
                                 <p class="hint">可不选,为了用户更好检索到该商品，最好选择</p>
                             </dd>
-                        </dl>
+                        </dl> -->
                         <dl>
                             <dt>商品品牌：</dt>
                             <dd>
                                 <select name="brand_id" id="brand_id">
                                     <option value="0">选择品牌</option>
-                                                                                <option value="224" data-cat_id1="8" style="display: none;">
-                                              --   361°                                            </option>
-                                                                                    <option value="80" data-cat_id1="6" style="display: none;">
-                                              --   倩碧/CLINIQUE                                            </option>
-                                                                                    <option value="194" data-cat_id1="3" style="display: none;">
-                                              --   宏碁/acer                                            </option>
-                                                                                    <option value="27" data-cat_id1="3" style="display: none;">
-                                              --   怡达/yida                                            </option>
-                                                                                    <option value="310" data-cat_id1="0">
-                                              --   斐利比/Philippi                                            </option>
-                                                                                    <option value="118" data-cat_id1="4" style="display: none;">
-                                              --   榄菊                                            </option>
-                                                                                    <option value="258" data-cat_id1="7" style="display: none;">
-                                              --   缪缪/MIU MIU                                            </option>
-                                                                                    <option value="280" data-cat_id1="7" style="display: none;">
-                                              --   蔻驰/COACH                                            </option>
-                                                                                    <option value="214" data-cat_id1="5" style="display: none;">
-                                            A  --   A21                                            </option>
-                                                                                    <option value="266" data-cat_id1="7" style="display: none;">
-                                            A  --   Amii                                            </option>
-                                                                                    <option value="308" data-cat_id1="0">
-                                            A  --   奥迪双钻/AULDEY                                            </option>
-                                                                                    <option value="64" data-cat_id1="0">
-                                            A  --   安佳/Anchor                                            </option>
-                                                                                    <option value="135" data-cat_id1="0">
-                                            A  --   安佳/Anchor                                            </option>
-                                                                                    <option value="207" data-cat_id1="5" style="display: none;">
-                                            A  --   安踏/ANTA                                            </option>
-                                                                                    <option value="231" data-cat_id1="8" style="display: none;">
-                                            A  --   安踏/ANTA                                            </option>
-                                                                                    <option value="237" data-cat_id1="0">
-                                            A  --   昂立/Onlly                                            </option>
-                                                                                    <option value="345" data-cat_id1="0">
-                                            A  --   澳佳宝/BLACKMORES                                            </option>
-                                                                                    <option value="155" data-cat_id1="4" style="display: none;">
-                                            A  --   澳西奴                                            </option>
-                                                                                    <option value="309" data-cat_id1="0">
-                                            A  --   澳贝/auby                                            </option>
-                                                                                    <option value="263" data-cat_id1="7" style="display: none;">
-                                            A  --   爱华仕/Oiwas                                            </option>
-                                                                                    <option value="328" data-cat_id1="0">
-                                            A  --   爱安德/AND                                            </option>
-                                                                                    <option value="327" data-cat_id1="0">
-                                            A  --   爱科来/arkray                                            </option>
-                                                                                    <option value="73" data-cat_id1="0">
-                                            A  --   艾美/Emmi                                            </option>
-                                                                                    <option value="41" data-cat_id1="0">
-                                            A  --   阿华田/Ovaltine                                            </option>
-                                                                                    <option value="21" data-cat_id1="3" style="display: none;">
-                                            A  --   阿尔卑斯/Alpenliebe                                            </option>
-                                                                                    <option value="268" data-cat_id1="7" style="display: none;">
-                                            A  --   阿札/A-ZA                                            </option>
-                                                                                    <option value="264" data-cat_id1="7" style="display: none;">
-                                            A  --   阿玛尼/EMPORIO ARMANI                                            </option>
-                                                                                    <option value="286" data-cat_id1="7" style="display: none;">
-                                            A  --   阿玛尼/EMPORIO ARMANI                                            </option>
-                                                                                    <option value="201" data-cat_id1="5" style="display: none;">
-                                            A  --   阿迪达斯/adidas                                            </option>
-                                                                                    <option value="221" data-cat_id1="8" style="display: none;">
-                                            A  --   阿迪达斯/adidas                                            </option>
-                                                                                    <option value="289" data-cat_id1="7" style="display: none;">
-                                            B  --   BUREI                                            </option>
-                                                                                    <option value="167" data-cat_id1="2" style="display: none;">
-                                            B  --   倍轻松/bero                                            </option>
-                                                                                    <option value="315" data-cat_id1="0">
-                                            B  --   兵兵                                            </option>
-                                                                                    <option value="171" data-cat_id1="2" style="display: none;">
-                                            B  --   北欧欧慕/nathome                                            </option>
-                                                                                    <option value="275" data-cat_id1="7" style="display: none;">
-                                            B  --   变形金刚/Transformers                                            </option>
-                                                                                    <option value="208" data-cat_id1="5" style="display: none;">
-                                            B  --   宝娜斯                                            </option>
-                                                                                    <option value="336" data-cat_id1="0">
-                                            B  --   宝氏/Post                                            </option>
-                                                                                    <option value="257" data-cat_id1="7" style="display: none;">
-                                            B  --   宝缇嘉/Bottega Veneta                                            </option>
-                                                                                    <option value="301" data-cat_id1="0">
-                                            B  --   宝视达                                            </option>
-                                                                                    <option value="274" data-cat_id1="7" style="display: none;">
-                                            B  --   巴宝莉/Burberry                                            </option>
-                                                                                    <option value="233" data-cat_id1="8" style="display: none;">
-                                            B  --   彪马/Puma                                            </option>
-                                                                                    <option value="83" data-cat_id1="6" style="display: none;">
-                                            B  --   泊美/PUREMILD                                            </option>
-                                                                                    <option value="25" data-cat_id1="3" style="display: none;">
-                                            B  --   波力/PO-LI                                            </option>
-                                                                                    <option value="202" data-cat_id1="5" style="display: none;">
-                                            B  --   波司登/Bosideng                                            </option>
-                                                                                    <option value="267" data-cat_id1="7" style="display: none;">
-                                            B  --   波斯丹顿/Bostanten                                            </option>
-                                                                                    <option value="33" data-cat_id1="0">
-                                            B  --   百味林                                            </option>
-                                                                                    <option value="79" data-cat_id1="6" style="display: none;">
-                                            B  --   碧欧泉/BIOTHERM                                            </option>
-                                                                                    <option value="243" data-cat_id1="0">
-                                            B  --   碧生源/Besunyen                                            </option>
-                                                                                    <option value="296" data-cat_id1="0">
-                                            B  --   秉信                                            </option>
-                                                                                    <option value="96" data-cat_id1="10" style="display: none;">
-                                            B  --   贝因美/BEINGMATE                                            </option>
-                                                                                    <option value="70" data-cat_id1="0">
-                                            B  --   贝尔/BEIER                                            </option>
-                                                                                    <option value="265" data-cat_id1="7" style="display: none;">
-                                            B  --   贝尔/BEIER                                            </option>
-                                                                                    <option value="177" data-cat_id1="2" style="display: none;">
-                                            B  --   贝尔斯顿/BESTDAY                                            </option>
-                                                                                    <option value="311" data-cat_id1="0">
-                                            B  --   邦迪/BAND-AID                                            </option>
-                                                                                    <option value="246" data-cat_id1="0">
-                                            C  --   初元                                            </option>
-                                                                                    <option value="210" data-cat_id1="5" style="display: none;">
-                                            C  --   初语/TOYOUTH                                            </option>
-                                                                                    <option value="218" data-cat_id1="8" style="display: none;">
-                                            C  --   川崎/kawasaki                                            </option>
-                                                                                    <option value="22" data-cat_id1="3" style="display: none;">
-                                            C  --   春光/chun guang                                            </option>
-                                                                                    <option value="173" data-cat_id1="2" style="display: none;">
-                                            C  --   春笑                                            </option>
-                                                                                    <option value="42" data-cat_id1="0">
-                                            C  --   晨光/MG                                            </option>
-                                                                                    <option value="298" data-cat_id1="0">
-                                            C  --   灿坤/EUPA                                            </option>
-                                                                                    <option value="121" data-cat_id1="4" style="display: none;">
-                                            C  --   超能                                            </option>
-                                                                                    <option value="270" data-cat_id1="7" style="display: none;">
-                                            D  --   DOODOO                                            </option>
-                                                                                    <option value="12" data-cat_id1="2" style="display: none;">
-                                            D  --   东信/EASTCOM                                            </option>
-                                                                                    <option value="85" data-cat_id1="6" style="display: none;">
-                                            D  --   丹姿/DANZ                                            </option>
-                                                                                    <option value="276" data-cat_id1="7" style="display: none;">
-                                            D  --   哆啦A梦/Doraemon                                            </option>
-                                                                                    <option value="31" data-cat_id1="0">
-                                            D  --   多力多滋/Doritos                                            </option>
-                                                                                    <option value="92" data-cat_id1="10" style="display: none;">
-                                            D  --   多美滋/Dumex                                            </option>
-                                                                                    <option value="68" data-cat_id1="0">
-                                            D  --   多美鲜/Suki                                            </option>
-                                                                                    <option value="142" data-cat_id1="0">
-                                            D  --   多美鲜/Suki                                            </option>
-                                                                                    <option value="76" data-cat_id1="6" style="display: none;">
-                                            D  --   大宝/Dabao                                            </option>
-                                                                                    <option value="295" data-cat_id1="0">
-                                            D  --   大富翁/Uncle Wang                                            </option>
-                                                                                    <option value="338" data-cat_id1="0">
-                                            D  --   大王/GOO.N                                            </option>
-                                                                                    <option value="176" data-cat_id1="2" style="display: none;">
-                                            D  --   德国博朗/BRAUN                                            </option>
-                                                                                    <option value="52" data-cat_id1="0">
-                                            D  --   德运/Devondale                                            </option>
-                                                                                    <option value="66" data-cat_id1="0">
-                                            D  --   德运/Devondale                                            </option>
-                                                                                    <option value="102" data-cat_id1="10" style="display: none;">
-                                            D  --   德运/Devondale                                            </option>
-                                                                                    <option value="137" data-cat_id1="0">
-                                            D  --   德运/Devondale                                            </option>
-                                                                                    <option value="337" data-cat_id1="0">
-                                            D  --   德运/Devondale                                            </option>
-                                                                                    <option value="183" data-cat_id1="3" style="display: none;">
-                                            D  --   戴尔/DELL                                            </option>
-                                                                                    <option value="288" data-cat_id1="7" style="display: none;">
-                                            D  --   杜嘉班纳/DG                                            </option>
-                                                                                    <option value="112" data-cat_id1="4" style="display: none;">
-                                            D  --   滴露/Dettol                                            </option>
-                                                                                    <option value="222" data-cat_id1="8" style="display: none;">
-                                            D  --   迪士尼/Disney                                            </option>
-                                                                                    <option value="282" data-cat_id1="7" style="display: none;">
-                                            D  --   迪士尼/Disney                                            </option>
-                                                                                    <option value="115" data-cat_id1="4" style="display: none;">
-                                            D  --   雕牌                                            </option>
-                                                                                    <option value="44" data-cat_id1="0">
-                                            D  --   顶好/Soyfresh                                            </option>
-                                                                                    <option value="56" data-cat_id1="0">
-                                            D  --   顶好/Soyfresh                                            </option>
-                                                                                    <option value="254" data-cat_id1="7" style="display: none;">
-                                            E  --   ELLE                                            </option>
-                                                                                    <option value="272" data-cat_id1="7" style="display: none;">
-                                            E  --   ELLE                                            </option>
-                                                                                    <option value="18" data-cat_id1="2" style="display: none;">
-                                            E  --   E人E本                                            </option>
-                                                                                    <option value="297" data-cat_id1="0">
-                                            F  --   福库/Cuckoo                                            </option>
-                                                                                    <option value="81" data-cat_id1="6" style="display: none;">
-                                            F  --   芳珂/Fancl                                            </option>
-                                                                                    <option value="54" data-cat_id1="0">
-                                            F  --   风行                                            </option>
-                                                                                    <option value="7" data-cat_id1="1" style="display: none;">
-                                            F  --   飞利浦/PHILIPS                                            </option>
-                                                                                    <option value="175" data-cat_id1="2" style="display: none;">
-                                            F  --   飞利浦/PHILIPS                                            </option>
-                                                                                    <option value="278" data-cat_id1="7" style="display: none;">
-                                            G  --   GUESS                                            </option>
-                                                                                    <option value="129" data-cat_id1="0">
-                                            G  --   光明                                            </option>
-                                                                                    <option value="165" data-cat_id1="2" style="display: none;">
-                                            G  --   光明                                            </option>
-                                                                                    <option value="256" data-cat_id1="7" style="display: none;">
-                                            G  --   古驰/Gucci                                            </option>
-                                                                                    <option value="232" data-cat_id1="8" style="display: none;">
-                                            G  --   哥伦比亚/Columbia                                            </option>
-                                                                                    <option value="252" data-cat_id1="0">
-                                            G  --   广元堂                                            </option>
-                                                                                    <option value="162" data-cat_id1="4" style="display: none;">
-                                            G  --   格致诚品                                            </option>
-                                                                                    <option value="38" data-cat_id1="0">
-                                            G  --   桂格/QUAKER                                            </option>
-                                                                                    <option value="61" data-cat_id1="0">
-                                            G  --   葛兰纳诺/GRANAROLO                                            </option>
-                                                                                    <option value="334" data-cat_id1="0">
-                                            G  --   钙尔奇/Caltrate                                            </option>
-                                                                                    <option value="101" data-cat_id1="10" style="display: none;">
-                                            G  --   高培/GlodMax                                            </option>
-                                                                                    <option value="10" data-cat_id1="1" style="display: none;">
-                                            H  --   HTC                                            </option>
-                                                                                    <option value="343" data-cat_id1="0">
-                                            H  --   亨氏/Heinz                                            </option>
-                                                                                    <option value="1" data-cat_id1="6" style="display: none;">
-                                            H  --   华为/HUAWEI                                            </option>
-                                                                                    <option value="146" data-cat_id1="4" style="display: none;">
-                                            H  --   华乐/huale                                            </option>
-                                                                                    <option value="37" data-cat_id1="0">
-                                            H  --   华味亨                                            </option>
-                                                                                    <option value="186" data-cat_id1="3" style="display: none;">
-                                            H  --   华硕/ASUS                                            </option>
-                                                                                    <option value="340" data-cat_id1="0">
-                                            H  --   和光堂/WaKODO                                            </option>
-                                                                                    <option value="225" data-cat_id1="8" style="display: none;">
-                                            H  --   回力/Warrior                                            </option>
-                                                                                    <option value="147" data-cat_id1="4" style="display: none;">
-                                            H  --   好伴侣/hao ban lv                                            </option>
-                                                                                    <option value="248" data-cat_id1="0">
-                                            H  --   好医生                                            </option>
-                                                                                    <option value="238" data-cat_id1="0">
-                                            H  --   恒寿堂/HENG SHOU TANG                                            </option>
-                                                                                    <option value="355" data-cat_id1="3" style="display: none;">
-                                            H  --   惠普                                            </option>
-                                                                                    <option value="182" data-cat_id1="3" style="display: none;">
-                                            H  --   惠普/hp                                            </option>
-                                                                                    <option value="93" data-cat_id1="10" style="display: none;">
-                                            H  --   惠氏/Wyeth                                            </option>
-                                                                                    <option value="19" data-cat_id1="2" style="display: none;">
-                                            H  --   海信/Hisense                                            </option>
-                                                                                    <option value="143" data-cat_id1="0">
-                                            H  --   海天下                                            </option>
-                                                                                    <option value="14" data-cat_id1="2" style="display: none;">
-                                            H  --   海尔/Haier                                            </option>
-                                                                                    <option value="314" data-cat_id1="0">
-                                            H  --   海氏海诺/HAINUO                                            </option>
-                                                                                    <option value="281" data-cat_id1="7" style="display: none;">
-                                            H  --   海鸥表/Sea-Gull                                            </option>
-                                                                                    <option value="24" data-cat_id1="3" style="display: none;">
-                                            H  --   皇冠/Danisa                                            </option>
-                                                                                    <option value="247" data-cat_id1="0">
-                                            H  --   红桃K                                            </option>
-                                                                                    <option value="331" data-cat_id1="0">
-                                            H  --   花王/Merries                                            </option>
-                                                                                    <option value="200" data-cat_id1="5" style="display: none;">
-                                            H  --   花花公子/PLAYBOY                                            </option>
-                                                                                    <option value="131" data-cat_id1="0">
-                                            H  --   鸿福堂/HUNG FOOK TONG                                            </option>
-                                                                                    <option value="307" data-cat_id1="0">
-                                            J  --   九阳/Joyoung                                            </option>
-                                                                                    <option value="89" data-cat_id1="6" style="display: none;">
-                                            J  --   京润珍珠                                            </option>
-                                                                                    <option value="91" data-cat_id1="6" style="display: none;">
-                                            J  --   娇兰/Guerlain                                            </option>
-                                                                                    <option value="110" data-cat_id1="4" style="display: none;">
-                                            J  --   娇妍/JOLLY                                            </option>
-                                                                                    <option value="126" data-cat_id1="4" style="display: none;">
-                                            J  --   洁霸/Attack                                            </option>
-                                                                                    <option value="109" data-cat_id1="10" style="display: none;">
-                                            J  --   绝对宝贝/JUST BABY                                            </option>
-                                                                                    <option value="84" data-cat_id1="6" style="display: none;">
-                                            J  --   近江蔓莎                                            </option>
-                                                                                    <option value="189" data-cat_id1="3" style="display: none;">
-                                            J  --   金士顿/Kingston                                            </option>
-                                                                                    <option value="321" data-cat_id1="0">
-                                            J  --   金奥力                                            </option>
-                                                                                    <option value="269" data-cat_id1="7" style="display: none;">
-                                            K  --   克路驰/CLUCI                                            </option>
-                                                                                    <option value="174" data-cat_id1="2" style="display: none;">
-                                            K  --   凯仕乐/KASRROW                                            </option>
-                                                                                    <option value="229" data-cat_id1="8" style="display: none;">
-                                            K  --   凯速                                            </option>
-                                                                                    <option value="251" data-cat_id1="0">
-                                            K  --   凯镛                                            </option>
-                                                                                    <option value="226" data-cat_id1="8" style="display: none;">
-                                            K  --   匡威/Converse                                            </option>
-                                                                                    <option value="39" data-cat_id1="0">
-                                            K  --   卡夫/KRAFT                                            </option>
-                                                                                    <option value="330" data-cat_id1="0">
-                                            K  --   卡夫/KRAFT                                            </option>
-                                                                                    <option value="74" data-cat_id1="6" style="display: none;">
-                                            K  --   卡姿兰/CARSLAN                                            </option>
-                                                                                    <option value="108" data-cat_id1="10" style="display: none;">
-                                            K  --   卡瑞特兹/Karivita                                            </option>
-                                                                                    <option value="104" data-cat_id1="10" style="display: none;">
-                                            K  --   可瑞康/Karicare                                            </option>
-                                                                                    <option value="341" data-cat_id1="0">
-                                            K  --   可瑞康/Karicare                                            </option>
-                                                                                    <option value="138" data-cat_id1="0">
-                                            K  --   坎诺拉/Canola                                            </option>
-                                                                                    <option value="179" data-cat_id1="2" style="display: none;">
-                                            K  --   康夫/kangfu                                            </option>
-                                                                                    <option value="150" data-cat_id1="4" style="display: none;">
-                                            K  --   康尔馨/Canasin                                            </option>
-                                                                                    <option value="32" data-cat_id1="0">
-                                            K  --   康师傅/Master Kong                                            </option>
-                                                                                    <option value="319" data-cat_id1="0">
-                                            K  --   康扉/KANGFEI                                            </option>
-                                                                                    <option value="67" data-cat_id1="0">
-                                            K  --   康维多/Primavita                                            </option>
-                                                                                    <option value="103" data-cat_id1="10" style="display: none;">
-                                            K  --   康维多/Primavita                                            </option>
-                                                                                    <option value="116" data-cat_id1="4" style="display: none;">
-                                            K  --   开米/Kami                                            </option>
-                                                                                    <option value="191" data-cat_id1="3" style="display: none;">
-                                            K  --   开馨宝/KAI XIN BAO                                            </option>
-                                                                                    <option value="300" data-cat_id1="0">
-                                            K  --   开馨宝/KAI XIN BAO                                            </option>
-                                                                                    <option value="141" data-cat_id1="0">
-                                            K  --   科尔沁/KERCHIN                                            </option>
-                                                                                    <option value="180" data-cat_id1="2" style="display: none;">
-                                            K  --   酷力                                            </option>
-                                                                                    <option value="333" data-cat_id1="0">
-                                            L  --   LG                                            </option>
-                                                                                    <option value="30" data-cat_id1="0">
-                                            L  --   乐事/Lay s                                            </option>
-                                                                                    <option value="294" data-cat_id1="0">
-                                            L  --   乐比比/LEBIBI                                            </option>
-                                                                                    <option value="140" data-cat_id1="0">
-                                            L  --   乐芝牛/The Laughing Cow                                            </option>
-                                                                                    <option value="163" data-cat_id1="4" style="display: none;">
-                                            L  --   六朝家居/luc life                                            </option>
-                                                                                    <option value="145" data-cat_id1="0">
-                                            L  --   兰皇                                            </option>
-                                                                                    <option value="82" data-cat_id1="6" style="display: none;">
-                                            L  --   兰芝/LANEIGE                                            </option>
-                                                                                    <option value="78" data-cat_id1="6" style="display: none;">
-                                            L  --   兰蔻/LANCOME                                            </option>
-                                                                                    <option value="71" data-cat_id1="0">
-                                            L  --   兰诺斯/Lemnos                                            </option>
-                                                                                    <option value="299" data-cat_id1="0">
-                                            L  --   利仁/LIVEN                                            </option>
-                                                                                    <option value="271" data-cat_id1="7" style="display: none;">
-                                            L  --   拉菲斯汀/Lafestin                                            </option>
-                                                                                    <option value="46" data-cat_id1="0">
-                                            L  --   李子园                                            </option>
-                                                                                    <option value="285" data-cat_id1="7" style="display: none;">
-                                            L  --   李维斯/Levi s                                            </option>
-                                                                                    <option value="157" data-cat_id1="4" style="display: none;">
-                                            L  --   来赉                                            </option>
-                                                                                    <option value="98" data-cat_id1="10" style="display: none;">
-                                            L  --   林贝儿/IMPERIAL.XO                                            </option>
-                                                                                    <option value="273" data-cat_id1="7" style="display: none;">
-                                            L  --   浪琴/Longines                                            </option>
-                                                                                    <option value="36" data-cat_id1="0">
-                                            L  --   立丰/lifefun                                            </option>
-                                                                                    <option value="119" data-cat_id1="4" style="display: none;">
-                                            L  --   立白/Liby                                            </option>
-                                                                                    <option value="124" data-cat_id1="4" style="display: none;">
-                                            L  --   绿伞/EVER GREEN                                            </option>
-                                                                                    <option value="34" data-cat_id1="0">
-                                            L  --   绿帝/green king                                            </option>
-                                                                                    <option value="75" data-cat_id1="6" style="display: none;">
-                                            L  --   老中医                                            </option>
-                                                                                    <option value="193" data-cat_id1="3" style="display: none;">
-                                            L  --   联想/Lenovo                                            </option>
-                                                                                    <option value="154" data-cat_id1="4" style="display: none;">
-                                            L  --   莱薇/Lavie                                            </option>
-                                                                                    <option value="123" data-cat_id1="4" style="display: none;">
-                                            L  --   蓝月亮                                            </option>
-                                                                                    <option value="158" data-cat_id1="4" style="display: none;">
-                                            L  --   路途乐                                            </option>
-                                                                                    <option value="90" data-cat_id1="6" style="display: none;">
-                                            L  --   隆力奇/LONGLIQI                                            </option>
-                                                                                    <option value="153" data-cat_id1="4" style="display: none;">
-                                            L  --   零听                                            </option>
-                                                                                    <option value="318" data-cat_id1="0">
-                                            L  --   零听                                            </option>
-                                                                                    <option value="181" data-cat_id1="2" style="display: none;">
-                                            L  --   雷瓦/RIWA                                            </option>
-                                                                                    <option value="227" data-cat_id1="8" style="display: none;">
-                                            L  --   骆驼/CAMEL                                            </option>
-                                                                                    <option value="234" data-cat_id1="8" style="display: none;">
-                                            L  --   骆驼牌                                            </option>
-                                                                                    <option value="159" data-cat_id1="4" style="display: none;">
-                                            L  --   龙之涵                                            </option>
-                                                                                    <option value="325" data-cat_id1="0">
-                                            L  --   龙贝儿/Loboor                                            </option>
-                                                                                    <option value="113" data-cat_id1="4" style="display: none;">
-                                            M  --   妙管家/MAGIC AMAH                                            </option>
-                                                                                    <option value="2" data-cat_id1="1" style="display: none;">
-                                            M  --   摩托罗拉/MOTOROLA                                            </option>
-                                                                                    <option value="106" data-cat_id1="10" style="display: none;">
-                                            M  --   明一/wissun                                            </option>
-                                                                                    <option value="199" data-cat_id1="3" style="display: none;">
-                                            M  --   明基/BenQ                                            </option>
-                                                                                    <option value="287" data-cat_id1="7" style="display: none;">
-                                            M  --   梅花/Titoni                                            </option>
-                                                                                    <option value="213" data-cat_id1="5" style="display: none;">
-                                            M  --   梦娜/MengNa                                            </option>
-                                                                                    <option value="152" data-cat_id1="4" style="display: none;">
-                                            M  --   梦特娇/MONTAGUT                                            </option>
-                                                                                    <option value="259" data-cat_id1="7" style="display: none;">
-                                            M  --   梦特娇/MONTAGUT                                            </option>
-                                                                                    <option value="28" data-cat_id1="3" style="display: none;">
-                                            M  --   母亲                                            </option>
-                                                                                    <option value="178" data-cat_id1="2" style="display: none;">
-                                            M  --   美克斯/MKS                                            </option>
-                                                                                    <option value="354" data-cat_id1="5" style="display: none;">
-                                            M  --   美女牌                                            </option>
-                                                                                    <option value="344" data-cat_id1="0">
-                                            M  --   谜尚/MISSHA                                            </option>
-                                                                                    <option value="326" data-cat_id1="0">
-                                            M  --   迈克大夫/microlife                                            </option>
-                                                                                    <option value="230" data-cat_id1="8" style="display: none;">
-                                            N  --   NIKKO                                            </option>
-                                                                                    <option value="139" data-cat_id1="0">
-                                            N  --   NPG                                            </option>
-                                                                                    <option value="303" data-cat_id1="0">
-                                            N  --   内野/UCHINO                                            </option>
-                                                                                    <option value="62" data-cat_id1="0">
-                                            N  --   南阳                                            </option>
-                                                                                    <option value="107" data-cat_id1="10" style="display: none;">
-                                            N  --   牛奶客/Neolac                                            </option>
-                                                                                    <option value="13" data-cat_id1="2" style="display: none;">
-                                            N  --   纽曼/Newsmy                                            </option>
-                                                                                    <option value="250" data-cat_id1="0">
-                                            N  --   纽曼思/Nemans                                            </option>
-                                                                                    <option value="63" data-cat_id1="0">
-                                            N  --   纽瑞滋/Nouriz                                            </option>
-                                                                                    <option value="100" data-cat_id1="10" style="display: none;">
-                                            N  --   纽瑞滋/Nouriz                                            </option>
-                                                                                    <option value="220" data-cat_id1="8" style="display: none;">
-                                            N  --   耐克/NIKE                                            </option>
-                                                                                    <option value="149" data-cat_id1="4" style="display: none;">
-                                            N  --   诺伊曼/noyoke                                            </option>
-                                                                                    <option value="5" data-cat_id1="1" style="display: none;">
-                                            N  --   诺基亚/NOKIA                                            </option>
-                                                                                    <option value="198" data-cat_id1="3" style="display: none;">
-                                            N  --   诺基亚/NOKIA                                            </option>
-                                                                                    <option value="209" data-cat_id1="5" style="display: none;">
-                                            O  --   ONEBUYE                                            </option>
-                                                                                    <option value="8" data-cat_id1="1" style="display: none;">
-                                            O  --   OPPO                                            </option>
-                                                                                    <option value="215" data-cat_id1="5" style="display: none;">
-                                            O  --   OopsCiah                                            </option>
-                                                                                    <option value="322" data-cat_id1="0">
-                                            O  --   欧姆龙/Omron                                            </option>
-                                                                                    <option value="51" data-cat_id1="0">
-                                            O  --   欧德堡/OLDENBURGER                                            </option>
-                                                                                    <option value="65" data-cat_id1="0">
-                                            O  --   欧德堡/OLDENBURGER                                            </option>
-                                                                                    <option value="136" data-cat_id1="0">
-                                            O  --   欧德堡/OLDENBURGER                                            </option>
-                                                                                    <option value="88" data-cat_id1="6" style="display: none;">
-                                            O  --   欧莱雅/L OREAL                                            </option>
-                                                                                    <option value="29" data-cat_id1="3" style="display: none;">
-                                            P  --   品客/Pringles                                            </option>
-                                                                                    <option value="49" data-cat_id1="0">
-                                            P  --   帕斯卡/PASCUAL                                            </option>
-                                                                                    <option value="60" data-cat_id1="0">
-                                            P  --   帕斯卡/PASCUAL                                            </option>
-                                                                                    <option value="151" data-cat_id1="4" style="display: none;">
-                                            P  --   普拉达/PULADA                                            </option>
-                                                                                    <option value="23" data-cat_id1="3" style="display: none;">
-                                            P  --   潘高寿                                            </option>
-                                                                                    <option value="236" data-cat_id1="0">
-                                            P  --   潘高寿                                            </option>
-                                                                                    <option value="9" data-cat_id1="1" style="display: none;">
-                                            P  --   苹果/Apple                                            </option>
-                                                                                    <option value="184" data-cat_id1="3" style="display: none;">
-                                            P  --   苹果/Apple                                            </option>
-                                                                                    <option value="260" data-cat_id1="7" style="display: none;">
-                                            P  --   苹果/Apple                                            </option>
-                                                                                    <option value="317" data-cat_id1="0">
-                                            Q  --   强生/Johnson                                            </option>
-                                                                                    <option value="188" data-cat_id1="3" style="display: none;">
-                                            Q  --   清华同方                                            </option>
-                                                                                    <option value="206" data-cat_id1="5" style="display: none;">
-                                            Q  --   秋水伊人                                            </option>
-                                                                                    <option value="55" data-cat_id1="0">
-                                            Q  --   雀巢/Nestle                                            </option>
-                                                                                    <option value="339" data-cat_id1="0">
-                                            Q  --   雀巢/Nestle                                            </option>
-                                                                                    <option value="160" data-cat_id1="4" style="display: none;">
-                                            R  --   日光生活                                            </option>
-                                                                                    <option value="166" data-cat_id1="2" style="display: none;">
-                                            R  --   日立/HITACHI                                            </option>
-                                                                                    <option value="255" data-cat_id1="7" style="display: none;">
-                                            R  --   瑞士军刀/SWISSGEAR                                            </option>
-                                                                                    <option value="335" data-cat_id1="0">
-                                            R  --   瑞士莲/Lindt                                            </option>
-                                                                                    <option value="72" data-cat_id1="0">
-                                            R  --   瑞慕/swiss mooh                                            </option>
-                                                                                    <option value="216" data-cat_id1="5" style="display: none;">
-                                            R  --   若美/nomi                                            </option>
-                                                                                    <option value="219" data-cat_id1="8" style="display: none;">
-                                            R  --   锐步/Reebok                                            </option>
-                                                                                    <option value="169" data-cat_id1="2" style="display: none;">
-                                            S  --   SKG                                            </option>
-                                                                                    <option value="99" data-cat_id1="10" style="display: none;">
-                                            S  --   三元                                            </option>
-                                                                                    <option value="240" data-cat_id1="0">
-                                            S  --   三叶                                            </option>
-                                                                                    <option value="57" data-cat_id1="0">
-                                            S  --   三得利/SUNTORY                                            </option>
-                                                                                    <option value="15" data-cat_id1="2" style="display: none;">
-                                            S  --   三星/SAMSUNG                                            </option>
-                                                                                    <option value="196" data-cat_id1="3" style="display: none;">
-                                            S  --   三星/SAMSUNG                                            </option>
-                                                                                    <option value="249" data-cat_id1="0">
-                                            S  --   三金                                            </option>
-                                                                                    <option value="35" data-cat_id1="0">
-                                            S  --   上好佳/Oishi                                            </option>
-                                                                                    <option value="130" data-cat_id1="0">
-                                            S  --   双汇/shineway                                            </option>
-                                                                                    <option value="172" data-cat_id1="2" style="display: none;">
-                                            S  --   双鸟/twinbird                                            </option>
-                                                                                    <option value="332" data-cat_id1="0">
-                                            S  --   善存/Centrum                                            </option>
-                                                                                    <option value="134" data-cat_id1="0">
-                                            S  --   思念/SYNEAR                                            </option>
-                                                                                    <option value="122" data-cat_id1="4" style="display: none;">
-                                            S  --   扇牌                                            </option>
-                                                                                    <option value="277" data-cat_id1="7" style="display: none;">
-                                            S  --   施华洛世奇/Swarovski                                            </option>
-                                                                                    <option value="217" data-cat_id1="5" style="display: none;">
-                                            S  --   森马/Semir                                            </option>
-                                                                                    <option value="164" data-cat_id1="2" style="display: none;">
-                                            S  --   沙宣/VS                                            </option>
-                                                                                    <option value="69" data-cat_id1="0">
-                                            S  --   深蓝健康/DEEP BLUE HEALTH                                            </option>
-                                                                                    <option value="120" data-cat_id1="4" style="display: none;">
-                                            S  --   狮王/LION                                            </option>
-                                                                                    <option value="48" data-cat_id1="0">
-                                            S  --   生机谷/LIVING PLANET                                            </option>
-                                                                                    <option value="59" data-cat_id1="0">
-                                            S  --   生机谷/LIVING PLANET                                            </option>
-                                                                                    <option value="4" data-cat_id1="1" style="display: none;">
-                                            S  --   索尼/SONY                                            </option>
-                                                                                    <option value="197" data-cat_id1="3" style="display: none;">
-                                            S  --   索尼/SONY                                            </option>
-                                                                                    <option value="262" data-cat_id1="7" style="display: none;">
-                                            S  --   赛琳/CELINE                                            </option>
-                                                                                    <option value="11" data-cat_id1="2" style="display: none;">
-                                            S  --   首信/capital                                            </option>
-                                                                                    <option value="6" data-cat_id1="1" style="display: none;">
-                                            T  --   TCL                                            </option>
-                                                                                    <option value="353" data-cat_id1="5" style="display: none;">
-                                            T  --   ThinkPHP shop                                            </option>
-                                                                                    <option value="187" data-cat_id1="3" style="display: none;">
-                                            T  --   ThinkPad                                            </option>
-                                                                                    <option value="203" data-cat_id1="5" style="display: none;">
-                                            T  --   唐狮/Tonlion                                            </option>
-                                                                                    <option value="161" data-cat_id1="4" style="display: none;">
-                                            T  --   图强/TU QIANF TOWEL                                            </option>
-                                                                                    <option value="283" data-cat_id1="7" style="display: none;">
-                                            T  --   天梭/Tissot                                            </option>
-                                                                                    <option value="284" data-cat_id1="7" style="display: none;">
-                                            T  --   天王表/TIAN WANG                                            </option>
-                                                                                    <option value="53" data-cat_id1="0">
-                                            T  --   天香                                            </option>
-                                                                                    <option value="228" data-cat_id1="8" style="display: none;">
-                                            T  --   探路者/Toread                                            </option>
-                                                                                    <option value="242" data-cat_id1="0">
-                                            T  --   泰尔                                            </option>
-                                                                                    <option value="223" data-cat_id1="8" style="display: none;">
-                                            T  --   特步/Xtep                                            </option>
-                                                                                    <option value="105" data-cat_id1="10" style="display: none;">
-                                            T  --   特福芬/Topfer                                            </option>
-                                                                                    <option value="47" data-cat_id1="0">
-                                            T  --   田园/COUNTRY GOODNESS                                            </option>
-                                                                                    <option value="58" data-cat_id1="0">
-                                            T  --   田园/COUNTRY GOODNESS                                            </option>
-                                                                                    <option value="292" data-cat_id1="11" style="display: none;">
-                                            T  --   贴贴                                            </option>
-                                                                                    <option value="253" data-cat_id1="0">
-                                            U  --   UTU                                            </option>
-                                                                                    <option value="16" data-cat_id1="2" style="display: none;">
-                                            W  --   万利达/malata                                            </option>
-                                                                                    <option value="279" data-cat_id1="7" style="display: none;">
-                                            W  --   万宝龙/Montblanc                                            </option>
-                                                                                    <option value="156" data-cat_id1="4" style="display: none;">
-                                            W  --   吾家元素                                            </option>
-                                                                                    <option value="132" data-cat_id1="0">
-                                            W  --   味千拉面/AJISEN RAMEN                                            </option>
-                                                                                    <option value="114" data-cat_id1="4" style="display: none;">
-                                            W  --   威洁士/Walex                                            </option>
-                                                                                    <option value="111" data-cat_id1="4" style="display: none;">
-                                            W  --   威露士/Walch                                            </option>
-                                                                                    <option value="190" data-cat_id1="3" style="display: none;">
-                                            W  --   微星/MSI                                            </option>
-                                                                                    <option value="185" data-cat_id1="3" style="display: none;">
-                                            W  --   微软/Microsoft                                            </option>
-                                                                                    <option value="144" data-cat_id1="0">
-                                            W  --   湾仔码头                                            </option>
-                                                                                    <option value="40" data-cat_id1="0">
-                                            W  --   维维                                            </option>
-                                                                                    <option value="320" data-cat_id1="0">
-                                            X  --   仙鹤牌                                            </option>
-                                                                                    <option value="313" data-cat_id1="0">
-                                            X  --   信乐/SINO                                            </option>
-                                                                                    <option value="20" data-cat_id1="0">
-                                            X  --   喜之郎/STRONG                                            </option>
-                                                                                    <option value="50" data-cat_id1="0">
-                                            X  --   喜乐                                            </option>
-                                                                                    <option value="342" data-cat_id1="0">
-                                            X  --   夏依/summer eve                                            </option>
-                                                                                    <option value="127" data-cat_id1="4" style="display: none;">
-                                            X  --   小林                                            </option>
-                                                                                    <option value="306" data-cat_id1="0">
-                                            X  --   小熊/Bear                                            </option>
-                                                                                    <option value="349" data-cat_id1="1" style="display: none;">
-                                            X  --   小米                                            </option>
-                                                                                    <option value="3" data-cat_id1="1" style="display: none;">
-                                            X  --   小辣椒                                            </option>
-                                                                                    <option value="128" data-cat_id1="0">
-                                            X  --   新雅/sunya                                            </option>
-                                                                                    <option value="329" data-cat_id1="0">
-                                            X  --   星巴克/STARBUCKS                                            </option>
-                                                                                    <option value="17" data-cat_id1="2" style="display: none;">
-                                            X  --   现代/HYUNDAI                                            </option>
-                                                                                    <option value="77" data-cat_id1="6" style="display: none;">
-                                            X  --   相宜本草/INOHERB                                            </option>
-                                                                                    <option value="195" data-cat_id1="3" style="display: none;">
-                                            X  --   西部数据/WD                                            </option>
-                                                                                    <option value="316" data-cat_id1="0">
-                                            X  --   西门子/SIEMENS                                            </option>
-                                                                                    <option value="261" data-cat_id1="7" style="display: none;">
-                                            X  --   香奈儿/CHANEL                                            </option>
-                                                                                    <option value="302" data-cat_id1="0">
-                                            X  --   香百年/Carori                                            </option>
-                                                                                    <option value="291" data-cat_id1="11" style="display: none;">
-                                            Y  --   一生一信/Infeel.Me                                            </option>
-                                                                                    <option value="245" data-cat_id1="0">
-                                            Y  --   云南白药/YunnanBaiyao                                            </option>
-                                                                                    <option value="312" data-cat_id1="0">
-                                            Y  --   云南白药/YunnanBaiyao                                            </option>
-                                                                                    <option value="43" data-cat_id1="0">
-                                            Y  --   伊利                                            </option>
-                                                                                    <option value="94" data-cat_id1="10" style="display: none;">
-                                            Y  --   伊利                                            </option>
-                                                                                    <option value="293" data-cat_id1="0">
-                                            Y  --   伊莱克斯/Electrolux                                            </option>
-                                                                                    <option value="168" data-cat_id1="2" style="display: none;">
-                                            Y  --   优冠                                            </option>
-                                                                                    <option value="192" data-cat_id1="3" style="display: none;">
-                                            Y  --   优派/ViewSonic                                            </option>
-                                                                                    <option value="239" data-cat_id1="0">
-                                            Y  --   养生堂                                            </option>
-                                                                                    <option value="148" data-cat_id1="4" style="display: none;">
-                                            Y  --   养鹅人                                            </option>
-                                                                                    <option value="290" data-cat_id1="11" style="display: none;">
-                                            Y  --   友邦                                            </option>
-                                                                                    <option value="212" data-cat_id1="5" style="display: none;">
-                                            Y  --   幽迷/Youmi                                            </option>
-                                                                                    <option value="241" data-cat_id1="0">
-                                            Y  --   御生堂                                            </option>
-                                                                                    <option value="304" data-cat_id1="0">
-                                            Y  --   悠嘻猴                                            </option>
-                                                                                    <option value="170" data-cat_id1="2" style="display: none;">
-                                            Y  --   易简/Yijan                                            </option>
-                                                                                    <option value="97" data-cat_id1="10" style="display: none;">
-                                            Y  --   益力健                                            </option>
-                                                                                    <option value="244" data-cat_id1="0">
-                                            Y  --   益力健                                            </option>
-                                                                                    <option value="125" data-cat_id1="4" style="display: none;">
-                                            Y  --   裕华                                            </option>
-                                                                                    <option value="86" data-cat_id1="6" style="display: none;">
-                                            Y  --   郁美净                                            </option>
-                                                                                    <option value="45" data-cat_id1="0">
-                                            Y  --   银鹭                                            </option>
-                                                                                    <option value="211" data-cat_id1="5" style="display: none;">
-                                            Y  --   雅可希/YAKEXI                                            </option>
-                                                                                    <option value="324" data-cat_id1="0">
-                                            Y  --   雅培/Abbott                                            </option>
-                                                                                    <option value="95" data-cat_id1="10" style="display: none;">
-                                            Y  --   雅士利/YASHILY                                            </option>
-                                                                                    <option value="204" data-cat_id1="5" style="display: none;">
-                                            Y  --   雅鹿                                            </option>
-                                                                                    <option value="133" data-cat_id1="0">
-                                            Y  --   雨润/Yurun                                            </option>
-                                                                                    <option value="323" data-cat_id1="0">
-                                            Y  --   鱼跃/yuyue                                            </option>
-                                                                                    <option value="305" data-cat_id1="0">
-                                            Z  --   卓朗/ZoomLand                                            </option>
-                                                                                    <option value="26" data-cat_id1="3" style="display: none;">
-                                            Z  --   张二嘎                                            </option>
-                                                                                    <option value="87" data-cat_id1="6" style="display: none;">
-                                            Z  --   昭贵                                            </option>
-                                                                                    <option value="117" data-cat_id1="4" style="display: none;">
-                                            Z  --   正章                                            </option>
-                                                                                    <option value="205" data-cat_id1="5" style="display: none;">
-                                            Z  --   真维斯/Jeanswest                                            </option>
-                                                                                    <option value="235" data-cat_id1="8" style="display: none;">
-                                            Z  --   自由兵/FREE SOLDIER                                            </option>
+                                    {foreach name="brandList" item="v" key="k" }
+                                       <option data-cat_id1="{$v.cat_id}" style="display: block;" value="{$v['id']}"  {if condition="$v['id'] eq $goods['brand_id'] "}selected="selected"{/if}>
+                                            {$v['name']}
+                                       </option>
+                                     {/foreach}
+                                                                                
                                                                         </select>
                                 <p class="hint">可不选,为了用户更好检索到该商品，最好选择</p>
                             </dd>
                         </dl>
-                        <dl>
+                        <!-- <dl>
                             <dt>供应商：</dt>
                             <dd>
                                 <select name="suppliers_id" id="suppliers_id">
@@ -974,11 +284,11 @@
                                                                     </select>
                                 <p class="hint">可不选,为了用户更好检索到该商品，最好选择</p>
                             </dd>
-                        </dl>
+                        </dl> -->
                         <dl>
                             <dt><i class="required">*</i>本店售价：</dt>
                             <dd>
-                                <input name="shop_price" id="shop_price" value="" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
+                                <input name="shop_price" id="shop_price" value="{$goods.shop_price}" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
                                 <p class="hint">价格必须是0.01~9999999之间的数字，且不能高于市场价。<br>
                                     此价格为商品实际销售价格，如果商品存在规格，该价格显示最低价格。该价格影响到积分赠送</p>
                             </dd>
@@ -986,7 +296,7 @@
                         <dl>
                             <dt><i class="required">*</i>市场价：</dt>
                             <dd>
-                                <input name="market_price" value="" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
+                                <input name="market_price" value="{$goods.market_price}" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
 
                                 <p class="hint">价格必须是0.01~9999999之间的数字，此价格仅为市场参考售价，请根据该实际情况认真填写。</p>
                             </dd>
@@ -994,26 +304,26 @@
                         <dl>
                             <dt>成本价：</dt>
                             <dd>
-                                <input value="" name="cost_price" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
+                                <input value="{$goods.cost_price}" name="cost_price" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
 
                                 <p class="hint">价格必须是0.00~9999999之间的数字，此价格为商户对所销售的商品实际成本价格进行备注记录，非必填选项，不会在前台销售页面中显示。</p>
                             </dd>
                         </dl>
-                        <dl>
+                        <!-- <dl>
                             <dt>分销金：</dt>
                             <dd>
                                 <input value="" name="distribut" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
 
                                 <p class="hint">价格必须是0.00~9999999之间的数字，此价格用于前台会员帮助商家（本店）分销产品，返佣给分销会员的金额。</p>
                             </dd>
-                        </dl>
+                        </dl> -->
                         <dl>
                             <dt><i class="required">*</i>商品图片：</dt>
                             <dd>
                                 <div class="ncsc-goods-default-pic">
                                     <div class="goodspic-uplaod">
                                         <div class="upload-thumb">
-                                            <img id="original_img2" src="/public/static/js/default_goods_image_240.gif">
+                                            <img id="original_img2" src="{$goods.original_img?$goods.original_img:'/public/static/js/default_goods_image_240.gif'}">
                                         </div>
                                         <input name="original_img" id="original_img" value="" type="hidden">
                                         <p class="hint">上传商品默认主图，如多规格值时将默认使用该图或分规格上传各规格主图；支持jpg、gif、png格式上传或从图片空间中选择，建议使用<font color="red">尺寸800x800像素以上、大小不超过1M的正方形图片</font>，上传后的图片将会自动保存在图片空间的默认分类中。</p>
@@ -1033,7 +343,7 @@
                             <dt>商品重量：</dt>
                             <dd>
                                 <p>
-                                    <input type="text" value="" name="weight" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
+                                    <input type="text" value="{$goods.weight}" name="weight" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
                                 </p>
                                 <p class="hint">克 (以克为单位)</p>
                             </dd>
@@ -1044,12 +354,12 @@
                                 <ul class="ncsc-form-radio-list">
                                     <li>
                                         <label>
-                                            <input type="radio" value="1" name="is_free_shipping">
+                                            <input {if condition="$goods[is_free_shipping] eq 1"}checked="checked"{/if} type="radio" value="1" name="is_free_shipping">
                                             是</label>
                                     </li>
                                     <li>
                                         <label>
-                                            <input type="radio" checked="checked" value="0" name="is_free_shipping">
+                                            <input type="radio" {if condition="$goods[is_free_shipping] eq 0"}checked="checked"{/if} value="0" name="is_free_shipping">
                                             否</label>
                                     </li>
                                 </ul>
@@ -1059,7 +369,7 @@
                         <dl>
                             <dt nc_type="no_spec"><i class="required">*</i>商品库存：</dt>
                             <dd nc_type="no_spec">
-                                                                    <input name="store_count" value="100" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text w60" type="text">
+                                                                    <input name="store_count" value="{$goods.store_count?$goods.store_count:'100'}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text w60" type="text">
                                                                     <span></span>
                                 <p class="hint">商铺库存数量必须为0~999999999之间的整数<br>若启用了库存默认配置，则系统自动计算商品的总数，此处无需卖家填写</p>
                             </dd>
@@ -1068,7 +378,7 @@
                             <dt>赠送积分：</dt>
                             <dd>
                                 <p>
-                                    <input type="text" value="" name="give_integral" id="give_integral" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
+                                    <input type="text" value="{$goods.give_integral}" name="give_integral" id="give_integral" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
                                     </p><p class="hint" id="give_integral_hint">可赠送积分不能超过0</p>
                                 <p></p>
                                 <p class="hint">购买商品赠送用户积分，积分比例1元:100分</p>
@@ -1078,7 +388,7 @@
                             <dt>兑换积分：</dt>
                             <dd>
                                 <p>
-                                    <input type="text" value="" name="exchange_integral" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
+                                    <input type="text" value="{$goods.exchange_integral}" name="exchange_integral" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
                                 </p>
                                 <p class="hint">兑换该商品可使用多少积分，积分比例1元:100分</p>
                             </dd>
@@ -1087,7 +397,7 @@
                             <dt>商品关键词：</dt>
                             <dd>
                                 <p>
-                                    <input type="text" value="" name="keywords" class="text">
+                                    <input type="text" value="{$goods.keywords}" name="keywords" class="text">
                                 </p>
                                 <p class="hint">多个关键词，用空格隔开</p>
                             </dd>
@@ -1098,10 +408,10 @@
 					        <dd>
 					          <ul class="ncsc-form-radio-list">
 					            <li>
-					               <input type="radio" name="is_virtual" value="1" id="is_virtual_1"><label for="is_virtual_1">是</label>
+					               <input {if condition="$goods.is_virtual eq 1"}checked="checked"{/if} type="radio" name="is_virtual" value="1" id="is_virtual_1"><label for="is_virtual_1">是</label>
 					            </li>
 					            <li>
-					               <input type="radio" name="is_virtual" value="0" id="is_virtual_0" checked=""><label for="is_virtual_0">否</label>
+					               <input {if condition="$goods.is_virtual eq 0"}checked="checked"{/if} type="radio" name="is_virtual" value="0" id="is_virtual_0" checked=""><label for="is_virtual_0">否</label>
 					            </li>
 					          </ul>
 					          <p class="hint vital">*虚拟商品不能参加限时折扣和组合销售两种促销活动。也不能赠送赠品和推荐搭配。</p>
@@ -1145,8 +455,7 @@
                             <dt>商品详情描述：</dt>
                             <dd>
                                 <p>
-                                    <div class="txt edui-default" style=""><div id="edui1" class="edui-editor  edui-default" style="width: 95%; z-index: 999;"><div id="edui1_toolbarbox" class="edui-editor-toolbarbox edui-default"><div id="edui1_toolbarboxouter" class="edui-editor-toolbarboxouter edui-default"><div class="edui-editor-toolbarboxinner edui-default"><div id="edui2" class="edui-toolbar   edui-default" onselectstart="return false;" onmousedown="return $EDITORUI[&quot;edui2&quot;]._onMouseDown(event, this);" style="user-select: none;"><div id="edui3" class="edui-box edui-button edui-for-fullscreen edui-default"><div id="edui3_state" onmousedown="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui3_body" unselectable="on" title="全屏" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui3&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui4" class="edui-box edui-button edui-for-source edui-default"><div id="edui4_state" onmousedown="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui4&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui4_body" unselectable="on" title="源代码" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui4&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui5" class="edui-box edui-separator  edui-default"></div><div id="edui6" class="edui-box edui-button edui-for-undo edui-default"><div id="edui6_state" onmousedown="$EDITORUI[&quot;edui6&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui6&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui6&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui6&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui6_body" unselectable="on" title="撤销" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui6&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui7" class="edui-box edui-button edui-for-redo edui-default"><div id="edui7_state" onmousedown="$EDITORUI[&quot;edui7&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui7&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui7&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui7&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui7_body" unselectable="on" title="重做" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui7&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui8" class="edui-box edui-separator  edui-default"></div><div id="edui9" class="edui-box edui-button edui-for-bold edui-default"><div id="edui9_state" onmousedown="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui9&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui9_body" unselectable="on" title="加粗" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui9&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui10" class="edui-box edui-button edui-for-italic edui-default"><div id="edui10_state" onmousedown="$EDITORUI[&quot;edui10&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui10&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui10&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui10&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui10_body" unselectable="on" title="斜体" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui10&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui11" class="edui-box edui-button edui-for-underline edui-default"><div id="edui11_state" onmousedown="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui11&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui11_body" unselectable="on" title="下划线" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui11&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui12" class="edui-box edui-button edui-for-fontborder edui-default"><div id="edui12_state" onmousedown="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui12&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui12_body" unselectable="on" title="字符边框" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui12&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui13" class="edui-box edui-button edui-for-strikethrough edui-default"><div id="edui13_state" onmousedown="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui13&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui13_body" unselectable="on" title="删除线" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui13&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui14" class="edui-box edui-button edui-for-superscript edui-default"><div id="edui14_state" onmousedown="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui14&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui14_body" unselectable="on" title="上标" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui14&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui15" class="edui-box edui-button edui-for-subscript edui-default"><div id="edui15_state" onmousedown="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui15&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui15_body" unselectable="on" title="下标" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui15&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui16" class="edui-box edui-button edui-for-removeformat edui-default"><div id="edui16_state" onmousedown="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui16&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui16_body" unselectable="on" title="清除格式" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui16&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui17" class="edui-box edui-button edui-for-formatmatch edui-default"><div id="edui17_state" onmousedown="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui17_body" unselectable="on" title="格式刷" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui17&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui18" class="edui-box edui-splitbutton edui-for-autotypeset edui-default"><div title="自动排版" id="edui18_state" onmousedown="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui18_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui18&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui18&quot;]._onArrowClick();"></div></div></div></div><div id="edui21" class="edui-box edui-button edui-for-blockquote edui-default"><div id="edui21_state" onmousedown="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui21&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui21_body" unselectable="on" title="引用" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui21&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui22" class="edui-box edui-button edui-for-pasteplain edui-default"><div id="edui22_state" onmousedown="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui22&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui22_body" unselectable="on" title="纯文本粘贴模式" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui22&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui23" class="edui-box edui-separator  edui-default"></div><div id="edui24" class="edui-box edui-splitbutton edui-for-forecolor edui-default edui-colorbutton"><div title="字体颜色" id="edui24_state" onmousedown="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui24&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui24_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui24&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div id="edui24_colorlump" class="edui-colorlump"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui24&quot;]._onArrowClick();"></div></div></div></div><div id="edui27" class="edui-box edui-splitbutton edui-for-backcolor edui-default edui-colorbutton"><div title="背景色" id="edui27_state" onmousedown="$EDITORUI[&quot;edui27&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui27&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui27&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui27&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui27_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui27&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div><div id="edui27_colorlump" class="edui-colorlump"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui27&quot;]._onArrowClick();"></div></div></div></div><div id="edui30" class="edui-box edui-menubutton edui-for-insertorderedlist edui-default"><div title="有序列表" id="edui30_state" onmousedown="$EDITORUI[&quot;edui30&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui30&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui30&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui30&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-menubutton-body edui-default"><div id="edui30_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui30&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui30&quot;]._onArrowClick();"></div></div></div></div><div id="edui43" class="edui-box edui-menubutton edui-for-insertunorderedlist edui-default"><div title="无序列表" id="edui43_state" onmousedown="$EDITORUI[&quot;edui43&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui43&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui43&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui43&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-menubutton-body edui-default"><div id="edui43_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui43&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui43&quot;]._onArrowClick();"></div></div></div></div><div id="edui50" class="edui-box edui-button edui-for-selectall edui-default"><div id="edui50_state" onmousedown="$EDITORUI[&quot;edui50&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui50&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui50&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui50&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui50_body" unselectable="on" title="全选" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui50&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui51" class="edui-box edui-button edui-for-cleardoc edui-default"><div id="edui51_state" onmousedown="$EDITORUI[&quot;edui51&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui51&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui51&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui51&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui51_body" unselectable="on" title="清空文档" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui51&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui52" class="edui-box edui-separator  edui-default"></div><div id="edui53" class="edui-box edui-menubutton edui-for-rowspacingtop edui-default"><div title="段前距" id="edui53_state" onmousedown="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui53&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-menubutton-body edui-default"><div id="edui53_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui53&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui53&quot;]._onArrowClick();"></div></div></div></div><div id="edui60" class="edui-box edui-menubutton edui-for-rowspacingbottom edui-default"><div title="段后距" id="edui60_state" onmousedown="$EDITORUI[&quot;edui60&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui60&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui60&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui60&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-menubutton-body edui-default"><div id="edui60_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui60&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui60&quot;]._onArrowClick();"></div></div></div></div><div id="edui67" class="edui-box edui-menubutton edui-for-lineheight edui-default"><div title="行间距" id="edui67_state" onmousedown="$EDITORUI[&quot;edui67&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui67&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui67&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui67&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-menubutton-body edui-default"><div id="edui67_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui67&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui67&quot;]._onArrowClick();"></div></div></div></div><div id="edui76" class="edui-box edui-separator  edui-default"></div><div id="edui77" class="edui-box edui-combox edui-for-customstyle edui-default"><div title="自定义标题" id="edui77_state" onmousedown="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui77&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-combox-body edui-default"><div id="edui77_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui77&quot;]._onButtonClick(event, this);">自定义标题</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui77&quot;]._onArrowClick();"></div></div></div></div><div id="edui83" class="edui-box edui-combox edui-for-paragraph edui-default"><div title="段落格式" id="edui83_state" onmousedown="$EDITORUI[&quot;edui83&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui83&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui83&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui83&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-combox-body edui-default"><div id="edui83_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui83&quot;]._onButtonClick(event, this);">段落格式</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui83&quot;]._onArrowClick();"></div></div></div></div><div id="edui92" class="edui-box edui-combox edui-for-fontfamily edui-default"><div title="字体" id="edui92_state" onmousedown="$EDITORUI[&quot;edui92&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui92&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui92&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui92&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-combox-body edui-default"><div id="edui92_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui92&quot;]._onButtonClick(event, this);">字体</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui92&quot;]._onArrowClick();"></div></div></div></div><div id="edui105" class="edui-box edui-combox edui-for-fontsize edui-default"><div title="字号" id="edui105_state" onmousedown="$EDITORUI[&quot;edui105&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui105&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui105&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui105&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-combox-body edui-default"><div id="edui105_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui105&quot;]._onButtonClick(event, this);">字号</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui105&quot;]._onArrowClick();"></div></div></div></div><div id="edui116" class="edui-box edui-separator  edui-default"></div><div id="edui117" class="edui-box edui-button edui-for-directionalityltr edui-default"><div id="edui117_state" onmousedown="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui117&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui117_body" unselectable="on" title="从左向右输入" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui117&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui118" class="edui-box edui-button edui-for-directionalityrtl edui-default"><div id="edui118_state" onmousedown="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui118&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui118_body" unselectable="on" title="从右向左输入" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui118&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui119" class="edui-box edui-button edui-for-indent edui-default"><div id="edui119_state" onmousedown="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui119&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui119_body" unselectable="on" title="首行缩进" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui119&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui120" class="edui-box edui-separator  edui-default"></div><div id="edui121" class="edui-box edui-button edui-for-justifyleft edui-default"><div id="edui121_state" onmousedown="$EDITORUI[&quot;edui121&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui121&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui121&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui121&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui121_body" unselectable="on" title="居左对齐" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui121&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui122" class="edui-box edui-button edui-for-justifycenter edui-default"><div id="edui122_state" onmousedown="$EDITORUI[&quot;edui122&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui122&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui122&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui122&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui122_body" unselectable="on" title="居中对齐" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui122&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui123" class="edui-box edui-button edui-for-justifyright edui-default"><div id="edui123_state" onmousedown="$EDITORUI[&quot;edui123&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui123&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui123&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui123&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui123_body" unselectable="on" title="居右对齐" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui123&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui124" class="edui-box edui-button edui-for-justifyjustify edui-default"><div id="edui124_state" onmousedown="$EDITORUI[&quot;edui124&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui124&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui124&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui124&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui124_body" unselectable="on" title="两端对齐" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui124&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui125" class="edui-box edui-separator  edui-default"></div><div id="edui126" class="edui-box edui-button edui-for-touppercase edui-default"><div id="edui126_state" onmousedown="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui126&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui126_body" unselectable="on" title="字母大写" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui126&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui127" class="edui-box edui-button edui-for-tolowercase edui-default"><div id="edui127_state" onmousedown="$EDITORUI[&quot;edui127&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui127&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui127&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui127&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui127_body" unselectable="on" title="字母小写" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui127&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui128" class="edui-box edui-separator  edui-default"></div><div id="edui135" class="edui-box edui-button edui-for-link edui-default"><div id="edui135_state" onmousedown="$EDITORUI[&quot;edui135&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui135&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui135&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui135&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui135_body" unselectable="on" title="超链接" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui135&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui136" class="edui-box edui-button edui-for-unlink edui-default"><div id="edui136_state" onmousedown="$EDITORUI[&quot;edui136&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui136&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui136&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui136&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui136_body" unselectable="on" title="取消链接" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui136&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui141" class="edui-box edui-button edui-for-anchor edui-default"><div id="edui141_state" onmousedown="$EDITORUI[&quot;edui141&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui141&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui141&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui141&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui141_body" unselectable="on" title="锚点" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui141&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui142" class="edui-box edui-separator  edui-default"></div><div id="edui143" class="edui-box edui-button edui-for-imagenone edui-default"><div id="edui143_state" onmousedown="$EDITORUI[&quot;edui143&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui143&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui143&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui143&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui143_body" unselectable="on" title="默认" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui143&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui144" class="edui-box edui-button edui-for-imageleft edui-default"><div id="edui144_state" onmousedown="$EDITORUI[&quot;edui144&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui144&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui144&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui144&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui144_body" unselectable="on" title="左浮动" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui144&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui145" class="edui-box edui-button edui-for-imageright edui-default"><div id="edui145_state" onmousedown="$EDITORUI[&quot;edui145&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui145&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui145&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui145&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui145_body" unselectable="on" title="右浮动" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui145&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui146" class="edui-box edui-button edui-for-imagecenter edui-default"><div id="edui146_state" onmousedown="$EDITORUI[&quot;edui146&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui146&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui146&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui146&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui146_body" unselectable="on" title="居中" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui146&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui147" class="edui-box edui-separator  edui-default"></div><div id="edui152" class="edui-box edui-button edui-for-insertimage edui-default"><div id="edui152_state" onmousedown="$EDITORUI[&quot;edui152&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui152&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui152&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui152&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui152_body" unselectable="on" title="图片" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui152&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui153" class="edui-box edui-splitbutton edui-for-emotion edui-default"><div title="表情" id="edui153_state" onmousedown="$EDITORUI[&quot;edui153&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui153&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui153&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui153&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui153_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui153&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui153&quot;]._onArrowClick();"></div></div></div></div><div id="edui159" class="edui-box edui-button edui-for-insertvideo edui-default"><div id="edui159_state" onmousedown="$EDITORUI[&quot;edui159&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui159&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui159&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui159&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui159_body" unselectable="on" title="视频" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui159&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui164" class="edui-box edui-button edui-for-attachment edui-default"><div id="edui164_state" onmousedown="$EDITORUI[&quot;edui164&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui164&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui164&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui164&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui164_body" unselectable="on" title="附件" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui164&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui169" class="edui-box edui-button edui-for-map edui-default"><div id="edui169_state" onmousedown="$EDITORUI[&quot;edui169&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui169&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui169&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui169&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui169_body" unselectable="on" title="Baidu地图" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui169&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui174" class="edui-box edui-button edui-for-gmap edui-default"><div id="edui174_state" onmousedown="$EDITORUI[&quot;edui174&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui174&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui174&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui174&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui174_body" unselectable="on" title="Google地图" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui174&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui179" class="edui-box edui-button edui-for-insertframe edui-default"><div id="edui179_state" onmousedown="$EDITORUI[&quot;edui179&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui179&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui179&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui179&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui179_body" unselectable="on" title="插入Iframe" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui179&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui180" class="edui-box edui-combox edui-for-insertcode edui-default"><div title="代码语言" id="edui180_state" onmousedown="$EDITORUI[&quot;edui180&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui180&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui180&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui180&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-combox-body edui-default"><div id="edui180_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui180&quot;]._onButtonClick(event, this);">代码语言</div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui180&quot;]._onArrowClick();"></div></div></div></div><div id="edui208" class="edui-box edui-button edui-for-webapp edui-default"><div id="edui208_state" onmousedown="$EDITORUI[&quot;edui208&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui208&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui208&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui208&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui208_body" unselectable="on" title="百度应用" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui208&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui209" class="edui-box edui-button edui-for-pagebreak edui-default"><div id="edui209_state" onmousedown="$EDITORUI[&quot;edui209&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui209&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui209&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui209&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui209_body" unselectable="on" title="分页" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui209&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui214" class="edui-box edui-button edui-for-template edui-default"><div id="edui214_state" onmousedown="$EDITORUI[&quot;edui214&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui214&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui214&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui214&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui214_body" unselectable="on" title="模板" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui214&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui219" class="edui-box edui-button edui-for-background edui-default"><div id="edui219_state" onmousedown="$EDITORUI[&quot;edui219&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui219&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui219&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui219&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui219_body" unselectable="on" title="背景" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui219&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui220" class="edui-box edui-separator  edui-default"></div><div id="edui221" class="edui-box edui-button edui-for-horizontal edui-default"><div id="edui221_state" onmousedown="$EDITORUI[&quot;edui221&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui221&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui221&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui221&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui221_body" unselectable="on" title="分隔线" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui221&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui222" class="edui-box edui-button edui-for-date edui-default"><div id="edui222_state" onmousedown="$EDITORUI[&quot;edui222&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui222&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui222&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui222&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui222_body" unselectable="on" title="日期" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui222&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui223" class="edui-box edui-button edui-for-time edui-default"><div id="edui223_state" onmousedown="$EDITORUI[&quot;edui223&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui223&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui223&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui223&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui223_body" unselectable="on" title="时间" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui223&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui226" class="edui-box edui-button edui-for-spechars edui-default"><div id="edui226_state" onmousedown="$EDITORUI[&quot;edui226&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui226&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui226&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui226&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui226_body" unselectable="on" title="特殊字符" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui226&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui231" class="edui-box edui-button edui-for-wordimage edui-default"><div id="edui231_state" onmousedown="$EDITORUI[&quot;edui231&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui231&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui231&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui231&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui231_body" unselectable="on" title="图片转存" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui231&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div><div id="edui232" class="edui-box edui-separator  edui-default"></div><div id="edui233" class="edui-box edui-splitbutton edui-for-inserttable edui-default"><div title="插入表格" id="edui233_state" onmousedown="$EDITORUI[&quot;edui233&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui233&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui233&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui233&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-splitbutton-body edui-default"><div id="edui233_button_body" class="edui-box edui-button-body edui-default" onclick="$EDITORUI[&quot;edui233&quot;]._onButtonClick(event, this);"><div class="edui-box edui-icon edui-default"></div></div><div class="edui-box edui-splitborder edui-default"></div><div class="edui-box edui-arrow edui-default" onclick="$EDITORUI[&quot;edui233&quot;]._onArrowClick();"></div></div></div></div><div id="edui236" class="edui-box edui-button edui-for-deletetable edui-default"><div id="edui236_state" onmousedown="$EDITORUI[&quot;edui236&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui236&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui236&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui236&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui236_body" unselectable="on" title="删除表格" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui236&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui237" class="edui-box edui-button edui-for-insertparagraphbeforetable edui-default"><div id="edui237_state" onmousedown="$EDITORUI[&quot;edui237&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui237&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui237&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui237&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui237_body" unselectable="on" title="表格前插入行" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui237&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui238" class="edui-box edui-button edui-for-insertrow edui-default"><div id="edui238_state" onmousedown="$EDITORUI[&quot;edui238&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui238&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui238&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui238&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui238_body" unselectable="on" title="前插入行" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui238&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui239" class="edui-box edui-button edui-for-deleterow edui-default"><div id="edui239_state" onmousedown="$EDITORUI[&quot;edui239&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui239&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui239&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui239&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui239_body" unselectable="on" title="删除行" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui239&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui240" class="edui-box edui-button edui-for-insertcol edui-default"><div id="edui240_state" onmousedown="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui240&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui240_body" unselectable="on" title="前插入列" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui240&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui241" class="edui-box edui-button edui-for-deletecol edui-default"><div id="edui241_state" onmousedown="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui241&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui241_body" unselectable="on" title="删除列" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui241&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui242" class="edui-box edui-button edui-for-mergecells edui-default"><div id="edui242_state" onmousedown="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui242&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui242_body" unselectable="on" title="合并多个单元格" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui242&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui243" class="edui-box edui-button edui-for-mergeright edui-default"><div id="edui243_state" onmousedown="$EDITORUI[&quot;edui243&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui243&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui243&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui243&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui243_body" unselectable="on" title="右合并单元格" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui243&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui244" class="edui-box edui-button edui-for-mergedown edui-default"><div id="edui244_state" onmousedown="$EDITORUI[&quot;edui244&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui244&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui244&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui244&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui244_body" unselectable="on" title="下合并单元格" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui244&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui245" class="edui-box edui-button edui-for-splittocells edui-default"><div id="edui245_state" onmousedown="$EDITORUI[&quot;edui245&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui245&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui245&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui245&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui245_body" unselectable="on" title="完全拆分单元格" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui245&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui246" class="edui-box edui-button edui-for-splittorows edui-default"><div id="edui246_state" onmousedown="$EDITORUI[&quot;edui246&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui246&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui246&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui246&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui246_body" unselectable="on" title="拆分成行" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui246&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui247" class="edui-box edui-button edui-for-splittocols edui-default"><div id="edui247_state" onmousedown="$EDITORUI[&quot;edui247&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui247&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui247&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui247&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui247_body" unselectable="on" title="拆分成列" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui247&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui248" class="edui-box edui-separator  edui-default"></div><div id="edui249" class="edui-box edui-button edui-for-print edui-default"><div id="edui249_state" onmousedown="$EDITORUI[&quot;edui249&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui249&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui249&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui249&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui249_body" unselectable="on" title="打印" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui249&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui250" class="edui-box edui-button edui-for-preview edui-default"><div id="edui250_state" onmousedown="$EDITORUI[&quot;edui250&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui250&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui250&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui250&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui250_body" unselectable="on" title="预览" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui250&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div></div></div></div></div><div id="edui253" class="edui-box edui-button edui-for-searchreplace edui-default"><div id="edui253_state" onmousedown="$EDITORUI[&quot;edui253&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui253&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui253&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui253&quot;].Stateful_onMouseOut(event, this);" class=" edui-default"><div class="edui-button-wrap edui-default"><div id="edui253_body" unselectable="on" title="查询替换" class="edui-button-body edui-default" onmousedown="return false;" onclick="return $EDITORUI[&quot;edui253&quot;]._onClick();"><div class="edui-box edui-icon edui-default"></div><div class="edui-box edui-label edui-default"></div></div></div></div></div></div></div></div><div id="edui1_toolbarmsg" class="edui-editor-toolbarmsg edui-default" style="display:none;"><div id="edui1_upload_dialog" class="edui-editor-toolbarmsg-upload edui-default" onclick="$EDITORUI[&quot;edui1&quot;].showWordImageDialog();">点击上传</div><div class="edui-editor-toolbarmsg-close edui-default" onclick="$EDITORUI[&quot;edui1&quot;].hideToolbarMsg();">x</div><div id="edui1_toolbarmsg_label" class="edui-editor-toolbarmsg-label edui-default"></div><div style="height:0;overflow:hidden;clear:both;" class=" edui-default"></div></div></div><div id="edui1_iframeholder" class="edui-editor-iframeholder edui-default" style="width: 764px; height: 400px; z-index: 999; overflow: hidden;"><iframe id="ueditor_0" width="100%" height="100%" frameborder="0" src="javascript:void(function(){document.open();document.write(&quot;&lt;!DOCTYPE html&gt;&lt;html xmlns='http://www.w3.org/1999/xhtml' class='view' &gt;&lt;head&gt;&lt;style type='text/css'&gt;.view{padding:0;word-wrap:break-word;cursor:text;height:90%;}
-body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/style&gt;&lt;link rel='stylesheet' type='text/css' href='/public/plugins/Ueditor/themes/iframe.css'/&gt;&lt;/head&gt;&lt;body class='view' &gt;&lt;/body&gt;&lt;script type='text/javascript'  id='_initialScript'&gt;setTimeout(function(){window.parent.UE.instants['ueditorInstant0']._setup(document);},0);var _tmpScript = document.getElementById('_initialScript');_tmpScript.parentNode.removeChild(_tmpScript);&lt;/script&gt;&lt;/html&gt;&quot;);document.close();}())" src="/public/static/js/saved_resource.html"></iframe></div><div id="edui1_bottombar" class="edui-editor-bottomContainer edui-default"><table class=" edui-default"><tbody class=" edui-default"><tr class=" edui-default"><td id="edui1_elementpath" class="edui-editor-bottombar edui-default"><div class="edui-editor-breadcrumb">元素路径:</div></td><td id="edui1_wordcount" class="edui-editor-wordcount edui-default">字数统计</td><td id="edui1_scale" class="edui-editor-scale edui-default" style="display: none;"><div class="edui-editor-icon edui-default"></div></td></tr></tbody></table></div><div id="edui1_scalelayer" class=" edui-default"></div></div></div><textarea id="goods_content" name="goods_content" class="txt" style="display: none;"></textarea>
+                                    <textarea id="goods_content" name="goods_content" class="txt" style="">{$goods.goods_content}</textarea>
                                 </p>
                                 <p class="hint">商品详情描述</p>
                             </dd>
@@ -1164,7 +473,41 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 								          <a ata-original-title="添加商品" onclick="add_image();" class="ncbtn ncbtn-grapefruit mt5"><i class="fa fa-plus"></i>添加缩略图</a>
 								         </div>
 								        	<ul nctype="ul0" class="goods-pic-list">
-								        											      	<li class="ncsc-goodspic-upload">
+                                            {if condition="!empty($goodsImages)"}
+                                            {php}$file_num=0;{/php}
+                                            {foreach name="goodsImages" item="vo" key="k" }
+                                                <li class="ncsc-goodspic-upload">
+                                                <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_0" src="{$vo['image_url']}"></a>
+                                                  <input type="hidden" value="" name="goods_images[]" data-id="file_{$file_num}">
+                                                </div>
+                                                <div nctype="file_00" class="show-default">
+                                                  <p><i class="icon-ok-circle"></i>
+                                                  </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
+                                                </div>
+                                                <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
+                                                </div>
+                                                <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_0', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
+                                                  </a>
+                                                     </div>
+                                                 </li>
+                                                 {php}$file_num++;{/php}
+                                            {/foreach}
+								        		{else /}	
+                                                <li class="ncsc-goodspic-upload">
+                                                <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_0" src="/public/static/js/default_goods_image_240(1).gif"></a>
+                                                  <input type="hidden" value="" name="goods_images[]" data-id="file_0">
+                                                </div>
+                                                <div nctype="file_00" class="show-default">
+                                                  <p><i class="icon-ok-circle"></i>
+                                                  </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
+                                                </div>
+                                                <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
+                                                </div>
+                                                <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_0', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
+                                                  </a>
+                                                     </div>
+                                                 </li>
+                                                {/if}								      	<!-- <li class="ncsc-goodspic-upload">
 									            <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_0" src="/public/static/js/default_goods_image_240(1).gif"></a>
 									              <input type="hidden" value="" name="goods_images[]" data-id="file_0">
 									            </div>
@@ -1177,63 +520,8 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 									            <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_0', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
 									              </a>
 										             </div>
-										         </li>
-										  										      	<li class="ncsc-goodspic-upload">
-									            <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_1" src="/public/static/js/default_goods_image_240(1).gif"></a>
-									              <input type="hidden" value="" name="goods_images[]" data-id="file_1">
-									            </div>
-									            <div nctype="file_00" class="show-default">
-									              <p><i class="icon-ok-circle"></i>
-									              </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
-									            </div>
-									            <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
-									            </div>
-									            <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_1', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
-									              </a>
-										             </div>
-										         </li>
-										  										      	<li class="ncsc-goodspic-upload">
-									            <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_2" src="/public/static/js/default_goods_image_240(1).gif"></a>
-									              <input type="hidden" value="" name="goods_images[]" data-id="file_2">
-									            </div>
-									            <div nctype="file_00" class="show-default">
-									              <p><i class="icon-ok-circle"></i>
-									              </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
-									            </div>
-									            <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
-									            </div>
-									            <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_2', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
-									              </a>
-										             </div>
-										         </li>
-										  										      	<li class="ncsc-goodspic-upload">
-									            <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_3" src="/public/static/js/default_goods_image_240(1).gif"></a>
-									              <input type="hidden" value="" name="goods_images[]" data-id="file_3">
-									            </div>
-									            <div nctype="file_00" class="show-default">
-									              <p><i class="icon-ok-circle"></i>
-									              </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
-									            </div>
-									            <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
-									            </div>
-									            <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_3', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
-									              </a>
-										             </div>
-										         </li>
-										  										      	<li class="ncsc-goodspic-upload">
-									            <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_4" src="/public/static/js/default_goods_image_240(1).gif"></a>
-									              <input type="hidden" value="" name="goods_images[]" data-id="file_4">
-									            </div>
-									            <div nctype="file_00" class="show-default">
-									              <p><i class="icon-ok-circle"></i>
-									              </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
-									            </div>
-									            <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
-									            </div>
-									            <div class="ncsc-upload-btn"><a href="javascript:void(0);" onclick="img_upload(10, 'file_4', 'goods', 'call_back2');"><span></span><p><i class="icon-upload-alt"></i>上传</p>
-									              </a>
-										             </div>
-										         </li>
+										         </li> -->
+										  										      	
 										  									      </ul>
 									      <input type="hidden" value="" name="goods_images[]">
 									      </div>
@@ -1246,7 +534,7 @@ body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/styl
 									    <li>4. 更改排序数字修改商品图片的排列显示顺序, 数字越小的越靠前显示</li>
 									    <li>5. 图片质量要清晰，不能虚化，要保证亮度充足。</li>
 									    <li>6. 操作完成后请点击"保存"按钮 , 否则上传的图片不会被保存</li>
-									    </ul><h4>建议:</h4><ul><li>1. 主图为白色背景正面图。</li><li>2. 排序依次为正面图-&gt;背面图-&gt;侧面图-&gt;细节图。</li></ul></div>
+									    </ul><h4>建议:</h4><ul><li>1. 主图为白色背景正面图。</li><li>2. 排序依次为正面图->背面图->侧面图->细节图。</li></ul></div>
 									   </div>
 								</div>
                             </dd>
@@ -1514,6 +802,37 @@ $(document).ready(function(){
             }
         });
     }
+    /** 以下是编辑时默认选中某个商品分类*/
+$(document).ready(function(){
+
+    {if condition="$level_cat['2'] gt 0"}
+         // 商品分类第二个下拉菜单
+         get_category('{$level_cat[1]}','cat_id2','{$level_cat[2]}');  
+    {/if}
+    {if condition="$level_cat['3'] gt 0"}
+        // 商品分类第二个下拉菜单
+         get_category('{$level_cat[2]}','cat_id3','{$level_cat[3]}');   
+    {/if}
+
+    //  扩展分类
+    {if condition="$level_cat2['2'] gt 0"}
+         // 商品分类第二个下拉菜单
+         get_category('{$level_cat2[1]}','extend_cat_id_2','{$level_cat2[2]}'); 
+    {/if}
+    {if condition="$level_cat2['3'] gt 0"}
+        // 商品分类第二个下拉菜单
+         get_category('{$level_cat2[2]}','extend_cat_id_3','{$level_cat2[3]}');  
+    {/if}
+    {if condition="!empty($goods[goods_id])"}
+        
+        setTimeout(function(){
+            if($("#cat_id3").val()>0){
+                ajaxGetSpecAttr({$goods.goods_id},$("#cat_id3").val());
+            }
+        },2000);
+        
+    {/if}
+});
     /**
      * 获取多级联动的商品分类
      */
@@ -1978,4 +1297,4 @@ function hbdyg() {
 //}
 </script>
 
-<div id="edui_fixedlayer" class=" edui-default" style="position: fixed; left: 0px; top: 0px; width: 0px; height: 0px;"><div id="edui254" class="edui-popup  edui-bubble edui-default" onmousedown="return false;" style="display: none;"> <div id="edui254_body" class="edui-popup-body edui-default"> <iframe style="position:absolute;z-index:-1;left:0;top:0;background-color: transparent;" frameborder="0" width="100%" height="100%" src="javascript:" class=" edui-default" src="/public/static/js/saved_resource(1).html"></iframe> <div class="edui-shadow edui-default"></div> <div id="edui254_content" class="edui-popup-content edui-default">  </div> </div></div></div></body></html>
+</body></html>

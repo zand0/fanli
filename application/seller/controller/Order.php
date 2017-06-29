@@ -201,4 +201,51 @@ class Order extends Base
         $this->assign('goodsList',$goodsList);
         return $this->fetch();
     }
+    
+    public function delivery_info(){
+        $order_id = I('get.order_id',0);
+        if(empty($order_id)){
+            $this->error("找不到订单");
+        }
+        $orderLogic = new OrderLogic();
+    	$order = $orderLogic->getOrderInfo($order_id);
+    	$orderGoods = $orderLogic->getOrderGoods($order_id,2);
+        if(!$orderGoods)$this->error('此订单商品已完成退货或换货');//已经完成售后的不能再发货
+		$delivery_record = M('delivery_doc')->alias('d')->join('tp_users u','u.user_id = d.user_id')->where('d.order_id='.$order_id)->select();
+		if($delivery_record){
+			$order['invoice_no'] = $delivery_record[count($delivery_record)-1]['invoice_no'];
+		}
+		$this->assign('order',$order);
+		$this->assign('orderGoods',$orderGoods);
+		$this->assign('delivery_record',$delivery_record);//发货记录
+    	return $this->fetch();
+    }
+    
+    public function delivery_list(){
+        $where = [];
+        $where['pay_status']=1;
+        $order_count = M('order')->where($where)->count();
+        $Page = new Page($order_count,C('PAGESIZE'));
+        $list = M('order')->where($where)->order('order_id desc')->limit($Page->firstRow,$Page->listRows)->select();
+        foreach ($list as &$v){
+            $v['order_goods'] = M('order_goods')->where(['order_id'=>$v['order_id']])->select();
+            
+        }
+        unset($v);
+        
+        $this->assign('list',$list);
+        $this->assign('page',$Page->show());
+        return $this->fetch();
+    }
+    
+    public function deliveryHandle(){
+        $orderLogic = new \app\seller\logic\OrderLogic();
+        $data = I('post.');
+        $res = $orderLogic->deliveryHandle($data);
+        if($res){
+            $this->success('操作成功');
+        }else{
+            $this->success('操作失败');
+        }
+    }
 }
