@@ -314,10 +314,13 @@ $(document).ready(function(){
 <script>
 /* 用户订单区域选择 */
 $(document).ready(function(){
-	$('#province').val(5827);
-	$('#city').val(6088);
-	$('#district').val(6099);
-	$('#shipping_id').val();
+	/* 用户订单区域选择 */
+	
+	$('#province').val({$order.province});
+	$('#city').val({$order.city});
+	$('#district').val({$order.district});
+	$('#shipping_id').val({$order.shipping_id});
+	
 	
 	$("#order-add").validate({
 		debug: true, //调试模式取消submit的默认提交功能   

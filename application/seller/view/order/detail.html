@@ -75,8 +75,8 @@ h3 {
 <div class="ncsc-oredr-show">
 <div class="ncsc-order-info">
 	<div class="ncsc-order-condition">
-	      <a class="ncbtn ncbtn-grapefruit mt5" href="/index.php/seller/order/edit_order/order_id/344.html" data-original-title="修改订单">修改订单</a>
-      <a class="ncbtn ncbtn-grapefruit mt5" href="/index.php/seller/Order/order_print/order_id/344.html" ata-original-title="打印订单"><i class="fa fa-print"></i>打印订单</a>
+	      <a class="ncbtn ncbtn-grapefruit mt5" href="/index.php/seller/order/edit_order/order_id/{$order.order_id}.html" data-original-title="修改订单">修改订单</a>
+      <a class="ncbtn ncbtn-grapefruit mt5" href="/index.php/seller/Order/order_print/order_id/{$order.order_id}.html" ata-original-title="打印订单"><i class="fa fa-print"></i>打印订单</a>
     
     </div>                  
 </div>
@@ -205,7 +205,7 @@ h3 {
 	        <tr>
 	          <td colspan="20"><dl class="freight">
 	          		<h3>费用信息</h3>
-	          		<span><a title="修改费用信息" class="ncbtn-mini" target="_blank" href="/index.php/seller/Order/editprice/order_id/344.html"><i class="icon-edit"></i>修改费用信息</a></span>
+	          		<span><a title="修改费用信息" class="ncbtn-mini" target="_blank" href="/index.php/seller/Order/editprice/order_id/{$order.order_id}.html"><i class="icon-edit"></i>修改费用信息</a></span>
 	          	</dl></td>
 	        </tr>
 	        <tr>
@@ -242,7 +242,7 @@ h3 {
         	<dt>操作备注</dt>
 	        <dd>
 			<form id="order-action">
-	          <textarea name="note" placeholder="请输入操作备注" class="textarea h60 w400 valid"></textarea>
+	          <textarea name="note" placeholder="请输入操作备注" class="textarea h60 w400 valid">{$order.user_note}</textarea>
 			</form>
 	          <span></span>
 	          <p class="hint">备注字不能超过140个汉字</p>
@@ -251,12 +251,22 @@ h3 {
       	<dl>
         	<dt>可执行操作</dt>
 	        <dd>
-	        			        			<a href="javascript:void(0)" class="ncbtn ncbtn-grapefruit mt5" data-url="/index.php/seller/Order/pay_cancel/order_id/344.html" onclick="pay_cancel(this)">设为未付款</a>			
+	        {switch name="order.pay_status" }
+			    {case value="1"}
+<a href="javascript:void(0)" class="ncbtn ncbtn-grapefruit mt5" data-url="/index.php/seller/Order/pay_cancel/order_id/{$order.order_id}.html" onclick="pay_cancel(this)">设为未付款</a>
+				{/case}
+			    {case value="2"}
+
+				{/case}
+			    {default /}
+
+			{/switch}
+	        			        						
 	        				        		<label class="submit-border">
-	        				<input class="submit" nctype="formSubmit" type="button" onclick="ajax_submit_form(&#39;order-action&#39;,&#39;/index.php/seller/Order/order_action/order_id/344/type/confirm.html&#39;);" value="确认"> 
+	        				<input class="submit" nctype="formSubmit" type="button" onclick="ajax_submit_form('order-action','/index.php/seller/Order/order_action/order_id/{$order.order_id}/type/confirm.html');" value="确认"> 
 	      				</label>
 		          	 		        		<label class="submit-border">
-	        				<input class="submit" nctype="formSubmit" type="button" onclick="ajax_submit_form(&#39;order-action&#39;,&#39;/index.php/seller/Order/order_action/order_id/344/type/invalid.html&#39;);" value="无效"> 
+	        				<input class="submit" nctype="formSubmit" type="button" onclick="ajax_submit_form('order-action','/index.php/seller/Order/order_action/order_id/{$order.order_id}/type/invalid.html');" value="无效"> 
 	      				</label>
 		          	 	        </dd>
       	</dl>
@@ -363,14 +373,14 @@ function call_back(order_id,goods_id)
                 | <a href="http://www.tpshop.cn/">物流自取</a>
                 | <a href="http://www.tpshop.cn/">友情链接</a>
   </p>
-  Copyright 2017 <a href="/index.php/seller/order/detail/order_id/344.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  Copyright 2017 <a href="/index.php/seller/order/detail/order_id/{$order.order_id}.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
   <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
 </div>
-<script type="text/javascript" src="./订单详情_files/jquery.cookie.js.下载"></script>
-<link href="./订单详情_files/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="./订单详情_files/perfect-scrollbar.min.js.下载"></script> 
-<script type="text/javascript" src="./订单详情_files/jquery.qtip.min.js.下载"></script>
-<link href="./订单详情_files/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/static/js/jquery.cookie.js"></script>
+<link href="/public/static/css/perfect-scrollbar.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/public/static/js/perfect-scrollbar.min.js"></script> 
+<script type="text/javascript" src="/public/static/js/jquery.qtip.min.js"></script>
+<link href="/public/static/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
 <div id="tbox">
   <div class="btn" id="msg"><a href="/index.php/Seller/index/store_msg.html"><i class="msg"><em>1</em></i>站内消息</a></div>
   <div class="btn" id="im"><i class="im"><em id="new_msg" style="display:none;"></em></i><a href="javascript:void(0);">在线联系</a></div>

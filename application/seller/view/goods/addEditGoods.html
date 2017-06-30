@@ -323,7 +323,7 @@
                                 <div class="ncsc-goods-default-pic">
                                     <div class="goodspic-uplaod">
                                         <div class="upload-thumb">
-                                            <img id="original_img2" src="{$goods.original_img?$goods.original_img:'/public/static/js/default_goods_image_240.gif'}">
+                                            <img id="original_img2" src="{$goods.original_img?$goods.original_img:'/public/static/img/default_goods_image_240.gif'}">
                                         </div>
                                         <input name="original_img" id="original_img" value="" type="hidden">
                                         <p class="hint">上传商品默认主图，如多规格值时将默认使用该图或分规格上传各规格主图；支持jpg、gif、png格式上传或从图片空间中选择，建议使用<font color="red">尺寸800x800像素以上、大小不超过1M的正方形图片</font>，上传后的图片将会自动保存在图片空间的默认分类中。</p>
@@ -429,7 +429,7 @@
 					    <dl class="special-01" nctype="virtual_valid" style="display: none;">
 					        <dt><i class="required">*</i>虚拟商品购买上限：</dt>
 					        <dd>
-					          <input type="text" name="virtual_limit" id="virtual_limit" class="w80 text" value="" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onblur="checkInputNum(this.name,1,10);">
+					          <input type="text" name="virtual_limit" id="virtual_limit" class="w80 text" value="{$goods.virtual_limit}" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onblur="checkInputNum(this.name,1,10);">
 					          <span></span>
 					          <p class="hint">请填写1~10之间的数字，虚拟商品最高购买数量不能超过10个。</p>
 					        </dd>
@@ -439,11 +439,11 @@
 					        <dd>
 					          <ul class="ncsc-form-radio-list">
 					            <li>
-					              <input type="radio" name="virtual_refund" id="virtual_refund_1" value="1">
+					              <input {if condition="$goods.virtual_refund eq 1"}checked="checked"{/if} type="radio" name="virtual_refund" id="virtual_refund_1" value="1">
 					              <label for="virtual_refund_1">是</label>
 					            </li>
 					            <li>
-					              <input type="radio" name="virtual_refund" id="virtual_refund_0" value="0" checked="">
+					              <input {if condition="$goods.virtual_refund eq 0"}checked="checked"{/if} type="radio" name="virtual_refund" id="virtual_refund_0" value="0" checked="">
 					              <label for="virtual_refund_0">否</label>
 					            </li>
 					          </ul>
@@ -494,7 +494,7 @@
                                             {/foreach}
 								        		{else /}	
                                                 <li class="ncsc-goodspic-upload">
-                                                <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_0" src="/public/static/js/default_goods_image_240(1).gif"></a>
+                                                <div class="upload-thumb"><a onclick="" href="/index.php/seller/Goods/addEditGoods.html#" target="_blank"><img nctype="file_0" src="/public/static/img/default_goods_image_240.gif"></a>
                                                   <input type="hidden" value="" name="goods_images[]" data-id="file_0">
                                                 </div>
                                                 <div nctype="file_00" class="show-default">
@@ -576,62 +576,28 @@
                     <div class="ncsc-form-goods" id="tab_goods_shipping" style="display: none;">
                         <h4><b>物流配送：</b><input type="checkbox" onclick="choosebox(this)">全选</h4>
                         <table class="table table-bordered table-striped dataTable" id="goods_shipping_table">
-                                                            <tbody><tr>
-                                    <td class="title left" style="padding-right:50px;">
-                                        <b>申通物流：</b>
-                                        <label class="right"><input type="checkbox" value="1" cka="mod-0">全选</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ul class="group-list">
-                                                                                                <li><label><input type="checkbox" name="shipping_area_ids[]" value="44" ck="mod-0">全国其他地区</label></li>
-                                                                                                    <li><label><input type="checkbox" name="shipping_area_ids[]" value="49" ck="mod-0"></label></li>
-                                                                                                    <li><label><input type="checkbox" name="shipping_area_ids[]" value="50" ck="mod-0"></label></li>
-                                                                                            <div class="clear-both"></div>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                                            <tbody>
+                                  {foreach name="plugin_shipping" item="shipping" key="kk"}                   
                                                             <tr>
                                     <td class="title left" style="padding-right:50px;">
-                                        <b>顺丰物流：</b>
-                                        <label class="right"><input type="checkbox" value="1" cka="mod-1">全选</label>
+                                        <b>{$shipping[name]}：</b>
+                                        <label class="right"><input type="checkbox" value="1" cka="mod-{$kk}">全选</label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <ul class="group-list">
-                                                                                                <li><label><input type="checkbox" name="shipping_area_ids[]" value="43" ck="mod-1">全国其他地区</label></li>
-                                                                                            <div class="clear-both"></div>
+                                        {foreach name="shipping_area" item="vv"}
+                                        {if condition="$vv[shipping_code] eq $shipping[code]"}
+                                               <li><label><input type="checkbox" name="shipping_area_ids[]" value="{$vv.shipping_area_id}" {if condition="in_array($vv['shipping_area_id'],$goods_shipping_area_ids)"}checked='checked='{/if}  ck="mod-{$kk}">{$vv.shipping_area_name}</label></li>
+                                        {/if}
+                                        {/foreach}
+                                           <div class="clear-both"></div>
                                         </ul>
                                     </td>
                                 </tr>
-                                                            <tr>
-                                    <td class="title left" style="padding-right:50px;">
-                                        <b>	EMS快递：</b>
-                                        <label class="right"><input type="checkbox" value="1" cka="mod-2">全选</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ul class="group-list">
-                                                                                        <div class="clear-both"></div>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td class="title left" style="padding-right:50px;">
-                                        <b>百世汇通：</b>
-                                        <label class="right"><input type="checkbox" value="1" cka="mod-3">全选</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ul class="group-list">
-                                                                                        <div class="clear-both"></div>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                {/foreach}
+                                                            
                                                     </tbody></table>
                     </div>
                     <div class="bottom tc hr32">
@@ -789,7 +755,7 @@ $(document).ready(function(){
             url:"/index.php/Seller/Goods/del_goods_images.html",
             data:{filename:path},
             success:function(){
-                 $(obj).parent().siblings('.upload-thumb').find('img').attr("src", '/public/static/images/default_goods_image_240.gif'); // 删除完服务器的, 再删除 html上的图片
+                 $(obj).parent().siblings('.upload-thumb').find('img').attr("src", '/public/static/img/default_goods_image_240.gif'); // 删除完服务器的, 再删除 html上的图片
                 //删除input goods_image
                 $(obj).parent().siblings('.upload-thumb').find('input[type=hidden]').val("");
                 $(obj).parent().siblings('.show-sort').find('input[type=text]').val("0");
@@ -797,7 +763,7 @@ $(document).ready(function(){
                 //如果删除的是商品主图, 则把商品主图隐藏域删掉
                 if($("#original_img").val() == path){
                 	$("#original_img").val("");
-                    $("#original_img2").attr("src" , '/Public/static/images/default_goods_image_240.gif');
+                    $("#original_img2").attr("src" , '/Public/static/img/default_goods_image_240.gif');
                 }
             }
         });
@@ -829,9 +795,36 @@ $(document).ready(function(){
             if($("#cat_id3").val()>0){
                 ajaxGetSpecAttr({$goods.goods_id},$("#cat_id3").val());
             }
+            
+        	/*var goods_id = '{$goods.goods_id}';
+        	var spec_type = $("#cat_id3").val();
+        	$.ajax({
+        	        type:'GET',
+        	        data:{goods_id:goods_id,spec_type:spec_type}, 
+        	        url:"{:U('admin/Goods/ajaxGetSpecSelect')}",
+        	        success:function(data){                            
+        	               $("#ajax_spec_data").html('')
+        	               $("#ajax_spec_data").append(data);
+        				   ajaxGetSpecInput();	// 触发完  马上触发 规格输入框
+        	        }
+        	});           
+        	       //商品类型切换时 ajax 调用  返回不同的属性输入框     
+        	       $.ajax({
+        	            type:'GET',
+        	            data:{goods_id:goods_id,type_id:spec_type}, 
+        	            url:"/index.php/admin/Goods/ajaxGetAttrInput",
+        	            success:function(data){                            
+        	                    $("#goods_attr_table tr:gt(0)").remove()
+        	                    $("#goods_attr_table").append(data);
+        	            }        
+        	      });*/
+        	    
+        	
+            
         },2000);
         
     {/if}
+    
 });
     /**
      * 获取多级联动的商品分类
@@ -897,9 +890,9 @@ $(document).ready(function(){
 
     	var last_li = $(".goods-pic-list").children("li:last-child");
     	//第一个: a标签
-    	last_li.find("a:eq(0)").attr("href" ,  '/public/static/images/default_goods_image_240.gif');
+    	last_li.find("a:eq(0)").attr("href" ,  '/public/static/img/default_goods_image_240.gif');
     	//img标签
-    	last_li.find("img:eq(0)").attr("nctype" , new_id).attr("src" ,  '/public/static/images/default_goods_image_240.gif'); //src
+    	last_li.find("img:eq(0)").attr("nctype" , new_id).attr("src" ,  '/public/static/img/default_goods_image_240.gif'); //src
     	//隐藏域: goods_images
     	last_li.find("input[type=hidden]:eq(0)").attr("data-id" , new_id);
     	//排序字段:
@@ -1206,6 +1199,7 @@ function call_back3(fileurl_tmp) {
         else {
             $(this).removeClass('btn-default');
             $(this).addClass('btn-success');
+            //$(this).slibings(".btn-success").removeClass("btn-success");
         }
         ajaxGetSpecInput();
     });
@@ -1213,11 +1207,11 @@ function call_back3(fileurl_tmp) {
 /***点击商品规格处罚 下面输入框显示*/
 function ajaxGetSpecInput() {
     //t
-    var spec_arr = {
+    /*var spec_arr = {
         1 : [1, 2]
-    };
+    };*/
     // 用户选择的规格数组 t//t
-    spec_arr[2] = [3, 4];
+    //spec_arr[2] = [3, 4];
     var spec_arr = {};
     // 用户选择的规格数组 ttt
     // 选中了哪些属性tt
@@ -1227,12 +1221,13 @@ function ajaxGetSpecInput() {
             var spec_id = $(this).data('spec_id');
             var item_id = $(this).data('item_id');
             if (!spec_arr.hasOwnProperty(spec_id)) spec_arr[spec_id] = [];
+            //spec_arr[spec_id] = [];
             spec_arr[spec_id].push(item_id);
-            //console.log(spec_arr);tt}ttt});tt
+            console.log(spec_arr);
             //alert(22);
             
             // 显示下面的输入框t
-            }
+        }
 	});
 	ajaxGetSpecInput2(spec_arr);
 }
@@ -1295,6 +1290,7 @@ function hbdyg() {
         //}
     //})
 //}
+
 </script>
 
 </body></html>

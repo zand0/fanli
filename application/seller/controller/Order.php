@@ -57,7 +57,7 @@ class Order extends Base
     
     public function edit_order(){
         $order_id = I('order_id');
-        $orderLogic = new OrderLogic();
+        $orderLogic = new \app\seller\logic\OrderLogic();
         $order = $orderLogic->getOrderInfo($order_id);
         if($order['shipping_status'] != 0){
             $this->error('已发货订单不允许编辑');
@@ -125,13 +125,13 @@ class Order extends Base
             $o = M('order')->where('order_id='.$order_id)->save($order);
         
             $l = $orderLogic->orderActionLog($order_id,'edit','修改订单');//操作日志
-            exit;
+            
             if($o && $l){
-                $this->success('修改成功',U('Admin/Order/editprice',array('order_id'=>$order_id)));
+                $this->success('修改成功');
             }else{
-                $this->success('修改失败',U('Admin/Order/detail',array('order_id'=>$order_id)));
+                $this->success('修改失败');
             }
-            exit;
+            
         }
         // 获取省份
         $province = M('region')->where(array('parent_id'=>0,'level'=>1))->select();
@@ -246,6 +246,48 @@ class Order extends Base
             $this->success('操作成功');
         }else{
             $this->success('操作失败');
+        }
+    }
+    
+    public function order_action(){
+        $get = I('get.');
+        $post = I('post.');
+        if($get['type']=='confirm'){
+            $status=1;
+        }else{
+            $status = 3;
+        }
+        
+        $res = M('order')->where(['order_id'=>$get['order_id']])->update([
+            'order_status'=>$status,
+            'user_note'=>isset($post['note'])?$post['note']:''
+        ]);
+        if($res){
+            return json(['status'=>1,'msg'=>"操作成功"]);
+        }else{
+            return json(['status'=>0,'msg'=>"操作失败"]);
+        } 
+    }
+    
+    public function pay_cancel($order_id){
+        if(I('remark')){
+            $data = I('post.');
+            $note = array('退款到用户余额','已通过其他方式退款','不处理，误操作项');
+            if($data['refundType'] == 0 && $data['amount']>0){
+                accountLog($data['user_id'], $data['amount'], 0,  '退款到用户余额');
+            }
+            $orderLogic = new \app\seller\logic\OrderLogic();
+            $orderLogic->orderProcessHandle($data['order_id'],'pay_cancel');
+            $d = $orderLogic->orderActionLog($data['order_id'],'pay_cancel',$data['remark'].':'.$note[$data['refundType']]);
+            if($d){
+                exit("<script>window.parent.pay_callback(1);</script>");
+            }else{
+                exit("<script>window.parent.pay_callback(0);</script>");
+            }
+        }else{
+            $order = M('order')->where("order_id=$order_id")->find();
+            $this->assign('order',$order);
+            return $this->fetch();
         }
     }
 }

@@ -4,32 +4,42 @@
       <b>商品规格:</b>
     </td>
   </tr>
-  {volist name="list" id="vo"}
+  {foreach name="specList" item="vo" key="k" }
   <tr>
     <td>{$vo.name}:</td>
     <td>
-    {volist name="vo.spec_item" id="si"}
-    			<button onclick="" type="button" data-spec_id="{$vo.id}" data-item_id="{$si.id}" class="btn btn-default">
-                    {$si.item}                </button>
+    {foreach name="vo[spec_item]" item="vo2" key="k2" }
+    			<button onclick="" type="button" data-spec_id="{$vo.id}" data-item_id="{$k2}" class="btn <?php 
+                             if(in_array($k2,$items_ids))                         
+                                    echo 'btn-success'; 
+                             else 
+                                echo 'btn-default';                          
+                             ?>" >
+                    {$vo2}                </button>
                                 
                 &nbsp;&nbsp;&nbsp;               
-     {/volist}                
-      <input type="text" maxlength="20" data-spec_id="1" name="spec_item" placeholder="规格值名称" class="form-control" style="width:80px;vertical-align: middle;display: initial;">&nbsp;&nbsp;
+     {/foreach}  
+                   
+      <input type="text" maxlength="20" data-spec_id="{$vo.id}" name="spec_item" placeholder="规格值名称" class="form-control" style="width:80px;vertical-align: middle;display: initial;">&nbsp;&nbsp;
       <a href="javascript:void(0);" onclick="addSpecItem(this)">添加</a>
-      <a href="javascript:void(0);" onclick="delSpecItem(this)">删除</a></td>
+      <!-- <a href="javascript:void(0);" onclick="delSpecItem(this)">删除</a></td> -->
   </tr>
-  {/volist}
+  {/foreach}
 </table>
 <div id="goods_spec_table2">
   <!--ajax 返回 规格对应的库存-->
 </div>
 <script>
 $("#goods_spec_table1 button").click(function(){
+	
 	if ($(this).hasClass('btn-success')) {
 		$(this).removeClass('btn-success');
+		$(this).addClass('btn-default');
 	}else{
 		$(this).addClass('btn-success');
+		$(this).removeClass('btn-default');
 	}
+	//$(this).siblings().removeClass("btn-success");
 	ajaxGetSpecInput();
 });
 </script>

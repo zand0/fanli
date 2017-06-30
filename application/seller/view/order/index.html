@@ -139,7 +139,8 @@
      	<tr>
 	      <td class="bdl"></td>
 	      <td class="w70">
-	      <div class="ncsc-goods-thumb"><a href="{:U('/index.php/Home/Goods/goodsInfo/id/'.$vo['order_id'])}" target="_blank"><img src="/public/static/js/goods_thumb_49_240_240.jpeg"></a></div></td>
+	      <div class="ncsc-goods-thumb"><a href="{:U('/index.php/Home/Goods/goodsInfo/id/'.$vo['order_id'])}" target="_blank">
+	      <img src="{$v.goods_id|goods_thum_images=200,200}"></a></div></td>
 	      <td class="tl">
 	      	<dl class="goods-name">
 	      	

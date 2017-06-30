@@ -5,10 +5,9 @@
 */
 before_request = 1; // 标识上一次ajax 请求有没回来, 没有回来不再进行下一次
 function ajax_submit_form(form_id,submit_url){
-
-         if(before_request == 0)
-            return false;
-              
+    if(before_request == 0){
+        return false;
+    }      
 	$("[id^='err_']").hide();  // 隐藏提示
     $.ajax({
                 type : "POST",
@@ -20,7 +19,7 @@ function ajax_submit_form(form_id,submit_url){
                 },
                 success: function(v) {
                     before_request = 1; // 标识ajax 请求已经返回
-                    var v =  eval('('+v+')');
+                    //var v =  eval('('+v+')');
                         // 验证成功提交表单
                     if(v.hasOwnProperty('status'))
                     {
