@@ -40,32 +40,7 @@ h3 {
 }
 </style>
 <div class="ncsc-layout wrapper">
-   <div id="layoutLeft" class="ncsc-layout-left">
-   <div id="sidebar" class="sidebar">
-     <div class="column-title" id="main-nav"><span class="ico-order"></span>
-       <h2>订单物流</h2>
-     </div>
-     <div class="column-menu">
-       <ul id="seller_center_left_menu">
-      	            <li class="">
-           		<a href="/index.php/seller/Order/index.html"> 订单列表</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/virtual_list.html"> 虚拟订单</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/delivery_list.html"> 发货商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Plugin/index.html"> 发货设置</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Comment/index.html"> 商品评论</a>
-           </li>
-	 	      </ul>
-     </div>
-   </div>
- </div>
+   {include file="public/layout_left" /}
   <div id="layoutRight" class="ncsc-layout-right">
     <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>订单详情</div>
     <div class="main-content" id="mainContent">
@@ -236,6 +211,7 @@ h3 {
   </div>
   
   <!--操作信息-->
+  {if condition="$order.shipping_status eq 0"}
  <div class="ncsc-form-goods" style="margin-top:30px">
  		<h3 id="demo1">操作</h3>
 	    <dl>
@@ -271,7 +247,7 @@ h3 {
 		          	 	        </dd>
       	</dl>
   </div>
-  
+  {/if}
   <!-- 操作记录 -->
   <div class="ncsc-order-contnet">
 	    <table class="ncsc-default-table order">

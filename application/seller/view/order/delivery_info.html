@@ -48,32 +48,7 @@
     }
 </style>
 <div class="ncsc-layout wrapper">
-     <div id="layoutLeft" class="ncsc-layout-left">
-   <div id="sidebar" class="sidebar">
-     <div class="column-title" id="main-nav"><span class="ico-order"></span>
-       <h2>订单物流</h2>
-     </div>
-     <div class="column-menu">
-       <ul id="seller_center_left_menu">
-      	            <li class="">
-           		<a href="/index.php/seller/Order/index.html"> 订单列表</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/virtual_list.html"> 虚拟订单</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/delivery_list.html"> 发货商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Plugin/index.html"> 发货设置</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Comment/index.html"> 商品评论</a>
-           </li>
-	 	      </ul>
-     </div>
-   </div>
- </div>
+     {include file="public/layout_left" /}
     <div id="layoutRight" class="ncsc-layout-right">
         <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>发货设置</div>
             <div class="main-content" id="mainContent">
@@ -82,7 +57,7 @@
                     <div class="ncsc-oredr-show">
                         <div class="ncsc-order-info" style="height:auto; min-height:auto">
                             <div class="ncsc-order-condition">
-                                <a href="/index.php/seller/Order/order_print/order_id/342/template/picking.html" target="_blank" class="ncbtn ncbtn-grapefruit mt5" data-original-title="打印订单"><i class="fa icon-print"></i>打印订单</a>
+                                <a href="/index.php/seller/Order/order_print/order_id/{$order.order_id}/template/picking.html" target="_blank" class="ncbtn ncbtn-grapefruit mt5" data-original-title="打印订单"><i class="fa icon-print"></i>打印订单</a>
                             </div>
                         </div>
                         <!-- 基本信息 -->
@@ -207,7 +182,7 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            
+                            {if condition="$order.shipping_status neq 1"}
                             <div class="contact-info" style="margin-top:10px;">
 					          <h3>发货单备注</h3>
 					          <dl class="row">
@@ -228,6 +203,7 @@
 						        </dd>
 						      </dl> 
 					        </div>
+                            {/if}
                             <!--发货状态下课修改订单号-->
         					                            <!-- 操作记录 -->
                             <div class="ncsc-order-contnet">
@@ -289,7 +265,7 @@
                 | <a href="http://www.tpshop.cn/">物流自取</a>
                 | <a href="http://www.tpshop.cn/">友情链接</a>
   </p>
-  Copyright 2017 <a href="/index.php/Seller/Order/delivery_info/order_id/342.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
+  Copyright 2017 <a href="/index.php/Seller/Order/delivery_info/order_id/{$order.order_id}.html" target="_blank">TPshop商城</a> All rights reserved.<br>本演示来源于
   <a href="http://www.tpshop.cn/" target="_blank">www.tpshop.cn</a>  
 </div>
 <script type="text/javascript" src="/public/static/js/jquery.cookie.js"></script>

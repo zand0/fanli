@@ -133,35 +133,7 @@
 </script>
 <!--以上是在线编辑器 代码  end-->
 <div class="ncsc-layout wrapper">
-     <div id="layoutLeft" class="ncsc-layout-left">
-   <div id="sidebar" class="sidebar">
-     <div class="column-title" id="main-nav"><span class="ico-goods"></span>
-       <h2>商品</h2>
-     </div>
-     <div class="column-menu">
-       <ul id="seller_center_left_menu">
-      	            <li class="current">
-           		<a href="/index.php/seller/Goods/addEditGoods.html"> 商品发布</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/goodsList.html"> 出售中的商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/goods_offline.html"> 仓库中的商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/stock_list.html"> 库存日志</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/specList.html"> 商品规格</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/brandList.html"> 品牌申请</a>
-           </li>
-	 	      </ul>
-     </div>
-   </div>
- </div>
+     {include file="public/layout_left" /}
     <div id="layoutRight" class="ncsc-layout-right">
         <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>商品发布</div>
         <div class="main-content" id="mainContent">
@@ -1143,7 +1115,9 @@ function addSpecItem(obj) {
                     icon: 2
                 });
             } else {
-                $("#cat_id3").trigger('change');
+                if($("#cat_id3").val()>0){
+                    ajaxGetSpecAttr({$goods.goods_id},$("#cat_id3").val());
+                }
             }
         }
     });

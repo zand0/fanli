@@ -1,6 +1,6 @@
 <?php
 namespace app\seller\controller;
-use app\admin\logic\OrderLogic;
+use app\seller\logic\OrderLogic;
 use think\AjaxPage;
 use think\Page;
 use think\Db;
@@ -8,16 +8,9 @@ class Order extends Base
 {
     public function index()
     {
-        $where = [];
-        $order_count = M('order')->where($where)->count();
-        $Page = new Page($order_count,C('PAGESIZE'));
-        $list = M('order')->where($where)->order('order_id desc')->limit($Page->firstRow,$Page->listRows)->select();
-        foreach ($list as &$v){
-            $v['order_goods'] = M('order_goods')->where(['order_id'=>$v['order_id']])->select();
-        }
-        unset($v);
-        $this->assign('list',$list);
-        $this->assign('page',$Page->show());
+        $begin = date('Y-m-d',strtotime("-1 year"));//30天前
+    	$end = date('Y/m/d',strtotime('+1 days')); 	
+    	$this->assign('timegap',$begin.'-'.$end);
         return $this->fetch();
     }
     
@@ -222,19 +215,7 @@ class Order extends Base
     }
     
     public function delivery_list(){
-        $where = [];
-        $where['pay_status']=1;
-        $order_count = M('order')->where($where)->count();
-        $Page = new Page($order_count,C('PAGESIZE'));
-        $list = M('order')->where($where)->order('order_id desc')->limit($Page->firstRow,$Page->listRows)->select();
-        foreach ($list as &$v){
-            $v['order_goods'] = M('order_goods')->where(['order_id'=>$v['order_id']])->select();
-            
-        }
-        unset($v);
         
-        $this->assign('list',$list);
-        $this->assign('page',$Page->show());
         return $this->fetch();
     }
     
@@ -258,7 +239,7 @@ class Order extends Base
             $status = 3;
         }
         
-        $res = M('order')->where(['order_id'=>$get['order_id']])->update([
+        $res = M('order')->where(['order_id'=>$get['order_id'],'order_status'=>0])->update([
             'order_status'=>$status,
             'user_note'=>isset($post['note'])?$post['note']:''
         ]);
@@ -289,5 +270,116 @@ class Order extends Base
             $this->assign('order',$order);
             return $this->fetch();
         }
+    }
+    
+    /*
+     *Ajax首页
+     */
+    public function ajaxindex(){
+        $orderLogic = new OrderLogic();
+        $timegap = I('timegap');
+        if($timegap){
+            $gap = explode('-', $timegap);
+            $begin = strtotime($gap[0]);
+            $end = strtotime($gap[1]);
+        }else{
+            //@new 新后台UI参数
+            $begin = strtotime(I('add_time_begin'));
+            $end = strtotime(I('add_time_end'));
+        }
+    
+        // 搜索条件
+        $condition = array();
+        $keyType = I("keytype");
+        $keywords = I('keywords','','trim');
+    
+        $consignee =  ($keyType && $keyType == 'consignee') ? $keywords : I('consignee','','trim');
+        $consignee ? $condition['consignee'] = trim($consignee) : false;
+    
+    
+        if($begin && $end){
+            $condition['add_time'] = array('between',"$begin,$end");
+        }
+    
+        $order_sn = ($keyType && $keyType == 'order_sn') ? $keywords : I('order_sn') ;
+        $order_sn ? $condition['order_sn'] = trim($order_sn) : false;
+    
+        I('order_status') != '' ? $condition['order_status'] = I('order_status') : false;
+        I('pay_status') != '' ? $condition['pay_status'] = I('pay_status') : false;
+        I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
+        I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
+        I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
+        $sort_order = I('order_by','DESC').' '.I('sort');
+        $count = M('order')->where("find_in_set(".session('seller_id').",store_ids)")->where($condition)->count();
+        $Page  = new AjaxPage($count,20);
+        //  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+            if($key == 'add_time'){
+                $between_time = explode(',',$val[1]);
+                $parameter_add_time = date('Y/m/d',$between_time[0]) . '-' . date('Y/m/d',$between_time[1]);
+                $Page->parameter['timegap'] = $parameter_add_time;
+            }else{
+                $Page->parameter[$key]   =  urlencode($val);
+            }
+        }
+        $show = $Page->show();
+        //获取订单列表
+        $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
+        $this->assign('list',$orderList);
+        $this->assign('page',$show);// 赋值分页输出
+        $this->assign('pager',$Page);
+        return $this->fetch();
+    }
+    
+/*
+     * ajax 发货订单列表
+    */
+    public function ajaxdelivery(){
+    	$orderLogic = new OrderLogic();
+    	$condition = array();
+    	I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
+    	I('order_sn') != '' ? $condition['order_sn'] = trim(I('order_sn')) : false;
+    	$shipping_status = I('shipping_status');
+    	$condition['shipping_status'] = empty($shipping_status) ? array('neq',1) : $shipping_status;
+        $condition['order_status'] = array('in','1,2,4');
+    	$count = M('order')->where("find_in_set(".session('seller_id').",store_ids)")->where($condition)->count();
+    	$Page  = new AjaxPage($count,10);
+    	//搜索条件下 分页赋值
+    	foreach($condition as $key=>$val) {
+            if(!is_array($val)){
+                $Page->parameter[$key]   =   urlencode($val);
+            }
+    	}
+    	$show = $Page->show();
+    	$orderList = M('order')->where("find_in_set(".session('seller_id').",store_ids)")->where($condition)->limit($Page->firstRow.','.$Page->listRows)->order('add_time DESC')->select();
+    	foreach ($orderList as &$v){
+    	    $v['order_goods'] = M('order_goods')->where(['order_id'=>$v['order_id']])->select();
+    	}
+    	unset($v);
+    	$this->assign('list',$orderList);
+    	$this->assign('page',$show);// 赋值分页输出
+    	$this->assign('pager',$Page);
+    	return $this->fetch();
+    }
+    
+    /**
+     * 订单打印
+     * @param int $id 订单id
+     */
+    public function order_print(){
+        $order_id = I('order_id');
+        $orderLogic = new OrderLogic();
+        $order = $orderLogic->getOrderInfo($order_id);
+        $order['province'] = getRegionName($order['province']);
+        $order['city'] = getRegionName($order['city']);
+        $order['district'] = getRegionName($order['district']);
+        $order['full_address'] = $order['province'].' '.$order['city'].' '.$order['district'].' '. $order['address'];
+        $orderGoods = $orderLogic->getOrderGoods($order_id);
+        $shop = tpCache('shop_info');
+        $this->assign('order',$order);
+        $this->assign('shop',$shop);
+        $this->assign('orderGoods',$orderGoods);
+        $template = I('template','print');
+        return $this->fetch($template);
     }
 }

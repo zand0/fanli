@@ -4,32 +4,7 @@
 <div id="ajaxwaitid"></div>
 {include file="public/nav" /}
 <div class="ncsc-layout wrapper">
-   <div id="layoutLeft" class="ncsc-layout-left">
-   <div id="sidebar" class="sidebar">
-     <div class="column-title" id="main-nav"><span class="ico-order"></span>
-       <h2>订单物流</h2>
-     </div>
-     <div class="column-menu">
-       <ul id="seller_center_left_menu">
-      	            <li class="">
-           		<a href="/index.php/seller/Order/index.html"> 订单列表</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/virtual_list.html"> 虚拟订单</a>
-           </li>
-	 	           <li class="current">
-           		<a href="/index.php/seller/Order/delivery_list.html"> 发货商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Plugin/index.html"> 发货设置</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Comment/index.html"> 商品评论</a>
-           </li>
-	 	      </ul>
-     </div>
-   </div>
- </div>
+   {include file="public/layout_left" /}
   <div id="layoutRight" class="ncsc-layout-right">
     <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>发货列表</div>
     <div class="main-content" id="mainContent">
@@ -50,7 +25,7 @@
 	  </ul>
 </div>
 <form method="post" action="/index.php/seller/Order/ajaxdelivery.html" id="search-form2" onsubmit="return false">
-  <input type="hidden" name="shipping_status" id="shipping_status" value="1">
+  <input type="hidden" name="shipping_status" id="shipping_status" value="0">
   <table class="search-form">
     <tbody><tr>
       <th>收货人</th>
@@ -66,76 +41,7 @@
      </tr>
   </tbody></table>
 </form>
-<div id="ajax_return"><style>
-    a.ncbtn-mini i, a.ncbtn i {
-        vertical-align: bottom;
-    }
-</style>
-<table class="ncsc-default-table order deliver">
-	{volist name="list" id="vo"}
-  	<tbody>
-    <tr>
-      <td colspan="21" class="sep-row"></td>
-    </tr>
-    <tr>
-      <th colspan="21"><span class="ml5">订单编号：<strong>{$vo.order_sn}</strong></span><span>下单时间：<em class="goods-time">{$vo.add_time|date="Y-m-d H:i",###}</em></span>
-         <span class="fr mr10">
-                <a href="/index.php/seller/Order/order_print/order_id/341/template/picking.html" target="_blank" class="ncbtn-mini" title="打印配货单"><i class="icon-print"></i>打印配货单</a></span>
-      </th>
-   	 </tr>
-   	      	<!--  第一行 -->
-     	<tr>
-	      <td class="bdl w10"></td>
-	      <td class="w50"><div class="pic-thumb"><a href="/index.php/Home/Goods/goodsInfo/id/{$vo.order_goods[0][goods_id]}.html" target="_blank"><img src="{$vo.order_goods[0][goods_id]|goods_thum_images=200,200}"></a></div></td>
-	      <td class="tl">
-	      	<dl class="goods-name">
-	      	
-	          <dt><a target="_blank" href="/index.php/Home/Goods/goodsInfo/id/{$vo.order_goods[0][goods_id]}.html">{$vo.order_goods[0][goods_name]}</a></dt>
-	          <dd><strong>￥{$vo.order_goods[0][goods_price]}</strong>&nbsp;x&nbsp;<em>{$vo.order_goods[0][goods_num]}</em>件</dd>
-	        
-	        </dl>
-	      </td>
-	      <td class="bdl bdr order-info w500" rowspan="{:count($vo.order_goods)}">
-	      	<dl>
-	          <dt>买家：</dt>
-	          <dd>{$vo.consignee}</dd>
-	        </dl>
-	        <dl>
-	          <dt>收货人：</dt>
-	          <dd>
-	            <div class="alert alert-info m0">
-	              <p><i class="icon-user"></i>{$vo.consignee}<span class="ml30" title="电话"><i class="icon-phone"></i>{$vo.mobile}</span></p>
-	              <p class="mt5" title="收货地址"><i class="icon-map-marker"></i>{$vo.address}</p>
-				</div>
-	          </dd>
-	        </dl>
-	        <dl>
-	          <dt>运费：</dt>
-	          <dd>邮费:{$vo.shipping_price}            		<span><a href="/index.php/Seller/Order/delivery_info/order_id/{$vo.order_id}.html" class="ncbtn-mini ncbtn-mint fr"><i class="icon-truck"></i>去发货&nbsp;&nbsp;</a></span>
-            		<span><a href="/index.php/seller/Order/shipping_print/order_id/341.html" class="ncbtn-mini ncbtn-mint fr" style="position: relative;left: -5px;"><i class="icon-print"></i>打印快递单&nbsp;&nbsp;</a></span>
-            		          	
-	          </dd>
-	        </dl></td>
-	    </tr>
-          	<!--  第二行 -->
-          	<?php for($i=1;$i<count($vo['order_goods']);$i++){?>
-       <tr>
-	      <td class="bdl w10"></td>
-	      <td class="w50"><div class="pic-thumb"><a href="/index.php/Home/Goods/goodsInfo/id/48.html" target="_blank"><img src="<?php echo goods_thum_images($vo['order_goods'][$i]['goods_name'],200,200)?>"></a></div></td>
-	      <td class="tl"><dl class="goods-name">
-	          <dt><a target="_blank" href="/index.php/Home/Goods/goodsInfo/id/<?php echo $vo['order_goods'][$i]['goods_id']?>.html"><?php echo $vo['order_goods'][$i]['goods_name']?></a></dt>
-	          <dd><strong>￥<?php echo $vo['order_goods'][$i]['goods_price']?></strong>&nbsp;x&nbsp;<em><?php echo $vo['order_goods'][$i]['goods_num']?></em>件</dd>
-	        </dl></td>
-	     </tr>
-	     <?php }?>
-     	</tbody>
-     	{/volist}
-    <tfoot>
-    <tr>
-      <td colspan="21">{$page}</td>
-    </tr>
-      </tfoot>
-  </table>
+<div id="ajax_return">
 </div>
 <script>
 $(document).ready(function(){	

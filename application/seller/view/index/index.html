@@ -25,7 +25,7 @@
 		      <dl class="ncsc-seller-info">
 		        <dt class="seller-name">
 		          <h3>admin</h3>
-		          <h5>(用户名：seller)
+		          <h5>(用户名：{$store.seller_name})
 				  <!--<a href="index.php" style=" background:#48CFAE;padding:5px; color:#fff;">申请开通分销</a>-->
 		         </h5>
 		        </dt>
@@ -33,10 +33,10 @@
 		          <p><img src="/public/img/default_store_logo.gif"></p>
 		          <a href="/index.php/seller/Store/store_setting.html"><i class="icon-edit"></i>编辑店铺设置</a> </dd>
 		        <dd class="seller-permission">管理权限：<strong></strong></dd>
-		        <dd class="seller-last-login">最后登录：<strong>2017-06-22 17:36</strong> </dd>
-		        <dd class="store-name">店铺名称：<a href="/index.php/Home/Store/index/store_id/1.html">TPSHP旗舰店</a></dd>
+		        <dd class="seller-last-login">最后登录：<strong>{$store.last_login|date="Y-m-d H:i",###}</strong> </dd>
+		        <dd class="store-name">店铺名称：<a href="javascript:;">{$store.store_name}</a></dd>
 		        <dd class="store-grade">店铺等级：<strong>系统默认</strong></dd>
-		        <dd class="store-validity">有效期：<strong>1970-01-01 08</strong> </dd>
+		        <!-- <dd class="store-validity">有效期：<strong>1970-01-01 08</strong> </dd> -->
 		      </dl>
 		    </div>
 		  </div>
@@ -49,16 +49,16 @@
 		      <div class="content">
 		        <dl class="focus">
 		          <dt>店铺商品发布情况：</dt>
-		          <dd title="已发布/可传商品"><em id="nc_goodscount">13</em>&nbsp;/&nbsp;
+		          <dd title="已发布/可传商品"><em id="nc_goodscount">{$count.goods}</em>&nbsp;/&nbsp;
 		            不限          </dd>
 		          <!--<dt>图片空间使用：</dt>-->
 		          <!--<dd><em id="nc_imagecount">0</em>&nbsp;/&nbsp;不限</dd>-->
 		        </dl>
 		        <ul>
-					<li><a href="/index.php/seller/Goods/goodsList/goods_state/1.html" class="num">出售中 <strong id="nc_online">13</strong></a></li>
-					<li><a href="/index.php/seller/Goods/goodsList/goods_state/0.html" class="num">待审核 <strong id="nc_offline">0</strong></a></li>
-					<li><a href="/index.php/seller/Goods/goods_offline/is_on_sale/2.html" class="num">违规下架 <strong id="nc_lockup">0</strong></a></li>
-					<li><a href="/index.php/seller/Service/ask_list.html" class="num">待回复咨询 <strong id="nc_consult">0</strong></a></li>
+					<li><a href="/index.php/seller/Goods/goodsList/goods_state/1.html" class="num">出售中 <strong id="nc_online">{$count.goods}</strong></a></li>
+					<!-- <li><a href="/index.php/seller/Goods/goodsList/goods_state/0.html" class="num">待审核 <strong id="nc_offline">0</strong></a></li> -->
+					<li><a href="javascript:;" class="num">违规下架 <strong id="nc_lockup">{$count.goods_sale}</strong></a></li>
+					<!-- <li><a href="/index.php/seller/Service/ask_list.html" class="num">待回复咨询 <strong id="nc_consult">0</strong></a></li> -->
 		        </ul>
 		      </div>
 		    </div>
@@ -95,12 +95,12 @@
 		          <!--<dd><a href="">收到维权投诉 <strong id="nc_complain"></strong></a></dd>-->
 		        </dl>
 		        <ul>
-		          <li><a href="/index.php/Seller/Order/index/pay_status/0.html" class="num">待付款 <strong id="nc_payment">0</strong></a></li>
-		          <li><a href="/index.php/Seller/Order/index/shipping_status/0.html" class="num">待发货 <strong id="nc_delivery">0</strong></a></li>
-		          <li><a href="/index.php/Seller/Service/refund_list.html" class="num"> 退货申请 <strong id="nc_refund_lock">0</strong></a></li>
-		          <li><a href="/index.php/Seller/Service/return_list.html" class="num"> 换货/维修申请 <strong id="nc_return_lock">0</strong></a></li>
-		          <li><a href="/index.php/Seller/Order/index/shipping_status/2.html" class="num"> 部分发货订单 <strong id="nc_return">0</strong></a></li>
-		          <li><a href="/index.php/Seller/Order/index/order_status/1.html" class="num"> 待确认订单 <strong id="nc_bill_confirm">0</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/pay_status/0.html" class="num">待付款 <strong id="nc_payment">{$count.pay_status0}</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/shipping_status/0.html" class="num">待发货 <strong id="nc_delivery">{$count.shipping_status0}</strong></a></li>
+		          <li><a href="javascript:;///index.php/Seller/Service/refund_list.html" class="num"> 退货申请 <strong id="nc_refund_lock">{$count.tuihuo}</strong></a></li>
+		          <li><a href="/index.php/Seller/Service/return_list.html" class="num"> 换货/维修申请 <strong id="nc_return_lock">{$count.huanhuo}</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/shipping_status/2.html" class="num"> 部分发货订单 <strong id="nc_return">{$count.shipping_status2}</strong></a></li>
+		          <li><a href="/index.php/Seller/Order/index/order_status/1.html" class="num"> 待确认订单 <strong id="nc_bill_confirm">{$count.order_status0}</strong></a></li>
 		        </ul>
 		      </div>
 		    </div>
@@ -152,7 +152,7 @@
 		        </table>
 		      </div>
 		    </div>
-		    <div class="container type-d h500">
+		    <!-- <div class="container type-d h500">
 		      <div class="hd">
 		        <h3>店铺运营推广</h3>
 		        <h5>合理参加促销活动可以有效提升商品销量</h5>
@@ -189,7 +189,7 @@
 		                        <i class="icon-ok-sign"></i>已开通
 		                        </span></dd>
 		          <dd class="p-info">商品优惠套装、多重搭配更多实惠、商家必备营销方式</dd>
-		                  </dl>
+		                  </dl>-->
 		        <!--<dl class="tjzw">-->
 		          <!--<dt class="p-name"><a href="#">广告位</a></dt>-->
 		          <!--<dd class="p-ico"></dd>-->
@@ -198,7 +198,7 @@
 		                        <!--</span></dd>-->
 		          <!--<dd class="p-info">选择商品参与平台发布的主题活动，审核后集中展示</dd>-->
 		                  <!--</dl>-->
-		                        <dl class="djq">
+		                        <!--<dl class="djq">
 		          <dt class="p-name"><a href="/index.php/Seller/Coupon/index.html">代金券</a></dt>
 		          <dd class="p-ico"></dd>
 		          <dd class="p-hint"><span>
@@ -207,7 +207,7 @@
 		          <dd class="p-info">自定义代金券使用规则并由平台统一展示供买家领取</dd>
 		                  </dl>
 		              </div>
-		    </div>
+		    </div> -->
 		  </div>
 		</div>
     </div>

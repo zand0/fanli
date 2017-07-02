@@ -4,36 +4,8 @@
 <div id="ajaxwaitid"></div>
 {include file="public/nav" /}
 <div class="ncsc-layout wrapper">
-     <div id="layoutLeft" class="ncsc-layout-left sticky">
-   <div id="sidebar" class="sidebar">
-     <div class="column-title" id="main-nav"><span class="ico-goods"></span>
-       <h2>商品</h2>
-     </div>
-     <div class="column-menu">
-       <ul id="seller_center_left_menu">
-      	            <li class="">
-           		<a href="/index.php/seller/Goods/addEditGoods.html"> 商品发布</a>
-           </li>
-	 	           <li class="current">
-           		<a href="/index.php/seller/Goods/goodsList.html"> 出售中的商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/goods_offline.html"> 仓库中的商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/stock_list.html"> 库存日志</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/specList.html"> 商品规格</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Goods/brandList.html"> 品牌申请</a>
-           </li>
-	 	      </ul>
-     </div>
-   </div>
- </div>
-    <div id="layoutRight" class="ncsc-layout-right sticky">
+     {include file="public/layout_left" /}
+    <div id="layoutRight" class="ncsc-layout-right ">
         <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>出售中的商品</div>
         <div class="main-content" id="mainContent">
 
@@ -54,7 +26,7 @@
                     <input type="hidden" name="orderby2" value="desc">
                     <tbody><tr>
                         <td>&nbsp;</td>
-                        <th>本店分类</th>
+                        <!--<th>本店分类</th>
                         <td class="w80">
                             <select name="store_cat_id1" id="store_cat_id1" class="select">
                                 <option value="">本店分类</option>
@@ -74,7 +46,7 @@
                                 <option value="is_new">新品</option>
                                 <option value="is_recommend">推荐</option>
                             </select>
-                        </td>
+                        </td>-->
                         <td class="w160"><input type="text" class="text w150" name="key_word" value="" placeholder="搜索词"></td>
                         <td class="tc w70"><label class="submit-border">
                             <input type="submit" class="submit" value="搜索" onclick="ajax_get_table('search-form2',1)">
@@ -82,67 +54,8 @@
                     </tr>
                 </tbody></table>
             </form>
-            <div id="ajax_return"><table class="ncsc-default-table">
-    <thead>
-    <tr nc_type="table_header">
-        <th class="w30"><a href="javascript:sort('goods_id');">ID</a></th>
-        <th class="w50">&nbsp;</th>
-        <th class="w250">商品名称</th>
-        <th class="w150"><a href="javascript:sort('cat_id');">分类</a></th>
-        <th class="w80"><a href="javascript:sort('shop_price');">价格</a></th>
-        <th class="w30"><a href="javascript:;">上架</a></th>
-        <th class="w30"><a href="javascript:void(0);">库存</a></th>
-        <th class="w80"><a href="javascript:sort('add_time');">上架时间</a></th>
-        <th class="w30"><a href="javascript:sort('sort');">排序</a></th>
-        <th class="w120">操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    {volist name="list" id="vo"}
-            <tr class="bd-line">
-            <td>{$vo.goods_id}</td>
-            <td>
-                <div class="pic-thumb">
-                    <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">
-                        <img style="width:32px;height:32px" src="{$vo.goods_id|goods_thum_images=200,200}">
-                    </a>
-                </div>
-            </td>
-            <td class="tl">
-                <dl class="goods-name">
-                    <dt style="max-width: 450px !important;">
-                                            <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">{$vo.goods_name}</a></dt>
-                    <dd>商品货号：{$vo.goods_sn}</dd>
-                    <dd class="serve">
-                                                <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>
-                        <a onclick="ClearGoodsHtml('{$vo.goods_id}')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>
-                        <a onclick="ClearGoodsThumb('{$vo.goods_id}')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>
-                    </dd>
-                </dl>
-            </td>
-            <td><span>{$catlist[$vo.cat_id1]}</span></td>
-            <td><span>{$vo.shop_price}</span></td>
-            <td><img width="20" height="20" src="/public/static/js/yes.png" onclick="changeTableVal2('goods','goods_id','{$vo.goods_id}','is_on_sale',this);changeTableVal2('goods','goods_id','{$vo.goods_id}','goods_state',this);$(this).parent().parent().remove();"></td>
-            <td><span style="">{$vo.store_count}</span></td>
-            <td>{:date('Y-m-d H:i:s',$vo['on_time'])}</td>
-            <td>
-                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','{$vo.goods_id}','sort',this)" size="4" value="{$vo.sort}">
-            </td>
-            <td class="nscs-table-handle">
-                <span><a href="/index.php/seller/Goods/addEditGoods/goods_id/{$vo.goods_id}.html" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
-                <span><a href="javascript:void(0);" onclick="del('{$vo.goods_id}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
-            </td>
-        </tr>
-        {/volist}
-            
-        </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="20">
-            {$page}        </td>
-    </tr>
-    </tfoot>
-</table>
+            <div id="ajax_return">
+
 </div>
             <script>
                 $(document).ready(function(){
@@ -181,7 +94,7 @@
                                     url: "/index.php?m=Seller&c=goods&a=delGoods&id=" + id,
                                     success: function (v) {
                                         layer.closeAll();
-                                        var v = eval('(' + v + ')');
+                                        //var v = eval('(' + v + ')');
                                         if (v.hasOwnProperty('status') && (v.status == 1))
                                             ajax_get_table('search-form2', cur_page);
                                         else

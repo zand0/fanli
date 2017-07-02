@@ -75,6 +75,7 @@ class OrderLogic extends Model
     			$arr['goods_price'] = $goods['shop_price'];
     			$arr['cost_price'] = $goods['cost_price'];
     			$arr['member_goods_price'] = $goods['shop_price'];
+    			$arr['store_id'] = $goods['store_id'];//店铺id
     			foreach($val as $k => $v)
     			{
     				$arr['goods_num'] = $v['goods_num']; // 购买数量

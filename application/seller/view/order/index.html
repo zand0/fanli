@@ -21,32 +21,7 @@
   }
 </style>
 <div class="ncsc-layout wrapper">
-   <div id="layoutLeft" class="ncsc-layout-left">
-   <div id="sidebar" class="sidebar">
-     <div class="column-title" id="main-nav"><span class="ico-order"></span>
-       <h2>订单物流</h2>
-     </div>
-     <div class="column-menu">
-       <ul id="seller_center_left_menu">
-      	            <li class="current">
-           		<a href="/index.php/seller/Order/index.html"> 订单列表</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/virtual_list.html"> 虚拟订单</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Order/delivery_list.html"> 发货商品</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Plugin/index.html"> 发货设置</a>
-           </li>
-	 	           <li class="">
-           		<a href="/index.php/seller/Comment/index.html"> 商品评论</a>
-           </li>
-	 	      </ul>
-     </div>
-   </div>
- </div>
+   {include file="public/layout_left" /}
   <div id="layoutRight" class="ncsc-layout-right">
     <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>订单列表</div>
     <div class="main-content" id="mainContent">
@@ -104,107 +79,15 @@
                 <option value="weixin">微信支付</option>
                 <option value="cod">货到付款</option>
              </select>
-             <label class="submit-border"><input class="submit" value="搜索" onclick="ajax_get_table(&#39;search-form2&#39;,1)" type="button"></label>
+             <label class="submit-border"><input class="submit" value="搜索" onclick="ajax_get_table('search-form2',1)" type="button"></label>
       </td>
     </tr>
   </tbody></table>
 </form>
-<div id="ajax_return"><table class="ncsc-default-table order">
-  <thead>
-    <tr>
-      <th class="w10"></th>
-      <th colspan="2">商品</th>
-      <th class="w100">单价（元）</th>
-      <th class="w40">数量</th>
-      <th class="w100">买家</th>
-      <th class="w100">订单金额</th>
-      <th class="w90">交易状态</th>
-      <th class="w120">交易操作</th>
-    </tr>
-  </thead>
-   {volist name="list" id="vo"}
-   <tbody>
-    <tr>
-      <td colspan="20" class="sep-row"></td>
-    </tr>
-    <tr>
-      <th colspan="20">
-      		<span class="ml10">订单编号：<em>{$vo.order_sn}</em></span> <span>下单时间：<em class="goods-time">{:date('Y-m-d H:i:s',$vo['add_time'])}</em></span>
-      		<span class="fr mr10"><a href="{:U('/index.php/seller/Order/order_print/order_id/'.$vo['order_id'].'/template/picking')}" target="_blank" class="ncbtn-mini" title="打印配货单"><i class="icon-print"></i>打印配货单</a></span>
-       </th>
-    </tr>
- 
-         	<!--  第一行 -->
-         	{volist name="vo.order_goods" id="v"}
-     	<tr>
-	      <td class="bdl"></td>
-	      <td class="w70">
-	      <div class="ncsc-goods-thumb"><a href="{:U('/index.php/Home/Goods/goodsInfo/id/'.$vo['order_id'])}" target="_blank">
-	      <img src="{$v.goods_id|goods_thum_images=200,200}"></a></div></td>
-	      <td class="tl">
-	      	<dl class="goods-name">
-	      	
-	          <dt><a target="_blank" href="{:U('/index.php/Home/Goods/goodsInfo/id/'.$vo['order_id'])}">{$v.goods_name}</a></dt>
-	        
-	        </dl>
-	      </td>
-	      <td><p>{$v.goods_price}</p></td>
-	      <td>{$v.goods_num}</td>
-	      <!-- S 合并TD -->
-	      <td class="bdl" rowspan="1">
-	      	<div class="buyer">{$vo.consignee} <p member_id="5"></p>
-	          <div class="buyer-info"> <em></em>
-	            <div class="con">
-	              <h3><i></i><span>联系信息 </span></h3>
-	              <dl>
-	                <dt>姓名：</dt>
-	                <dd>{$vo.consignee}</dd>
-	              </dl>
-	              <dl>
-	                <dt>电话：</dt>
-	                <dd>{$vo.mobile}</dd>
-	              </dl>
-	              <dl>
-	                <dt>地址：</dt>
-	                <dd>{$vo.address}</dd>
-	              </dl>
-	            </div>
-	          </div>
-	        </div>
-	      </td>
-	      <td class="bdl" rowspan="1">
-	      	<p class="ncsc-order-amount"></p>
-	        <p class="goods-freight">邮费:{$vo.shipping_price}</p>
-	        <p class="goods-pay" title="支付方式："></p>
-	      </td>
-	      {switch name="vo.pay_status" }
-		    {case value="1"}
-		    <td class="bdl bdr" rowspan="1"><p>已支付 </p>{/case}
-		    {default /}
-		    <td class="bdl bdr" rowspan="1"><p>未支付 </p>
-		{/switch}
-	        <!-- 物流跟踪 -->
-	        <p></p>
-	       </td>
-	      <!-- 取消订单 -->
-	      <td class="nscs-table-handle" rowspan="1">
-	      	<span><a href="/index.php/seller/order/detail/order_id/{$vo.order_id}.html" class="ncbtn-mint"><i class="icon-search"></i><p>详情</p></a></span>
-	      			      	<span><a href="/index.php/seller/order/delete_order/order_id/{$vo.order_id}.html" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
-	      		        </td>
-	    </tr>
-	    {/volist}
-       </tbody> 
-   {/volist} 
- 
+<div id="ajax_return">
   
-     <tfoot>
-  	<tr>
-		<td colspan="20"><div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">    </ul></div></td>
-	</tr>
-   </tfoot>
-  </table>
-  {$page}
  </div>
+ 
 <script>
 $(document).ready(function(){	
 	   

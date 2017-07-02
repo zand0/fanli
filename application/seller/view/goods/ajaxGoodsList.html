@@ -1,0 +1,69 @@
+<table class="ncsc-default-table">
+    <thead>
+    <tr nc_type="table_header">
+        <th class="w30"><a href="javascript:sort('goods_id');">ID</a></th>
+        <th class="w50">&nbsp;</th>
+        <th class="w250">商品名称</th>
+        <th class="w150"><a href="javascript:sort('cat_id');">分类</a></th>
+        <th class="w80"><a href="javascript:sort('shop_price');">价格</a></th>
+        <th class="w30"><a href="javascript:;">上架</a></th>
+        <th class="w30"><a href="javascript:void(0);">库存</a></th>
+        <th class="w80"><a href="javascript:sort('add_time');">上架时间</a></th>
+        <th class="w30"><a href="javascript:sort('sort');">排序</a></th>
+        <th class="w120">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {volist name="list" id="vo"}
+            <tr class="bd-line">
+            <td>{$vo.goods_id}</td>
+            <td>
+                <div class="pic-thumb">
+                    <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">
+                        <img style="width:32px;height:32px" src="{$vo.goods_id|goods_thum_images=200,200}">
+                    </a>
+                </div>
+            </td>
+            <td class="tl">
+                <dl class="goods-name">
+                    <dt style="max-width: 450px !important;">
+                                            <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}" target="_blank">{$vo.goods_name}</a></dt>
+                    <dd>商品货号：{$vo.goods_sn}</dd>
+                    <dd class="serve">
+                                                <a href="/index.php/Home/Goods/goodsInfo/id/{$vo.goods_id}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>
+                        <a onclick="ClearGoodsHtml('{$vo.goods_id}')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>
+                        <a onclick="ClearGoodsThumb('{$vo.goods_id}')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>
+                    </dd>
+                </dl>
+            </td>
+            <td><span>{$catlist[$vo.cat_id1]}</span></td>
+            <td><span>{$vo.shop_price}</span></td>
+            <td><img width="20" height="20" src="/public/static/img/yes.png" onclick="changeTableVal2('goods','goods_id','{$vo.goods_id}','is_on_sale',this);changeTableVal2('goods','goods_id','{$vo.goods_id}','goods_state',this);$(this).parent().parent().remove();"></td>
+            <td><span style="">{$vo.store_count}</span></td>
+            <td>{:date('Y-m-d H:i:s',$vo['on_time'])}</td>
+            <td>
+                <input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','{$vo.goods_id}','sort',this)" size="4" value="{$vo.sort}">
+            </td>
+            <td class="nscs-table-handle">
+                <span><a href="/index.php/seller/Goods/addEditGoods/goods_id/{$vo.goods_id}.html" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+                <span><a href="javascript:void(0);" onclick="del('{$vo.goods_id}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+            </td>
+        </tr>
+        {/volist}
+            
+        </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="20">
+                    </td>
+    </tr>
+    </tfoot>
+</table>
+{$page}
+<script type="text/javascript">
+$(".paginate_button a").click(function (){
+  var p = $(this).data('p');
+  ajax_get_table('search-form2', p);
+});
+  
+</script>

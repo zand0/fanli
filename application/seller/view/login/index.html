@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0057)http://demo6.tp-shop.cn/index.php/Seller/Admin/login.html -->
+<!-- saved from url=(0057)/index.php/Seller/Admin/login.html -->
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商家中心</title>
+<title>商家中心-登录</title>
 <script type="text/javascript" src="/public/js/jquery.js"></script>
 <link rel="stylesheet" type="text/css" href="/public/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/public/css/base.css">
@@ -107,7 +107,7 @@
                         <div class="item">
                         	<input type="text" name="vertify" id="captcha" autocomplete="off" class="text" style="width: 80px;" maxlength="4" size="10" placeholder="验证码">
                         	<div class="code">
-                                <div class="code-img"><img src="{:U('/index.php/Home/User/verify/type/user_reg')}" onclick="this.src=this.src+'?Match.random()'" title="换一张" name="codeimage" border="0" id="imgVerify"></div>
+                                <div class="code-img"><img src="{:U('/seller/login/verify/type/user_login')}" onclick="this.src=this.src+'?Match.random()'" title="换一张" name="codeimage" border="0" id="imgVerify"></div>
                                 <a href="JavaScript:void(0);" id="hide" class="close" title=""><i></i></a>
                                 <a href="JavaScript:void(0);" class="change" nctype="btn_change_seccode" title=""><i></i></a>
                             </div>
@@ -117,7 +117,7 @@
                             	<input type="checkbox" value="1" name="remember" class="checkbox" id="remember">
                                 <label for="remember">记住密码</label>
                             </div>
-                            <a href="http://demo6.tp-shop.cn/index.php/Seller/Admin/get_password.php?act=forget_pwd" class="no_user">您忘记了密码吗?</a>
+                            <!-- <a href="/index.php/Seller/Admin/get_password.php?act=forget_pwd" class="no_user">您忘记了密码吗?</a> -->
                         </div>
                         <div class="item">
                         	<input type="button" class="login-submit" onclick="checkLogin()" value="登 录">
@@ -138,7 +138,9 @@
 				$(this).parent('.memory_user').removeClass("checked");
 			}
 		});
-		
+		//$("#imgVerify").trigger('click');
+    //fleshVerify();
+    //$("#imgVerify").attr('src',$("#imgVerify").attr('src'));
         function checkLogin(){
             var username = $('#username').val();
             var password = $('#password').val();
@@ -178,7 +180,7 @@
 		
      function fleshVerify(){
          //重载验证码
-         $('#imgVerify').attr('src','/index.php?m=Seller&c=Admin&a=vertify&r='+Math.floor(Math.random()*100));
+         $('#imgVerify').attr('src','/index.php?m=Seller&c=login&a=verify&r='+Math.floor(Math.random()*100));
      }
     </script>
 

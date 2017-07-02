@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0057)/index.php/seller/Index/index.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<title>商家中心</title>
+<?php $menu_index = C('menu_name_index');?>
+<title>商家中心-{$menu_index[strtolower(CONTROLLER_NAME)]?$menu_index[strtolower(CONTROLLER_NAME)]:'首页'}</title>
 <link href="/public/static/css/base.css" rel="stylesheet" type="text/css">
 <link href="/public/static/css/seller_center.css" rel="stylesheet" type="text/css">
 <link href="/public/static/css/font-awesome.min.css" rel="stylesheet">

@@ -857,19 +857,25 @@ class Order extends Base {
            $order['shipping_price'] = $result['result']['shipping_price']; //物流费
            $order['order_amount']   = $result['result']['order_amount']; // 应付金额
            $order['total_amount']   = $result['result']['total_amount']; // 订单总价
-           
+           $order['store_ids'] = 0;
             // 添加订单
             $order_id = M('order')->add($order);
             $order_insert_id = DB::getLastInsID();
             if($order_id)
             {
+                $tmp = [];
                 foreach($order_goods as $key => $val)
                 {
                     $val['order_id'] = $order_id;
+                    if(!in_array($val['store_id'], $tmp)){
+                        $tmp[] = $val['store_id'];
+                    }
                     $rec_id = M('order_goods')->add($val);
                     if(!$rec_id)
                         $this->error('添加失败');                                  
                 }
+                //更新店铺ids
+                M('order')->where(['order_id'=>$order_id])->update(['store_ids'=>implode(',', $tmp)]);
                 $this->success('添加商品成功',U("Admin/Order/detail",array('order_id'=>$order_insert_id)));
                 exit();
             }

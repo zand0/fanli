@@ -1,7 +1,11 @@
 <?php
 namespace app\seller\controller;
+use app\seller\logic\GoodsLogic;
+use app\seller\logic\SearchWordLogic;
+use think\AjaxPage;
+use think\Loader;
 use think\Page;
-use app\admin\logic\GoodsLogic;
+use think\Db;
 class Goods extends Base
 {
     public function index()
@@ -318,5 +322,84 @@ class Goods extends Base
         $this->assign('catlist',$catlist);
         $this->assign('page',$Page->show());
         return $this->fetch();
+    }
+    
+    public function ajaxGoodsList(){
+        $sid = session('seller_id')?session('seller_id'):0;
+        $where = ' 1 = 1 and store_id='.$sid; // 搜索条件
+        I('intro')    && $where = "$where and ".I('intro')." = 1" ;
+        I('brand_id') && $where = "$where and brand_id = ".I('brand_id') ;
+        (I('is_on_sale') !== '') && $where = "$where and is_on_sale = ".I('is_on_sale') ;
+        $cat_id = I('cat_id');
+        // 关键词搜索
+        $key_word = I('key_word') ? trim(I('key_word')) : '';
+        if($key_word)
+        {
+            $where = "$where and (goods_name like '%$key_word%' or goods_sn like '%$key_word%')" ;
+        }
+        
+        if($cat_id > 0)
+        {
+            $grandson_ids = getCatGrandson($cat_id);
+            $where .= " and cat_id in(".  implode(',', $grandson_ids).") "; // 初始化搜索条件
+        }
+        
+        
+        $model = M('Goods');
+        $count = $model->where($where)->count();
+        $Page  = new AjaxPage($count,10);
+        /**  搜索条件下 分页赋值
+         foreach($condition as $key=>$val) {
+         $Page->parameter[$key]   =   urlencode($val);
+         }
+         */
+        $show = $Page->show();
+        $order_str = "`{$_POST['orderby1']}` {$_POST['orderby2']}";
+        $goodsList = $model->where($where)->order($order_str)->limit($Page->firstRow.','.$Page->listRows)->select();
+        
+        $catList = D('goods_category')->select();
+        $catList = convert_arr_key($catList, 'id');
+        $this->assign('catList',$catList);
+        $this->assign('list',$goodsList);
+        $this->assign('page',$show);// 赋值分页输出
+        return $this->fetch();
+    }
+    
+    public function delGoods(){
+        $goods_id = input('id');
+        $error = '';
+        
+        // 判断此商品是否有订单
+        $c1 = M('OrderGoods')->where("goods_id = $goods_id")->count('1');
+        $c1 && $error .= '此商品有订单,不得删除! <br/>';
+        
+        
+        // 商品团购
+        $c1 = M('group_buy')->where("goods_id = $goods_id")->count('1');
+        $c1 && $error .= '此商品有团购,不得删除! <br/>';
+        
+        // 商品退货记录
+        $c1 = M('return_goods')->where("goods_id = $goods_id")->count('1');
+        $c1 && $error .= '此商品有退货记录,不得删除! <br/>';
+        
+        if($error)
+        {
+            $return_arr = array('status' => -1,'msg' =>$error,'data'  =>'',);   //$return_arr = array('status' => -1,'msg' => '删除失败','data'  =>'',);
+            return json($return_arr);
+        }
+        
+        // 删除此商品
+        M("Goods")->where('goods_id ='.$goods_id)->delete();  //商品表
+        M("cart")->where('goods_id ='.$goods_id)->delete();  // 购物车
+        M("comment")->where('goods_id ='.$goods_id)->delete();  //商品评论
+        M("goods_consult")->where('goods_id ='.$goods_id)->delete();  //商品咨询
+        M("goods_images")->where('goods_id ='.$goods_id)->delete();  //商品相册
+        M("spec_goods_price")->where('goods_id ='.$goods_id)->delete();  //商品规格
+        M("spec_image")->where('goods_id ='.$goods_id)->delete();  //商品规格图片
+        M("goods_attr")->where('goods_id ='.$goods_id)->delete();  //商品属性
+        M("goods_collect")->where('goods_id ='.$goods_id)->delete();  //商品收藏
+         
+        $return_arr = array('status' => 1,'msg' => '操作成功','data'  =>'',);   //$return_arr = array('status' => -1,'msg' => '删除失败','data'  =>'',);
+        return json($return_arr);
     }
 }

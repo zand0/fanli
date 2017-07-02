@@ -91,6 +91,7 @@ class OrderLogic extends Model
 
         // 1插入order_goods 表
         $cartList = M('Cart')->where(['user_id'=>$user_id,'selected'=>1])->select();
+        $tmp = [];
         foreach($cartList as $key => $val)
         {
             $goods = M('goods')->where("goods_id", $val['goods_id'])->cache(true,TPSHOP_CACHE_TIME)->find();
@@ -108,11 +109,16 @@ class OrderLogic extends Model
             $data2['give_integral']      = $goods['give_integral']; // 购买商品赠送积分
             $data2['prom_type']          = $val['prom_type']; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
             $data2['prom_id']            = $val['prom_id']; // 活动id
+            $data2['store_id']           = $goods['store_id'];
+            if(!in_array($goods['store_id'], $tmp)){
+                $tmp[]                       = $goods['store_id'];
+            }
             $order_goods_id              = M("OrderGoods")->insertGetId($data2);
             // 扣除商品库存  扣除库存移到 付完款后扣除
             //M('Goods')->where("goods_id = ".$val['goods_id'])->setDec('store_count',$val['goods_num']); // 商品减少库存
         }
-
+        //更新店铺ids
+        M('order')->where(['order_id'=>$order_id])->update(['store_ids'=>implode(',', $tmp)]);
         // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付
         if($data['order_amount'] == 0)
         {
@@ -243,7 +249,9 @@ class OrderLogic extends Model
         $data2['give_integral']      = $goods_activity['integral']; // 购买商品赠送积分
         $data2['prom_type']          = 4; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠 ,4 预售商品
         $data2['prom_id']    = $goods_activity['act_id'];
+        $data2['store_id']   = $goods['store_id'];
         Db::name('order_goods')->insert($data2);
+        M('order')->where(['order_id'=>$order_id])->update(['store_ids'=>$goods['store_id']]);
         // 如果有微信公众号 则推送一条消息到微信
         $user = M('users')->where("user_id = $user_id")->find();
         if($user['oauth']== 'weixin')

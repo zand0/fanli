@@ -26,7 +26,11 @@ class OrderLogic extends Model
      * @param int $page_size  获取数量
      */
     public function getOrderList($condition,$order='',$start=0,$page_size=20){
-        $res = M('order')->where($condition)->limit("$start,$page_size")->order($order)->select();
+        $res = M('order')->where($condition)->where("find_in_set(".session('seller_id').",store_ids)")->limit("$start,$page_size")->order($order)->select();
+        foreach ($res as &$v){
+            $v['order_goods'] = M('order_goods')->where(['order_id'=>$v['order_id']])->select();
+        }
+        unset($v);
         return $res;
     }
 

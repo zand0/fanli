@@ -1,5 +1,30 @@
 <?php
 //配置文件
 return [
-
+    'seller_menu'=>[
+        'goods'=>[
+            ['name'=>'发布商品','url'=>'/seller/goods/addEditGoods'],
+            ['name'=>'出售中的商品','url'=>'/seller/goods/goodsList']
+        ],
+        'order'=>[
+            ['name'=>'订单列表','url'=>'/seller/order/index'],
+            ['name'=>'发货商品','url'=>'/seller/order/delivery_list']
+        ],
+        'store'=>[
+            ['name'=>'店铺设置','url'=>'/seller/store/store_setting']
+        ],
+        'service'=>[
+            ['name'=>'退货换货','url'=>'/seller/service/return_list']
+        ],
+        'finance'=>[
+            ['name'=>'提现申请','url'=>'/seller/finance/withdrawals']
+        ],
+    ],
+    'menu_name_index'=>[
+        'goods'=>'商品',  
+        'order'=>'订单物流',
+        'store'=>'店铺',
+        'service'=>'售后服务',
+        'finance'=>'统计结算'
+    ],
 ];
